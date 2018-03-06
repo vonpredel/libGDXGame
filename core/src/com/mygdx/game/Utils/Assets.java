@@ -4,7 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Disposable;
 
-public class Assests implements Disposable {
+public class Assets implements Disposable {
 
     public final AssetManager manager = new AssetManager();
 
