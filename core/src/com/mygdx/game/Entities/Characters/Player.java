@@ -7,5 +7,7 @@ public class Player extends Character {
 
     public Player(Assets assets) {
         this.texture = assets.manager.get("badlogic.jpg", Texture.class);
+        this.width = texture.getWidth();
+        this.height = texture.getHeight();
     }
 }

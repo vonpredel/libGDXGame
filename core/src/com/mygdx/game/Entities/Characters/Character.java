@@ -10,8 +10,8 @@ public abstract class Character extends Rectangle {
     protected Texture texture;
 
     public Character() {
-        this.x = 0;
-        this.y = 0;
+        this.x = Constants.DEFAULT_START_POSITION_X;
+        this.y = Constants.DEFAULT_START_POSITION_Y;
         this.height = Constants.DEFAULT_CHARACTER_HEIGHT;
         this.width = Constants.DEFAULT_CHARACTER_WIDTH;
     }
@@ -22,9 +22,5 @@ public abstract class Character extends Rectangle {
 
     public Texture getTexture() {
         return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
     }
 }
