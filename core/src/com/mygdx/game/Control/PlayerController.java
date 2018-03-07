@@ -12,7 +12,7 @@ public class PlayerController {
         this.player = player;
     }
 
-    public void control() {
+    public void update() {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             player.y += 500 * Gdx.graphics.getDeltaTime();
         }

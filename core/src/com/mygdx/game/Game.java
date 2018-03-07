@@ -3,20 +3,22 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Control.PlayerController;
+import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.CameraController;
 
 public class Game extends ApplicationAdapter {
 
-	SpriteBatch batch;
-	Player player;
-	Assets assets;
-	PlayerController playerController;
-	private OrthographicCamera camera;
-	
+	private SpriteBatch batch;
+	private Player player;
+	private Foe foe;
+	private Assets assets;
+	private PlayerController playerController;
+	private CameraController cameraController;
+
 	@Override
 	public void create () {
 		assets = new Assets();
@@ -29,14 +31,14 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void loadData() {
-
+		batch = new SpriteBatch();
+		player = new Player(assets);
+		foe = new Foe(assets);
 	}
 
 	private void init() {
-		camera = new OrthographicCamera(1280,720);
-		batch = new SpriteBatch();
-		player = new Player(assets);
 		playerController = new PlayerController(player);
+		cameraController = new CameraController(batch,player);
 	}
 
 	@Override
@@ -46,20 +48,21 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		player.draw(batch);
+		foe.draw(batch);
 		batch.end();
 	}
 
 	private void update() {
-		handleCamera();
-		playerController.control();
-
+//		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+//			cameraController.focusOn(foe);
+//		}
+//		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+//			cameraController.focusOn(player);
+//		}
+		cameraController.update();
+		playerController.update();
 	}
 
-	private void handleCamera() {
-		batch.setProjectionMatrix(camera.combined);
-		camera.update();
-		camera.position.set(player.x + player.width / 2, player.y + player.height / 2, 0);
-	}
 
 	@Override
 	public void dispose () {
