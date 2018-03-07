@@ -10,6 +10,7 @@ public class Constants {
     public static final int DEFAULT_START_POSITION_Y = 0;
     public static final int DEFAULT_RESOLUTION_WIDTH = 1280;
     public static final int DEFAULT_RESOLUTION_HEIGHT = 720;
+    public static final int DEFAULT_MOVEMENT_SPEED = 500;
 
 
 }

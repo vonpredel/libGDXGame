@@ -12,24 +12,42 @@ public class CollisionDetection {
             if(e instanceof Character) list.forEach(t -> {
                 if (!e.equals(t)) checkCollisions((Character) e, t);
             });
+            if(e instanceof Character) ((Character) e).releaseBooleans();
         });
     }
 
     public void checkCollisions(Character character, Entity entity) {
         if(entity.isSolid()) {
             if(character.isMovingUP && character.overlaps(entity)) {
-                character.y -= 500 * Gdx.graphics.getDeltaTime();
+                character.y -= character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                character.y = entity.y - entity.height;
             }
             if(character.isMovingDOWN && character.overlaps(entity)) {
-                character.y += 500 * Gdx.graphics.getDeltaTime();
-            }
-            if(character.isMovingLEFT && character.overlaps(entity)) {
-                character.x += 500 * Gdx.graphics.getDeltaTime();
+                character.y += character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                character.y = entity.y + entity.height;
             }
             if(character.isMovingRIGHT && character.overlaps(entity)) {
-                character.x -= 500 * Gdx.graphics.getDeltaTime();
+                if(character.isMovingUP) {
+                    character.y += character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                    character.y = entity.y - entity.height;
+                } if (character.isMovingDOWN) {
+                    character.y -= character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                    character.y = entity.y + entity.height;
+                }
+                character.x -= character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                character.x = entity.x - entity.width;
             }
-            character.releaseBooleans();
+            if(character.isMovingLEFT && character.overlaps(entity)) {
+                if(character.isMovingUP) {
+                    character.y += character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                    character.y = entity.y - entity.height;
+                } if(character.isMovingDOWN) {
+                    character.y -= character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                    character.y = entity.y + entity.height;
+                }
+                character.x += character.movementSpeed * Gdx.graphics.getDeltaTime();
+//                character.x = entity.x + entity.width;
+            }
         }
     }
 

@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Control.CollisionDetection;
 import com.mygdx.game.Control.PlayerController;
+import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
@@ -38,12 +39,12 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void loadData() {
-		player = new Player(assets);
-		foe = new Foe(assets);
-		entities = new ArrayList<>();
-		entities.add(player);
-		entities.add(foe);
-	}
+        player = new Player(assets);
+        foe = new Foe(assets);
+        entities = new ArrayList<>();
+        entities.add(player);
+        entities.add(foe);
+    }
 
 	private void init() {
 		batch = new SpriteBatch();
@@ -58,22 +59,20 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		player.draw(batch);
-		foe.draw(batch);
+		entities.forEach(e->e.draw(batch));
 		batch.end();
 	}
 
 	private void update() {
-		collisionDetection.update(entities);
-
-		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-			cameraController.focusOn(foe);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-			cameraController.focusOn(player);
-		}
-		cameraController.update();
-		playerController.update();
+//		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+//			cameraController.focusOn(foe);
+//		}
+//		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+//			cameraController.focusOn(player);
+//		}
+        playerController.update();
+        collisionDetection.update(entities);
+        cameraController.update();
 	}
 
 

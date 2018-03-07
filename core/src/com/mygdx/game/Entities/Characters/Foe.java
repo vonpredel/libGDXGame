@@ -2,6 +2,7 @@ package com.mygdx.game.Entities.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.Constants;
 
 public class Foe extends Character {
 
@@ -11,29 +12,6 @@ public class Foe extends Character {
         this.height = texture.getHeight();
         this.x = 400;
         this.y = 400;
-    }
-
-//    public boolean isSolid() {
-//        return true;
-//    }
-
-    @Override
-    public void moveUp() {
-
-    }
-
-    @Override
-    public void moveLeft() {
-
-    }
-
-    @Override
-    public void moveDown() {
-
-    }
-
-    @Override
-    public void moveRight() {
-
+        this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;
     }
 }
