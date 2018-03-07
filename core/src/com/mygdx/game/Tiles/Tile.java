@@ -30,4 +30,8 @@ public abstract class Tile extends Rectangle {
         return false;
     }
 
+    // DO WYJEBANIA TYLKO DO TESTÓW
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
 }

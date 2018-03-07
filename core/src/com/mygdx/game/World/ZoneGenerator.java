@@ -1,10 +1,11 @@
-package com.mygdx.game.Utils;
+package com.mygdx.game.World;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.mygdx.game.Tiles.GrassTile;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Tiles.WallTile;
+import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.World.Zones.Zone;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -23,6 +24,7 @@ public class ZoneGenerator {
 
     private final Assets assets;
     private List<Tile> tileList;
+    private int width,height;
 
     private static Map<Color, Class<? extends Tile>> TILE_MAP;
 
@@ -37,8 +39,8 @@ public class ZoneGenerator {
     }
 
     private Color[][] getIds(BufferedImage image) throws IOException {
-        int height = image.getHeight();
-        int width = image.getWidth();
+        height = image.getHeight();
+        width = image.getWidth();
 
         Color[][] array2D = new Color[width][height];
 
@@ -55,8 +57,6 @@ public class ZoneGenerator {
         final FileHandle classpath = Gdx.files.classpath(bmpFileName);
         BufferedImage image = ImageIO.read(classpath.file().toURI().toURL());
         Color[][] colors = getIds(image);
-        int width = colors.length;
-        int height = colors[0].length;
 
         tileList = new ArrayList<>(width * height);
 
@@ -93,5 +93,13 @@ public class ZoneGenerator {
 
     public List<Tile> getTileList() {
         return tileList;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

@@ -13,7 +13,8 @@ import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.CameraController;
-import com.mygdx.game.Utils.ZoneGenerator;
+import com.mygdx.game.World.World;
+import com.mygdx.game.World.ZoneGenerator;
 import com.mygdx.game.World.ZoneRenderer;
 import com.mygdx.game.World.Zones.Zone;
 import java.io.IOException;
@@ -33,6 +34,7 @@ public class Game extends ApplicationAdapter {
 	private ZoneRenderer zoneRenderer;
 	private List<Entity> entities;
 	private List<Tile> tiles;
+	private World world;
 
 	@Override
 	public void create () {
@@ -64,10 +66,11 @@ public class Game extends ApplicationAdapter {
 		}
 		tiles = zoneGenerator.getTileList();
 		zoneRenderer = new ZoneRenderer(zone,batch);
+
     }
 
 	private void init() {
-
+		world = new World(entities,tiles,zoneGenerator.getWidth(),zoneGenerator.getHeight());
 	}
 
 	@Override
