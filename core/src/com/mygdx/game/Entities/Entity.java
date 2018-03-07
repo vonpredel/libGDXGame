@@ -3,6 +3,7 @@ package com.mygdx.game.Entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Constants;
 
 public abstract class Entity extends Rectangle {
