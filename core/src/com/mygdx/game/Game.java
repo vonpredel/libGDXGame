@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Control.PlayerController;
@@ -53,12 +54,12 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void update() {
-//		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-//			cameraController.focusOn(foe);
-//		}
-//		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-//			cameraController.focusOn(player);
-//		}
+		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+			cameraController.focusOn(foe);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+			cameraController.focusOn(player);
+		}
 		cameraController.update();
 		playerController.update();
 	}

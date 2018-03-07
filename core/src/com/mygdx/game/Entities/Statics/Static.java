@@ -1,4 +1,9 @@
 package com.mygdx.game.Entities.Statics;
 
-public abstract class Static {
+import com.mygdx.game.Entities.Entity;
+
+public abstract class Static extends Entity {
+
+
+
 }
