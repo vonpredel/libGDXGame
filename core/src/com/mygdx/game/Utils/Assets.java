@@ -9,7 +9,9 @@ public class Assets implements Disposable {
     public final AssetManager manager = new AssetManager();
 
     public void load() {
-        manager.load("badlogic.jpg",Texture.class);
+        manager.load("badlogic.jpg", Texture.class);
+        manager.load("trawa.png", Texture.class);
+        manager.load("sciana.png", Texture.class);
     }
 
     @Override

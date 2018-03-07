@@ -2,8 +2,6 @@ package com.mygdx.game.Utils;
 
 public class Constants {
 
-    public static final int TILE_WIDTH = 64;
-    public static final int TILE_HEIGHT = 64;
     public static final int DEFAULT_CHARACTER_WIDTH = 64;
     public static final int DEFAULT_CHARACTER_HEIGHT = 64;
     public static final int DEFAULT_START_POSITION_X = 0;
@@ -11,6 +9,8 @@ public class Constants {
     public static final int DEFAULT_RESOLUTION_WIDTH = 1280;
     public static final int DEFAULT_RESOLUTION_HEIGHT = 720;
     public static final int DEFAULT_MOVEMENT_SPEED = 500;
+    public static final int DEFAULT_TILE_WIDTH = 64;
+    public static final int DEFAULT_TILE_HEIGHT = 64;
 
 
 }
