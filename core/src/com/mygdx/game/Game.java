@@ -5,11 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Control.CollisionDetection;
 import com.mygdx.game.Control.PlayerController;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
+import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.CameraController;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends ApplicationAdapter {
 
@@ -19,6 +23,8 @@ public class Game extends ApplicationAdapter {
 	private Assets assets;
 	private PlayerController playerController;
 	private CameraController cameraController;
+	private CollisionDetection collisionDetection;
+	private List<Entity> entities;
 
 	@Override
 	public void create () {
@@ -32,14 +38,18 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void loadData() {
-		batch = new SpriteBatch();
 		player = new Player(assets);
 		foe = new Foe(assets);
+		entities = new ArrayList<>();
+		entities.add(player);
+		entities.add(foe);
 	}
 
 	private void init() {
-		playerController = new PlayerController(player);
+		batch = new SpriteBatch();
+		playerController = new PlayerController(player,foe);
 		cameraController = new CameraController(batch,player);
+		collisionDetection = new CollisionDetection();
 	}
 
 	@Override
@@ -54,6 +64,8 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void update() {
+		collisionDetection.update(entities);
+
 		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
 			cameraController.focusOn(foe);
 		}

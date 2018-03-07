@@ -12,4 +12,28 @@ public class Foe extends Character {
         this.x = 400;
         this.y = 400;
     }
+
+//    public boolean isSolid() {
+//        return true;
+//    }
+
+    @Override
+    public void moveUp() {
+
+    }
+
+    @Override
+    public void moveLeft() {
+
+    }
+
+    @Override
+    public void moveDown() {
+
+    }
+
+    @Override
+    public void moveRight() {
+
+    }
 }

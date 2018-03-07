@@ -4,6 +4,9 @@ import com.mygdx.game.Entities.Entity;
 
 public abstract class Static extends Entity {
 
-
+    @Override
+    public boolean isSolid() {
+        return false;
+    }
 
 }

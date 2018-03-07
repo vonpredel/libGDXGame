@@ -23,4 +23,6 @@ public abstract class Entity extends Rectangle {
     public Texture getTexture() {
         return texture;
     }
+
+    public abstract boolean isSolid();
 }
