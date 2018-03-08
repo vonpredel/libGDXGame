@@ -28,7 +28,7 @@ public abstract class Entity extends Rectangle {
 
     public abstract boolean isSolid();
 
-    protected Tile getCurrentTile() {
+    public Tile getCurrentTile() {
         return World.getTileByPosition(World.getCurrentEntityPosition(this));
     }
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Control.PlayerController;
+import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
@@ -70,7 +71,7 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight());
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch);
 	}
 
 	@Override
@@ -81,6 +82,11 @@ public class Game extends ApplicationAdapter {
 		batch.begin();
 		zoneRenderer.renderZone();
 		entities.forEach(e->e.draw(batch));
+		entities.forEach(t -> {
+			if (t instanceof Character) {
+				((Character) t).drawDamage(batch);
+			}
+		});
 		batch.end();
 	}
 

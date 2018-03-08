@@ -1,5 +1,7 @@
 package com.mygdx.game.World;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Constants;
@@ -21,12 +23,14 @@ public class World {
     private static List<Tile> tileList;
     private static int worldWidth;
     private static int worldHeight;
+    private static SpriteBatch batch;
 
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight) {
+    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch) {
+        World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
         World.worldWidth = worldWidth;
@@ -66,13 +70,37 @@ public class World {
         return tile;
     }
 
+    public static boolean isTileOccupied(Tile tile) {
+        for (Entity e : entityList) {
+            if (e.getCurrentTile().equals(tile)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static Character getCharacterFromTile(Tile tile) {
+        if (isTileOccupied(tile)) {
+            for (Entity e : entityList) {
+                if (e.getCurrentTile().equals(tile)) {
+                    return (Character) e;
+                }
+            }
+        }
+        return null;
+    }
+
     public static boolean isAbleToGo(Entity entity, int direction) {
         Tile tile = World.getTargetMovementTile(entity, direction);
-        return tile != null && !tile.isSolid();
+        return tile != null && !tile.isSolid() &&!isTileOccupied(tile);
     }
 
     public static void addEntity(Entity entity) {
         entityList.add(entity);
+    }
+
+    public static void removeEntity(Entity entity) {
+        entityList.remove(entity);
     }
 
     public static List<Entity> getEntityList() {
@@ -89,5 +117,9 @@ public class World {
 
     public static int getWorldHeight() {
         return worldHeight;
+    }
+
+    public static SpriteBatch getBatch() {
+        return batch;
     }
 }

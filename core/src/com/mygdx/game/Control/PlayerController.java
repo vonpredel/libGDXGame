@@ -28,5 +28,17 @@ public class PlayerController {
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.moveRight();
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            player.attackUp();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            player.attackDown();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            player.attackLeft();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            player.attackRight();
+        }
     }
 }
