@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Zone {
 
-    protected List<Tile> tileList;
-    protected int width,height;
+    private List<Tile> tileList;
+    private int width,height;
 
     public Zone(List<Tile> tileList, int width, int height) {
         this.tileList = tileList;

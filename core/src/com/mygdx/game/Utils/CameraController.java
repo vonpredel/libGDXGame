@@ -7,9 +7,9 @@ import com.mygdx.game.Entities.Entity;
 
 public class CameraController {
 
-    OrthographicCamera camera;
-    SpriteBatch batch;
-    Entity entity;
+    private OrthographicCamera camera;
+    private SpriteBatch batch;
+    private Entity entity;
 
     public CameraController(SpriteBatch batch, Character initialEntity) {
         this.camera = new OrthographicCamera(Constants.DEFAULT_RESOLUTION_WIDTH,Constants.DEFAULT_RESOLUTION_HEIGHT);

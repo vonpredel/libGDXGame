@@ -3,7 +3,6 @@ package com.mygdx.game.Entities.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.Constants;
-import com.mygdx.game.World.World;
 
 public class Player extends Character {
 

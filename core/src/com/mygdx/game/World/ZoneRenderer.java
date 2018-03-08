@@ -7,8 +7,8 @@ import java.util.List;
 
 public class ZoneRenderer {
 
-    Zone zone;
-    SpriteBatch batch;
+    private Zone zone;
+    private SpriteBatch batch;
 
     public ZoneRenderer(Zone zone, SpriteBatch batch) {
         this.zone = zone;

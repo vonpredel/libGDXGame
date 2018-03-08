@@ -7,10 +7,9 @@ import com.mygdx.game.World.World;
 
 public abstract class Character extends Entity {
 
-    public boolean isMovingUP, isMovingDOWN, isMovingLEFT, isMovingRIGHT;
-    public boolean isMoving;
-    public float timerHelper = 0;
-    public float movementSpeed;
+    protected boolean isMoving;
+    protected float movementTimeHelper = 0;
+    protected float movementSpeed;
 
     @Override
     public boolean isSolid() {
@@ -18,49 +17,40 @@ public abstract class Character extends Entity {
     }
 
     public void releaseBooleans() {
-        timerHelper += Gdx.graphics.getDeltaTime();
-        if(timerHelper > this.movementSpeed) {
-            this.isMovingRIGHT = false;
-            this.isMovingLEFT = false;
-            this.isMovingUP = false;
-            this.isMovingDOWN = false;
+        movementTimeHelper += Gdx.graphics.getDeltaTime();
+        if(movementTimeHelper > this.movementSpeed) {
             this.isMoving = false;
         }
     }
 
     public void moveUp() {
-        if(!isMoving) {
-            World.getFourNearbyTiles(this);
-            this.timerHelper = 0;
+        if(!isMoving && World.isAbleToGo(this,World.UP)) {
+            this.movementTimeHelper = 0;
             this.isMoving = true;
-            this.isMovingUP = true;
             this.y += Constants.DEFAULT_TILE_HEIGHT;
         }
     }
 
     public void moveLeft() {
-        if(!isMoving) {
-            this.timerHelper = 0;
+        if(!isMoving && World.isAbleToGo(this,World.LEFT)) {
+            this.movementTimeHelper = 0;
             this.isMoving = true;
-            this.isMovingLEFT = true;
             this.x -= Constants.DEFAULT_TILE_WIDTH;
         }
     }
 
     public void moveDown() {
-        if(!isMoving) {
-            this.timerHelper = 0;
+        if(!isMoving && World.isAbleToGo(this,World.DOWN)) {
+            this.movementTimeHelper = 0;
             this.isMoving = true;
-            this.isMovingDOWN = true;
             this.y -= Constants.DEFAULT_TILE_HEIGHT;
         }
     }
 
     public void moveRight() {
-        if(!isMoving) {
-            this.timerHelper = 0;
+        if(!isMoving && World.isAbleToGo(this,World.RIGHT)) {
+            this.movementTimeHelper = 0;
             this.isMoving = true;
-            this.isMovingRIGHT = true;
             this.x += Constants.DEFAULT_TILE_WIDTH;
         }
     }

@@ -1,21 +1,22 @@
 package com.mygdx.game.Utils;
 
-import com.badlogic.gdx.Gdx;
+import com.mygdx.game.Entities.Characters.Character;
+import com.mygdx.game.Entities.Entity;
+import java.util.List;
 
 public class Timer {
 
-    private float latency;
-
-    public Timer(float latency) {
-        this.latency = latency;
+    public void update(List<Entity> list) {
+        movementUpdate(list);
     }
 
-    public void timerHelper() {
-        float timer = 0;
-        timer += Gdx.graphics.getDeltaTime();
-        if (timer > latency) {
-            timer = 0;
-        }
+    private void movementUpdate(List<Entity> list) {
+        list.forEach(e -> {
+            if(e instanceof Character) ((Character) e).releaseBooleans();
+        });
     }
 
+    private void attackCooldownUpdate(List<Entity> list) {
+        System.out.println("Temp");
+    }
 }
