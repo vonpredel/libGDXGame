@@ -1,6 +1,9 @@
 package com.mygdx.game.Entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Tiles.Tile;
@@ -10,6 +13,9 @@ import com.mygdx.game.World.World;
 public abstract class Entity extends Rectangle {
 
     protected Texture texture;
+    public boolean isDamaged = false;
+    public float cleanDamageTimerHelper = 0f;
+    public int damageGot = 0;
 
     public Entity() {
         this.x = Constants.DEFAULT_START_POSITION_X;
@@ -18,8 +24,18 @@ public abstract class Entity extends Rectangle {
         this.width = Constants.DEFAULT_CHARACTER_WIDTH;
     }
 
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, BitmapFont font) {
         batch.draw(texture, x, y, width, height);
+        if(isDamaged) {
+            batch.draw(new Texture("damage.png"),x,y,width,height);
+            font.setColor(Color.WHITE);
+            font.draw(batch,String.valueOf(damageGot),x+width/2,y+height/2);
+            cleanDamageTimerHelper += Gdx.graphics.getDeltaTime();
+            if (cleanDamageTimerHelper > 0.8f) {
+                isDamaged = false;
+                cleanDamageTimerHelper = 0f;
+            }
+        }
     }
 
     public Texture getTexture() {

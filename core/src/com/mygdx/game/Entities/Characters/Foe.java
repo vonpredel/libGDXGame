@@ -14,28 +14,8 @@ public class Foe extends Character {
         this.attackSpeed= 1f;
         this.x = 1024;
         this.y = 1024;
-        this.currentHealthPoints = 5;
-        this.maxHealthPoints = 5;
+        this.currentHealthPoints = 100;
+        this.maxHealthPoints = 100;
         this.damage = 1;
-    }
-
-    @Override
-    public void attackUp() {
-
-    }
-
-    @Override
-    public void attackDown() {
-
-    }
-
-    @Override
-    public void attackLeft() {
-
-    }
-
-    @Override
-    public void attackRight() {
-
     }
 }

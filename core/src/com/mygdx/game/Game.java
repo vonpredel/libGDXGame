@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Control.PlayerController;
 import com.mygdx.game.Entities.Characters.Character;
@@ -24,6 +25,7 @@ import java.util.List;
 public class Game extends ApplicationAdapter {
 
 	private SpriteBatch batch;
+	private BitmapFont font;
 	private Player player;
 	private Foe foe;
 	private Assets assets;
@@ -56,6 +58,7 @@ public class Game extends ApplicationAdapter {
 
 	private void loadData()  {
 		batch = new SpriteBatch();
+		font = new BitmapFont();
 		playerController = new PlayerController(player,foe);
 		cameraController = new CameraController(batch,player);
         timer = new Timer();
@@ -71,7 +74,7 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch);
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font);
 	}
 
 	@Override
@@ -81,12 +84,7 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		zoneRenderer.renderZone();
-		entities.forEach(e->e.draw(batch));
-		entities.forEach(t -> {
-			if (t instanceof Character) {
-				((Character) t).drawDamage(batch);
-			}
-		});
+		entities.forEach(e->e.draw(batch,font));
 		batch.end();
 	}
 

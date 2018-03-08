@@ -1,5 +1,6 @@
 package com.mygdx.game.Entities.Characters;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MathUtils;
@@ -7,11 +8,18 @@ import com.mygdx.game.World.World;
 
 public abstract class Character extends Entity {
 
+    protected int maxHealthPoints, currentHealthPoints;
     protected boolean isMoving;
+    protected boolean isAttacking;
     protected float movementSpeed;
+    protected float attackSpeed;
+    protected int damage;
+
+    protected float attackTimeHelper = 0;
 
     protected Tile destination;
     private float lastX,lastY;
+
 
     @Override
     public boolean isSolid() {
@@ -46,15 +54,63 @@ public abstract class Character extends Entity {
         }
     }
 
+    public void hurt(int dmgAmt) {
+        currentHealthPoints -= dmgAmt;
+        if(currentHealthPoints <= 0) {
+            die();
+        }
+    }
+
+    private void die() {
+        World.removeEntity(this);
+    }
+
+    public void attackUp() {
+        attack(World.getTargetDirectionTile(this, World.UP));
+    }
+
+    public void attackDown() {
+        attack(World.getTargetDirectionTile(this, World.DOWN));
+    }
+
+    public void attackLeft() {
+        attack(World.getTargetDirectionTile(this, World.LEFT));
+    }
+
+    public void attackRight() {
+        attack(World.getTargetDirectionTile(this, World.RIGHT));
+    }
+
+    private void attack(Tile tile) {
+        if (!isAttacking && World.isTileOccupied(tile)) {
+            isAttacking = true;
+            Character characterFromTile = World.getCharacterFromTile(tile);
+            characterFromTile.hurt(damage);
+            characterFromTile.isDamaged = true;
+            characterFromTile.damageGot = damage;
+            characterFromTile.cleanDamageTimerHelper = 0f;
+            attackTimeHelper = 0;
+        }
+    }
+
     private void moveInit(int direction) {
         this.lastX = this.getCurrentTile().x;
         this.lastY = this.getCurrentTile().y;
-        this.destination = World.getTargetMovementTile(this, direction);
+        this.destination = World.getTargetDirectionTile(this, direction);
     }
 
     @Override
     public void update() {
         moveUpdate();
+        attackUpdate();
+    }
+
+    private void attackUpdate() {
+            attackTimeHelper += Gdx.graphics.getDeltaTime();
+            if (attackTimeHelper > attackSpeed) {
+                this.isAttacking = false;
+                attackTimeHelper = 0;
+        }
     }
 
     private void moveUpdate() {

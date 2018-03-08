@@ -1,5 +1,6 @@
 package com.mygdx.game.World;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Entity;
@@ -24,17 +25,19 @@ public class World {
     private static int worldWidth;
     private static int worldHeight;
     private static SpriteBatch batch;
+    private static BitmapFont font;
 
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch) {
+    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font) {
         World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
         World.worldWidth = worldWidth;
         World.worldHeight = worldHeight;
+        World.font = font;
     }
 
     public static Tile getTileByPosition(int position) {
@@ -48,7 +51,7 @@ public class World {
         return (int) position;
     }
 
-    public static Tile getTargetMovementTile(Entity entity, int direction) {
+    public static Tile getTargetDirectionTile(Entity entity, int direction) {
         Tile tile;
         int currentEntityPosition = getCurrentEntityPosition(entity);
         switch (direction) {
@@ -91,7 +94,7 @@ public class World {
     }
 
     public static boolean isAbleToGo(Entity entity, int direction) {
-        Tile tile = World.getTargetMovementTile(entity, direction);
+        Tile tile = World.getTargetDirectionTile(entity, direction);
         return tile != null && !tile.isSolid() &&!isTileOccupied(tile);
     }
 
@@ -121,5 +124,9 @@ public class World {
 
     public static SpriteBatch getBatch() {
         return batch;
+    }
+
+    public static BitmapFont getFont() {
+        return font;
     }
 }
