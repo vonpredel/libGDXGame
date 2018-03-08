@@ -54,6 +54,10 @@ public abstract class Character extends Entity {
 
     @Override
     public void update() {
+        moveUpdate();
+    }
+
+    private void moveUpdate() {
         if (!this.isMoving || this.destination == null) return;
 
         if (MathUtils.areEqual(this.x, destination.x) && MathUtils.areEqual(this.y, destination.y)) {
