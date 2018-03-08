@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.World.World;
 
 public abstract class Entity extends Rectangle {
 
@@ -26,4 +27,12 @@ public abstract class Entity extends Rectangle {
     }
 
     public abstract boolean isSolid();
+
+    protected Tile getCurrentTile() {
+        return World.getTileByPosition(World.getCurrentEntityPosition(this));
+    }
+
+    public void update() {
+
+    }
 }

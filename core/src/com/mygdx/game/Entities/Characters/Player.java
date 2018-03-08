@@ -8,8 +8,8 @@ public class Player extends Character {
 
     public Player(Assets assets) {
         this.texture = assets.manager.get("badlogic.jpg", Texture.class);
-        this.width = 64;
-        this.height = 64;
+        this.width = Constants.DEFAULT_CHARACTER_WIDTH;
+        this.height = Constants.DEFAULT_CHARACTER_HEIGHT;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;
         this.x = 512;
         this.y = 512;

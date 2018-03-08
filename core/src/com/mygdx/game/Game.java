@@ -22,44 +22,28 @@ import java.util.List;
 
 public class Game extends ApplicationAdapter {
 
-    private SpriteBatch batch;
-    private Player player;
-    private Foe foe;
-    private Assets assets;
-    private PlayerController playerController;
-    private CameraController cameraController;
-    private Timer timer;
-    private ZoneGenerator zoneGenerator;
-    private ZoneRenderer zoneRenderer;
-    private List<Entity> entities;
+	private SpriteBatch batch;
+	private Player player;
+	private Foe foe;
+	private Assets assets;
+	private PlayerController playerController;
+	private CameraController cameraController;
+	private Timer timer;
+	private ZoneGenerator zoneGenerator;
+	private ZoneRenderer zoneRenderer;
+	private List<Entity> entities;
 
-    @Override
-    public void create() {
-        assets = new Assets();
-        assets.load();
-        assets.manager.finishLoading();
-        if (assets.manager.update()) {
-            loadEntities();
-            loadData();
-            init();
-        }
-    }
-
-    private void loadData() {
-        batch = new SpriteBatch();
-        playerController = new PlayerController(player, foe);
-        cameraController = new CameraController(batch, player);
-        timer = new Timer();
-        zoneGenerator = new ZoneGenerator(assets);
-        Zone zone = null;
-        try {
-            zone = zoneGenerator.generateZone("map1.bmp");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        zoneRenderer = new ZoneRenderer(zone, batch);
-
-    }
+	@Override
+	public void create () {
+		assets = new Assets();
+		assets.load();
+		assets.manager.finishLoading();
+		if(assets.manager.update()) {
+			loadEntities();
+			loadData();
+			worldInit();
+		}
+	}
 
     private void loadEntities() {
         player = new Player(assets);
@@ -69,38 +53,53 @@ public class Game extends ApplicationAdapter {
         entities.add(foe);
     }
 
-    private void init() {
-        World.init(entities, zoneGenerator.getTileList(), zoneGenerator.getWidth(), zoneGenerator.getHeight());
+	private void loadData()  {
+		batch = new SpriteBatch();
+		playerController = new PlayerController(player,foe);
+		cameraController = new CameraController(batch,player);
+        timer = new Timer();
+		zoneGenerator = new ZoneGenerator(assets);
+		Zone zone = null;
+		try {
+			zone = zoneGenerator.generateZone("map1.bmp");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		zoneRenderer = new ZoneRenderer(zone,batch);
+
     }
 
-    @Override
-    public void render() {
-        update();
-        Gdx.gl.glClearColor(1, 1, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        zoneRenderer.renderZone();
-        entities.forEach(e -> e.draw(batch));
-        batch.end();
-    }
+	private void worldInit() {
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight());
+	}
 
-    private void update() {
-        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-            cameraController.focusOn(foe);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-            cameraController.focusOn(player);
-        }
+	@Override
+	public void render () {
+		update();
+		Gdx.gl.glClearColor(1, 1, 1, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		batch.begin();
+		zoneRenderer.renderZone();
+		entities.forEach(e->e.draw(batch));
+		batch.end();
+	}
+
+	private void update() {
+		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+			cameraController.focusOn(foe);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+			cameraController.focusOn(player);
+		}
         playerController.update();
-        timer.update(entities);
-//        collisionDetection.update(entities,tiles);
         cameraController.update();
+        timer.update(entities);
     }
 
 
-    @Override
-    public void dispose() {
-        assets.dispose();
-        batch.dispose();
-    }
+	@Override
+	public void dispose () {
+		assets.dispose();
+		batch.dispose();
+	}
 }

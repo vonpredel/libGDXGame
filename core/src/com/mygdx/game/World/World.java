@@ -44,7 +44,7 @@ public class World {
         return (int) position;
     }
 
-    public static boolean isAbleToGo(Entity entity, int direction) {
+    public static Tile getTargetMovementTile(Entity entity, int direction) {
         Tile tile;
         int currentEntityPosition = getCurrentEntityPosition(entity);
         switch (direction) {
@@ -61,10 +61,14 @@ public class World {
                 tile = getTileByPosition(currentEntityPosition + 1);
                 break;
             default:
-                return true;
-
+                return null;
         }
-        return !tile.isSolid();
+        return tile;
+    }
+
+    public static boolean isAbleToGo(Entity entity, int direction) {
+        Tile tile = World.getTargetMovementTile(entity, direction);
+        return tile != null && !tile.isSolid();
     }
 
     public static void addEntity(Entity entity) {

@@ -65,6 +65,7 @@ public class ZoneGenerator {
                 Color color = colors[i][j];
                 final Tile tile = this.createTile(color);
                 tileList.add(tile);
+//                tile.setTileIndex(tileList.size() - 1);
             }
         }
         return new Zone(tileList, width, height);

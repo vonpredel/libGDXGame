@@ -12,7 +12,8 @@ public class Timer {
 
     private void movementUpdate(List<Entity> list) {
         list.forEach(e -> {
-            if(e instanceof Character) ((Character) e).releaseBooleans();
+            e.update();
+//            if(e instanceof Character) ((Character) e).releaseBooleans();
         });
     }
 

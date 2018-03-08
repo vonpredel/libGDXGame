@@ -10,8 +10,8 @@ public class Foe extends Character {
         this.texture = assets.manager.get("badlogic.jpg", Texture.class);
         this.width = texture.getWidth();
         this.height = texture.getHeight();
+        this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;
         this.x = 1024;
         this.y = 1024;
-        this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;
     }
 }
