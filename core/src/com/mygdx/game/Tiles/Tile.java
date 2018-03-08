@@ -10,12 +10,14 @@ public abstract class Tile extends Rectangle {
 
     protected Texture texture;
     protected Color id;
+    protected int tileIndex;
 
     public Tile() {
         this.x = Constants.DEFAULT_START_POSITION_X;
         this.y = Constants.DEFAULT_START_POSITION_Y;
         this.height = Constants.DEFAULT_TILE_HEIGHT;
         this.width = Constants.DEFAULT_TILE_WIDTH;
+        this.tileIndex = -1;
     }
 
     public void draw(SpriteBatch batch) {
@@ -30,8 +32,4 @@ public abstract class Tile extends Rectangle {
         return false;
     }
 
-    // DO WYJEBANIA TYLKO DO TESTÓW
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
 }
