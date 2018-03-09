@@ -89,11 +89,24 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void update() {
+		foe.ai();
 		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
 			cameraController.focusOn(foe);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
 			cameraController.focusOn(player);
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.K)) {
+			cameraController.zoomIn();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.L)) {
+			cameraController.zoomOut();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.N)) {
+			cameraController.rotateCameraLeft();
+		}
+		if(Gdx.input.isKeyPressed(Input.Keys.M)) {
+			cameraController.rotateCameraRight();
 		}
         playerController.update();
         cameraController.update();

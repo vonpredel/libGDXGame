@@ -4,11 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Assets;
 import java.awt.Color;
 
-public class GrassTile extends Tile {
+public class WaterTile extends Tile {
 
-    public GrassTile(Assets assets, String fileName) {
+    public WaterTile(Assets assets, String fileName) {
         this.texture = assets.manager.get(fileName, Texture.class);
-        this.id = Color.GREEN;
+        this.id = Color.BLUE;
+    }
+
+    @Override
+    public boolean isSolid() {
+        return true;
     }
 
 }

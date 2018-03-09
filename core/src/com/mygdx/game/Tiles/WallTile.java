@@ -8,7 +8,7 @@ public class WallTile extends Tile {
 
     public WallTile(Assets assets) {
         this.texture = assets.manager.get("sciana.png", Texture.class);
-        this.id = Color.BLACK;
+        this.id = Color.RED;
     }
 
     @Override

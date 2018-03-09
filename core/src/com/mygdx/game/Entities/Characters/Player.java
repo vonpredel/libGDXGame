@@ -3,8 +3,11 @@ package com.mygdx.game.Entities.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.inventory.Inventory;
 
 public class Player extends Character {
+
+    private Inventory inventory;
 
     public Player(Assets assets) {
         this.texture = assets.manager.get("badlogic.jpg", Texture.class);
@@ -17,5 +20,10 @@ public class Player extends Character {
         this.currentHealthPoints = 5;
         this.maxHealthPoints = 5;
         this.damage = 1;
+        inventory = new Inventory();
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }
