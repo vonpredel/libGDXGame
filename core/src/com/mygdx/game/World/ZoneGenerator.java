@@ -27,11 +27,14 @@ import java.util.Optional;
 import java.util.Set;
 import javax.imageio.ImageIO;
 
+import static java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.WALL;
+
 public class ZoneGenerator {
 
     private static final Color GRASS = Color.GREEN;
     private static final Color DIRT  = Color.BLACK;
     private static final Color WATER  = Color.BLUE;
+    private static final Color WALL  = Color.RED;
 
     private final Assets assets;
     private List<Tile> tileList;
@@ -40,10 +43,11 @@ public class ZoneGenerator {
     private static Map<Color, Class<? extends Tile>> TILE_MAP;
 
     static {
-        TILE_MAP = new HashMap<>(3);
+        TILE_MAP = new HashMap<>(4);
         TILE_MAP.put(Color.BLACK, DirtTile.class);
         TILE_MAP.put(Color.GREEN, GrassTile.class);
         TILE_MAP.put(Color.BLUE, WaterTile.class);
+        TILE_MAP.put(Color.RED, WallTile.class);
     }
 
     public ZoneGenerator(Assets assets) {
@@ -108,6 +112,8 @@ public class ZoneGenerator {
 
                 if (color.equals(DIRT)) {
                     assetToRender = AssetsConstants.DIRT_DIR;
+                } else if (color.equals(WALL)){
+                    assetToRender = AssetsConstants.WALL_DIR;
                 } else if (color.equals(WATER)) {
                     assetToRender = getAssetName(colors,GRASS, AssetsConstants.WATER_DIR,i,j);
                 } else if(color.equals(GRASS)) {

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
+import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.Constants;
 import java.util.List;
 
@@ -26,18 +27,20 @@ public class World {
     private static int worldHeight;
     private static SpriteBatch batch;
     private static BitmapFont font;
+    private static Assets assets;
 
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font) {
+    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets) {
         World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
         World.worldWidth = worldWidth;
         World.worldHeight = worldHeight;
         World.font = font;
+        World.assets = assets;
     }
 
     public static Tile getTileByPosition(int position) {
@@ -128,5 +131,9 @@ public class World {
 
     public static BitmapFont getFont() {
         return font;
+    }
+
+    public static Assets getAssets() {
+        return assets;
     }
 }

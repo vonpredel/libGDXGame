@@ -18,4 +18,40 @@ public abstract class Armor extends EquiableItem {
         this.defence = defence;
         this.movementSpeedReduction = movementSpeedReduction;
     }
+
+    public static int getLightArmor() {
+        return lightArmor;
+    }
+
+    public static int getMediumArmor() {
+        return mediumArmor;
+    }
+
+    public static int getHeavyArmor() {
+        return heavyArmor;
+    }
+
+    public int getArmorClass() {
+        return armorClass;
+    }
+
+    public void setArmorClass(int armorClass) {
+        this.armorClass = armorClass;
+    }
+
+    public int getDefence() {
+        return defence;
+    }
+
+    public void setDefence(int defence) {
+        this.defence = defence;
+    }
+
+    public int getMovementSpeedReduction() {
+        return movementSpeedReduction;
+    }
+
+    public void setMovementSpeedReduction(int movementSpeedReduction) {
+        this.movementSpeedReduction = movementSpeedReduction;
+    }
 }

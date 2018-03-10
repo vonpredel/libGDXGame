@@ -5,11 +5,6 @@ import com.mygdx.game.Utils.Assets;
 
 public abstract class Static extends Entity {
 
-
-    public Static(Assets assets) {
-
-    }
-
     @Override
     public boolean isSolid() {
         return false;

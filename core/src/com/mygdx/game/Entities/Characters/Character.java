@@ -1,11 +1,11 @@
 package com.mygdx.game.Entities.Characters;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
-import com.mygdx.game.Utils.MathUtils;
+import com.mygdx.game.Utils.MyMathUtils;
 import com.mygdx.game.World.World;
-import com.mygdx.game.inventory.Inventory;
 
 public abstract class Character extends Entity {
 
@@ -13,8 +13,6 @@ public abstract class Character extends Entity {
     protected boolean isMoving;
     protected boolean isAttacking;
     protected float movementSpeed;
-    protected float attackSpeed;
-    protected int damage;
 
     protected float attackTimeHelper = 0;
 
@@ -83,11 +81,18 @@ public abstract class Character extends Entity {
 
     private void attack(Tile tile) {
         if (!isAttacking && World.isTileOccupied(tile)) {
-            if(this instanceof Player) {
-
-            }
             isAttacking = true;
             Character characterFromTile = World.getCharacterFromTile(tile);
+            int damage;
+            if(!(MathUtils.random(1,100) <= this.getInventory().getEquipedWeapon().getAccuracy())) damage = 0;
+            else {
+                damage = MathUtils.random(this.getInventory().getEquipedWeapon().getMinDamage(),
+                        this.getInventory().getEquipedWeapon().getMaxDamage());
+                damage = (MathUtils.random(1,100) <= this.getInventory().getEquipedWeapon().getCritChance() ? damage*2 : damage)
+                        - characterFromTile.getInventory().getEquipedArmor().getDefence();
+                damage = (damage<0) ? 0 : damage;
+            }
+
             characterFromTile.hurt(damage);
             characterFromTile.isDamaged = true;
             characterFromTile.damageGot = damage;
@@ -110,7 +115,7 @@ public abstract class Character extends Entity {
 
     private void attackUpdate() {
             attackTimeHelper += Gdx.graphics.getDeltaTime();
-            if (attackTimeHelper > attackSpeed) {
+            if (attackTimeHelper > this.getInventory().getEquipedWeapon().getSpeed()) {
                 this.isAttacking = false;
                 attackTimeHelper = 0;
         }
@@ -119,15 +124,16 @@ public abstract class Character extends Entity {
     private void moveUpdate() {
         if (!this.isMoving || this.destination == null) return;
 
-        if (MathUtils.areEqual(this.x, destination.x) && MathUtils.areEqual(this.y, destination.y)) {
+        if (MyMathUtils.areEqual(this.x, destination.x) && MyMathUtils.areEqual(this.y, destination.y)) {
             this.destination = null;
             this.isMoving = false;
             return;
         }
 
-        this.setX(MathUtils.moveTowards(this.lastX, this.destination.x, movementSpeed));
-        this.setY(MathUtils.moveTowards(this.lastY, this.destination.y, movementSpeed));
+        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, movementSpeed));
+        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, movementSpeed));
         this.lastX = this.getX();
         this.lastY = this.getY();
     }
+
 }

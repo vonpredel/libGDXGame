@@ -1,10 +1,10 @@
 package com.mygdx.game.Utils;
 
-public final class MathUtils {
+public final class MyMathUtils {
 
     public static float EPSILON = 0.0001f;
 
-    private MathUtils() {
+    private MyMathUtils() {
 
     }
 
@@ -21,7 +21,7 @@ public final class MathUtils {
         {
             return target;
         }
-        return current + MathUtils.sign(target - current) * maxDelta;
+        return current + MyMathUtils.sign(target - current) * maxDelta;
     }
 
     public static boolean areEqual(float a, float b) {

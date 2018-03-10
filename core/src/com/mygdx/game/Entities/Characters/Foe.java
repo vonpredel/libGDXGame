@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.inventory.Inventory;
 
 public class Foe extends Character {
 
@@ -13,12 +14,11 @@ public class Foe extends Character {
         this.width = texture.getWidth()/4;
         this.height = texture.getHeight()/4;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED/5;
-        this.attackSpeed= 1f;
         this.x = 1024;
         this.y = 1024;
-        this.currentHealthPoints = 100;
         this.maxHealthPoints = 100;
-        this.damage = 1;
+        this.currentHealthPoints = maxHealthPoints;
+        this.inventory = new Inventory();
     }
 
     public void ai() {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
 
 public class Player extends Character {
@@ -13,12 +14,13 @@ public class Player extends Character {
         this.width = Constants.DEFAULT_CHARACTER_WIDTH;
         this.height = Constants.DEFAULT_CHARACTER_HEIGHT;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;
-        this.attackSpeed= 1f;
         this.x = 512;
         this.y = 512;
-        this.currentHealthPoints = 5;
-        this.maxHealthPoints = 5;
-        this.damage = 1;
+        this.maxHealthPoints = Constants.DEFAULT_MAX_HEALT_POINTS;
+        this.currentHealthPoints = maxHealthPoints;
         this.inventory = new Inventory();
+        // TEMP EQUIP
+        this.getInventory().startingEquipment();
+        this.getInventory().equipWeapon(this.getInventory().getWeapons().get(0));
     }
 }

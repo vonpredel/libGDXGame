@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Tiles.Tile;
+import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
@@ -33,7 +34,7 @@ public abstract class Entity extends Rectangle {
         if (isDamaged) {
             batch.draw(new Texture(AssetsConstants.DAMAGE), x, y, width, height);
             font.setColor(Color.WHITE);
-            font.draw(batch, String.valueOf(damageGot), x + width / 2, y + height / 2);
+            font.draw(batch, String.valueOf(damageGot), x + width *0.4f, y + height *0.6f);
             cleanDamageTimerHelper += Gdx.graphics.getDeltaTime();
             if (cleanDamageTimerHelper > 0.8f) {
                 isDamaged = false;

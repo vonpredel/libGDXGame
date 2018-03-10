@@ -75,7 +75,7 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font);
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets);
 	}
 
 	@Override

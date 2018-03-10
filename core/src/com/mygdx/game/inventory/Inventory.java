@@ -28,11 +28,10 @@ public class Inventory {
         items = new ArrayList<>();
         this.equipedArmor = noArmor;
         this.equipedWeapon = noWeapon;
-        startingEquipment();
     }
 
-    private void startingEquipment() {
-//        items.add(new Sword());
+    public void startingEquipment() {
+        items.add(new Sword());
     }
 
     private <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
@@ -57,7 +56,7 @@ public class Inventory {
     public List<Armor> getArmors() {
         return getSpecifiedItems(Armor.class);
     }
-    public List<Weapon> getWeapon() {
+    public List<Weapon> getWeapons() {
         return getSpecifiedItems(Weapon.class);
     }
     public List<Item> getItems() {
@@ -98,15 +97,7 @@ public class Inventory {
         return equipedArmor;
     }
 
-    public void setEquipedArmor(Armor equipedArmor) {
-        this.equipedArmor = equipedArmor;
-    }
-
     public Weapon getEquipedWeapon() {
         return equipedWeapon;
-    }
-
-    public void setEquipedWeapon(Weapon equipedWeapon) {
-        this.equipedWeapon = equipedWeapon;
     }
 }
