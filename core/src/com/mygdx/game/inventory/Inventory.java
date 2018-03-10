@@ -32,7 +32,7 @@ public class Inventory {
     }
 
     private void startingEquipment() {
-        items.add(new Sword());
+//        items.add(new Sword());
     }
 
     private <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {

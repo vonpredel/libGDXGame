@@ -1,6 +1,6 @@
 package com.mygdx.game.Utils;
 
-public class Constants {
+public final class Constants {
 
     public static final int DEFAULT_CHARACTER_WIDTH = 64;
     public static final int DEFAULT_CHARACTER_HEIGHT = 64;
@@ -12,5 +12,6 @@ public class Constants {
     public static final int DEFAULT_TILE_WIDTH = 64;
     public static final int DEFAULT_TILE_HEIGHT = 64;
 
-
+    private Constants() {
+    }
 }

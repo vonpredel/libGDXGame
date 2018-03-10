@@ -12,6 +12,7 @@ import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.CameraController;
 import com.mygdx.game.Utils.Timer;
 import com.mygdx.game.World.World;
@@ -65,7 +66,7 @@ public class Game extends ApplicationAdapter {
 		zoneGenerator = new ZoneGenerator(assets);
 		Zone zone = null;
 		try {
-			zone = zoneGenerator.generateZone("map1.bmp");
+			zone = zoneGenerator.generateZone(AssetsConstants.MAP1);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

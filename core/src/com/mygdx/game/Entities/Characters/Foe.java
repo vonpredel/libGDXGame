@@ -3,12 +3,13 @@ package com.mygdx.game.Entities.Characters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 
 public class Foe extends Character {
 
     public Foe(Assets assets) {
-        this.texture = assets.manager.get("badlogic.jpg", Texture.class);
+        this.texture = assets.manager.get(AssetsConstants.TEMP_PLAYER, Texture.class);
         this.width = texture.getWidth()/4;
         this.height = texture.getHeight()/4;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED/5;

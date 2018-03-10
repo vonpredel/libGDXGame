@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Tiles.Tile;
+import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
+import com.mygdx.game.inventory.Inventory;
 
 public abstract class Entity extends Rectangle {
 
@@ -16,6 +18,8 @@ public abstract class Entity extends Rectangle {
     public boolean isDamaged = false;
     public float cleanDamageTimerHelper = 0f;
     public int damageGot = 0;
+
+    protected Inventory inventory;
 
     public Entity() {
         this.x = Constants.DEFAULT_START_POSITION_X;
@@ -26,10 +30,10 @@ public abstract class Entity extends Rectangle {
 
     public void draw(SpriteBatch batch, BitmapFont font) {
         batch.draw(texture, x, y, width, height);
-        if(isDamaged) {
-            batch.draw(new Texture("damage.png"),x,y,width,height);
+        if (isDamaged) {
+            batch.draw(new Texture(AssetsConstants.DAMAGE), x, y, width, height);
             font.setColor(Color.WHITE);
-            font.draw(batch,String.valueOf(damageGot),x+width/2,y+height/2);
+            font.draw(batch, String.valueOf(damageGot), x + width / 2, y + height / 2);
             cleanDamageTimerHelper += Gdx.graphics.getDeltaTime();
             if (cleanDamageTimerHelper > 0.8f) {
                 isDamaged = false;
@@ -50,5 +54,9 @@ public abstract class Entity extends Rectangle {
 
     public void update() {
 
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

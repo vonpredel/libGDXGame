@@ -5,6 +5,7 @@ import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MathUtils;
 import com.mygdx.game.World.World;
+import com.mygdx.game.inventory.Inventory;
 
 public abstract class Character extends Entity {
 
@@ -19,7 +20,6 @@ public abstract class Character extends Entity {
 
     protected Tile destination;
     private float lastX,lastY;
-
 
     @Override
     public boolean isSolid() {
@@ -83,6 +83,9 @@ public abstract class Character extends Entity {
 
     private void attack(Tile tile) {
         if (!isAttacking && World.isTileOccupied(tile)) {
+            if(this instanceof Player) {
+
+            }
             isAttacking = true;
             Character characterFromTile = World.getCharacterFromTile(tile);
             characterFromTile.hurt(damage);
@@ -127,6 +130,4 @@ public abstract class Character extends Entity {
         this.lastX = this.getX();
         this.lastY = this.getY();
     }
-
-
 }

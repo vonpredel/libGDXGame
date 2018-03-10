@@ -9,6 +9,7 @@ import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Tiles.WallTile;
 import com.mygdx.game.Tiles.WaterTile;
 import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.World.Zones.Zone;
 import java.awt.Color;
 import java.awt.geom.Point2D;
@@ -27,10 +28,6 @@ import java.util.Set;
 import javax.imageio.ImageIO;
 
 public class ZoneGenerator {
-
-    private static final String DIRT_ASSET_STRING = "dirt/dirt";
-    private static final String WATER_ASSET_STRING = "water/water";
-    private static final String GRASS_ASSET_STRING = "grass/grass";
 
     private static final Color GRASS = Color.GREEN;
     private static final Color DIRT  = Color.BLACK;
@@ -110,12 +107,12 @@ public class ZoneGenerator {
                 String assetToRender = "";
 
                 if (color.equals(DIRT)) {
-                    assetToRender = DIRT_ASSET_STRING;
+                    assetToRender = AssetsConstants.DIRT_DIR;
                 } else if (color.equals(WATER)) {
-                    assetToRender = getAssetName(colors,GRASS, WATER_ASSET_STRING,i,j);
+                    assetToRender = getAssetName(colors,GRASS, AssetsConstants.WATER_DIR,i,j);
                 } else if(color.equals(GRASS)) {
-                    assetToRender = getAssetName(colors,DIRT, GRASS_ASSET_STRING,i,j);
-                    if(assetToRender.equals(GRASS_ASSET_STRING)) {
+                    assetToRender = getAssetName(colors,DIRT, AssetsConstants.GRASS_DIR,i,j);
+                    if(assetToRender.equals(AssetsConstants.GRASS_DIR)) {
                         assetToRender += MathUtils.random(1,3);
                     }
                 }
