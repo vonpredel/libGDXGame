@@ -38,6 +38,8 @@ public class Game extends ApplicationAdapter {
 	private ZoneRenderer zoneRenderer;
 	private List<Entity> entities;
 
+	private boolean isDebug = true;
+
 	@Override
 	public void create () {
 		assets = new Assets();
@@ -77,7 +79,7 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets);
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer);
 	}
 
 	@Override
@@ -93,23 +95,32 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void update() {
-		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-			cameraController.focusOn(foe);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-			cameraController.focusOn(player);
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.K)) {
-			cameraController.zoomIn();
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.L)) {
-			cameraController.zoomOut();
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.N)) {
-			cameraController.rotateCameraLeft();
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.M)) {
-			cameraController.rotateCameraRight();
+		if(isDebug) {
+			if(Gdx.input.isKeyPressed(Input.Keys.O)) {
+				cameraController.focusOn(foe);
+			}
+			if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+				cameraController.focusOn(player);
+			}
+			if(Gdx.input.isKeyPressed(Input.Keys.K)) {
+				cameraController.zoomIn();
+			}
+			if(Gdx.input.isKeyPressed(Input.Keys.L)) {
+				cameraController.zoomOut();
+			}
+			if(Gdx.input.isKeyPressed(Input.Keys.N)) {
+				cameraController.rotateCameraLeft();
+			}
+			if(Gdx.input.isKeyPressed(Input.Keys.M)) {
+				cameraController.rotateCameraRight();
+			}
+			if(Gdx.input.isKeyPressed(Input.Keys.U)) {
+				System.out.println("/");
+				System.out.println("/");
+				System.out.println("/");
+				System.out.println("/");
+				player.getInventory().getItems().forEach(i -> System.out.println(i.getName()));
+			}
 		}
         playerController.update();
         cameraController.update();

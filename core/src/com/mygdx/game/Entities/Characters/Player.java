@@ -1,6 +1,7 @@
 package com.mygdx.game.Entities.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
@@ -16,7 +17,7 @@ public class Player extends Character {
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;
         this.x = 512;
         this.y = 512;
-        this.maxHealthPoints = Constants.DEFAULT_MAX_HEALT_POINTS;
+        this.maxHealthPoints = Constants.DEFAULT_MAX_HEALTH_POINTS;
         this.currentHealthPoints = maxHealthPoints;
         this.inventory = new Inventory();
         // TEMP EQUIP
@@ -27,5 +28,16 @@ public class Player extends Character {
     @Override
     protected void ai() {
 
+    }
+
+    public void pickUpItems() {
+        World.getItemsContainer().getAllItems().forEach(item -> {
+            if(item.isDropped()) {
+                if(item.x == x && item.y == y) {
+                    getInventory().getItems().add(item);
+                    item.setDropped(false);
+                }
+            }
+        });
     }
 }

@@ -8,6 +8,7 @@ import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.Utils.ItemsContainer;
 import java.util.List;
 
 public class World {
@@ -29,12 +30,13 @@ public class World {
     private static SpriteBatch batch;
     private static BitmapFont font;
     private static Assets assets;
+    private static ItemsContainer itemsContainer;
 
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets) {
+    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets,ItemsContainer itemsContainer) {
         World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
@@ -42,6 +44,7 @@ public class World {
         World.worldHeight = worldHeight;
         World.font = font;
         World.assets = assets;
+        World.itemsContainer = itemsContainer;
     }
 
     public static Tile getTileByPosition(int position) {
@@ -147,5 +150,9 @@ public class World {
 
     public static Assets getAssets() {
         return assets;
+    }
+
+    public static ItemsContainer getItemsContainer() {
+        return itemsContainer;
     }
 }

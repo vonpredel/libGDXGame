@@ -2,6 +2,7 @@ package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.inventory.Inventory;
 
 public abstract class Item {
 
@@ -56,7 +57,8 @@ public abstract class Item {
         this.y = y;
     }
 
-    public void moveToInventory() {
+    public void moveToInventory(Inventory inventory) {
+        inventory.getItems().add(this);
         isDropped = false;
     }
 

@@ -40,5 +40,8 @@ public class PlayerController {
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             player.attackRight();
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.pickUpItems();
+        }
     }
 }
