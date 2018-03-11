@@ -91,8 +91,6 @@ public class Inventory {
         this.equipedArmor = noArmor;
     }
 
-
-
     public Armor getEquipedArmor() {
         return equipedArmor;
     }

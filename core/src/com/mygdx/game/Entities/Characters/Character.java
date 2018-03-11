@@ -59,10 +59,6 @@ public abstract class Character extends Entity {
         }
     }
 
-    private void die() {
-        World.removeEntity(this);
-    }
-
     public void attackUp() {
         attack(World.getTargetDirectionTile(this, World.UP));
     }
@@ -81,22 +77,22 @@ public abstract class Character extends Entity {
 
     private void attack(Tile tile) {
         if (!isAttacking && World.isTileOccupied(tile)) {
+            Character targetCharacter = World.getCharacterFromTile(tile);
+            if (!(targetCharacter instanceof Character)) return;
             isAttacking = true;
-            Character characterFromTile = World.getCharacterFromTile(tile);
             int damage;
             if(!(MathUtils.random(1,100) <= this.getInventory().getEquipedWeapon().getAccuracy())) damage = 0;
             else {
                 damage = MathUtils.random(this.getInventory().getEquipedWeapon().getMinDamage(),
                         this.getInventory().getEquipedWeapon().getMaxDamage());
                 damage = (MathUtils.random(1,100) <= this.getInventory().getEquipedWeapon().getCritChance() ? damage*2 : damage)
-                        - characterFromTile.getInventory().getEquipedArmor().getDefence();
-                damage = (damage<0) ? 0 : damage;
+                        - targetCharacter.getInventory().getEquipedArmor().getDefence();
+                damage = Math.max(0,damage);
             }
-
-            characterFromTile.hurt(damage);
-            characterFromTile.isDamaged = true;
-            characterFromTile.damageGot = damage;
-            characterFromTile.cleanDamageTimerHelper = 0f;
+            targetCharacter.hurt(damage);
+            targetCharacter.isDamaged = true;
+            targetCharacter.damageGot = damage;
+            targetCharacter.cleanDamageTimerHelper = 0f;
             attackTimeHelper = 0;
         }
     }
@@ -111,7 +107,10 @@ public abstract class Character extends Entity {
     public void update() {
         moveUpdate();
         attackUpdate();
+        ai();
     }
+
+    protected abstract void ai();
 
     private void attackUpdate() {
             attackTimeHelper += Gdx.graphics.getDeltaTime();

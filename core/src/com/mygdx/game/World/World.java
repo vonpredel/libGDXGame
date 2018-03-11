@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.Constants;
@@ -88,8 +89,19 @@ public class World {
     public static Character getCharacterFromTile(Tile tile) {
         if (isTileOccupied(tile)) {
             for (Entity e : entityList) {
-                if (e.getCurrentTile().equals(tile)) {
+                if (e instanceof Character && e.getCurrentTile().equals(tile)) {
                     return (Character) e;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Static getStaticFromTile(Tile tile) {
+        if (isTileOccupied(tile)) {
+            for (Entity e : entityList) {
+                if (e instanceof Static && e.getCurrentTile().equals(tile)) {
+                    return (Static) e;
                 }
             }
         }

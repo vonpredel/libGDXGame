@@ -23,4 +23,9 @@ public class Player extends Character {
         this.getInventory().startingEquipment();
         this.getInventory().equipWeapon(this.getInventory().getWeapons().get(0));
     }
+
+    @Override
+    protected void ai() {
+
+    }
 }

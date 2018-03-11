@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Control.PlayerController;
-import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.CameraController;
+import com.mygdx.game.Utils.ItemsContainer;
 import com.mygdx.game.Utils.Timer;
 import com.mygdx.game.World.World;
 import com.mygdx.game.World.ZoneGenerator;
@@ -32,6 +32,7 @@ public class Game extends ApplicationAdapter {
 	private Assets assets;
 	private PlayerController playerController;
 	private CameraController cameraController;
+	private ItemsContainer itemsContainer;
 	private Timer timer;
 	private ZoneGenerator zoneGenerator;
 	private ZoneRenderer zoneRenderer;
@@ -62,6 +63,7 @@ public class Game extends ApplicationAdapter {
 		font = new BitmapFont();
 		playerController = new PlayerController(player,foe);
 		cameraController = new CameraController(batch,player);
+		itemsContainer = new ItemsContainer(entities);
         timer = new Timer();
 		zoneGenerator = new ZoneGenerator(assets);
 		Zone zone = null;
@@ -85,12 +87,12 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 		zoneRenderer.renderZone();
+		itemsContainer.draw(batch);
 		entities.forEach(e->e.draw(batch,font));
 		batch.end();
 	}
 
 	private void update() {
-		foe.ai();
 		if(Gdx.input.isKeyPressed(Input.Keys.O)) {
 			cameraController.focusOn(foe);
 		}
@@ -112,6 +114,7 @@ public class Game extends ApplicationAdapter {
         playerController.update();
         cameraController.update();
         timer.update(entities);
+        itemsContainer.update();
     }
 
 

@@ -10,4 +10,8 @@ public abstract class Static extends Entity {
         return false;
     }
 
+    @Override
+    public void update() {
+
+    }
 }

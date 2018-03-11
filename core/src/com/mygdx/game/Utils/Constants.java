@@ -12,6 +12,8 @@ public final class Constants {
     public static final int DEFAULT_TILE_WIDTH = 64;
     public static final int DEFAULT_TILE_HEIGHT = 64;
     public static final int DEFAULT_MAX_HEALT_POINTS = 10;
+    public static final int DEFAULT_ITEM_WIDTH = 64;
+    public static final int DEFAULT_ITEM_HEIGHT = 64;
 
     private Constants() {
     }

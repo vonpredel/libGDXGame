@@ -10,17 +10,20 @@ import com.mygdx.game.inventory.Inventory;
 public class Foe extends Character {
 
     public Foe(Assets assets) {
-        this.texture = assets.manager.get(AssetsConstants.TEMP_PLAYER, Texture.class);
+        this.texture = assets.manager.get(AssetsConstants.TEMP_FOE, Texture.class);
         this.width = texture.getWidth()/4;
         this.height = texture.getHeight()/4;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED/5;
         this.x = 1024;
         this.y = 1024;
-        this.maxHealthPoints = 100;
+        this.maxHealthPoints = 20;
         this.currentHealthPoints = maxHealthPoints;
         this.inventory = new Inventory();
+        // TEST EQ
+        this.getInventory().startingEquipment();
     }
 
+    @Override
     public void ai() {
         if(!isMoving) {
             int i = MathUtils.random(1,4);

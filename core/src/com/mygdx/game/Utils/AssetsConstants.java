@@ -7,7 +7,8 @@ public final class AssetsConstants {
     public static final String WATER_DIR = "water/water";
     public static final String GRASS_DIR = "grass/grass";
     public static final String WALL_DIR = "misc/sciana";
-    public static final String TEMP_PLAYER = "misc/badlogic.jpg";
+    public static final String TEMP_PLAYER = "misc/player.png";
+    public static final String TEMP_FOE = "misc/badlogic.jpg";
     public static final String DAMAGE = "misc/damage.png";
 
     private AssetsConstants() {
