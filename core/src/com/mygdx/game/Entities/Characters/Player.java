@@ -39,4 +39,9 @@ public class Player extends Character {
             }
         });
     }
+
+    @Override
+    protected void die() {
+        System.out.println("YOU'RE DEAD");
+    }
 }

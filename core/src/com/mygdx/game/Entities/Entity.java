@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
@@ -54,6 +55,16 @@ public abstract class Entity extends Rectangle {
     protected void dropEquipment() {
         Tile tile = getCurrentTile();
         getInventory().getItems().forEach(i -> i.generateOnMap(tile.x,tile.y));
+    }
+
+    protected void dropAllItems() {
+        getInventory().getItems().forEach(this::dropItem);
+    }
+
+    public void dropItem(Item item) {
+        Tile tile = getCurrentTile();
+        item.generateOnMap(tile.x,tile.y);
+        getInventory().getItems().remove(item);
     }
 
     public Texture getTexture() {

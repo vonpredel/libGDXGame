@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Entity;
 
-public class CameraController {
+public class CameraHandler {
 
     private OrthographicCamera camera;
     private SpriteBatch batch;
     private Entity entity;
 
-    public CameraController(SpriteBatch batch, Character initialEntity) {
+    public CameraHandler(SpriteBatch batch, Character initialEntity) {
         this.camera = new OrthographicCamera(Constants.DEFAULT_RESOLUTION_WIDTH,Constants.DEFAULT_RESOLUTION_HEIGHT);
         this.batch = batch;
         this.entity = initialEntity;

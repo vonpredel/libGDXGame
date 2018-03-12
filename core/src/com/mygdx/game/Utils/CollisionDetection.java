@@ -1,4 +1,4 @@
-package com.mygdx.game.Control;
+package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Entities.Characters.Character;

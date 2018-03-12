@@ -52,8 +52,8 @@ public class World {
     }
 
     public static int getCurrentEntityPosition(Entity entity) {
-        float xPosition = entity.x / Constants.DEFAULT_TILE_WIDTH;
-        float yPosition = entity.y / Constants.DEFAULT_TILE_HEIGHT;
+        float xPosition = Math.round(entity.x / Constants.DEFAULT_TILE_WIDTH);
+        float yPosition = Math.round(entity.y / Constants.DEFAULT_TILE_HEIGHT);
         float position = xPosition + (yPosition * worldWidth);
         return (int) position;
     }

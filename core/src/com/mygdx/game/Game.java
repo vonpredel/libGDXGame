@@ -10,9 +10,11 @@ import com.mygdx.game.Control.PlayerController;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Graphics.AbstractGUI;
+import com.mygdx.game.Graphics.InventoryGUI;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
-import com.mygdx.game.Utils.CameraController;
+import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Utils.ItemsContainer;
 import com.mygdx.game.Utils.Timer;
 import com.mygdx.game.World.World;
@@ -31,7 +33,7 @@ public class Game extends ApplicationAdapter {
 	private Foe foe;
 	private Assets assets;
 	private PlayerController playerController;
-	private CameraController cameraController;
+	private CameraHandler cameraHandler;
 	private ItemsContainer itemsContainer;
 	private Timer timer;
 	private ZoneGenerator zoneGenerator;
@@ -63,8 +65,8 @@ public class Game extends ApplicationAdapter {
 	private void loadData()  {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
-		playerController = new PlayerController(player,foe);
-		cameraController = new CameraController(batch,player);
+		playerController = new PlayerController(player);
+		cameraHandler = new CameraHandler(batch,player);
 		itemsContainer = new ItemsContainer(entities);
         timer = new Timer();
 		zoneGenerator = new ZoneGenerator(assets);
@@ -75,7 +77,6 @@ public class Game extends ApplicationAdapter {
 			e.printStackTrace();
 		}
 		zoneRenderer = new ZoneRenderer(zone,batch);
-
     }
 
 	private void worldInit() {
@@ -91,39 +92,46 @@ public class Game extends ApplicationAdapter {
 		zoneRenderer.renderZone();
 		itemsContainer.draw(batch);
 		entities.forEach(e->e.draw(batch,font));
+		playerController.draw(batch,font);
 		batch.end();
 	}
 
 	private void update() {
 		if(isDebug) {
 			if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-				cameraController.focusOn(foe);
+				cameraHandler.focusOn(foe);
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-				cameraController.focusOn(player);
+				cameraHandler.focusOn(player);
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.K)) {
-				cameraController.zoomIn();
+				cameraHandler.zoomIn();
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.L)) {
-				cameraController.zoomOut();
+				cameraHandler.zoomOut();
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.N)) {
-				cameraController.rotateCameraLeft();
+				cameraHandler.rotateCameraLeft();
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.M)) {
-				cameraController.rotateCameraRight();
+				cameraHandler.rotateCameraRight();
 			}
-			if(Gdx.input.isKeyPressed(Input.Keys.U)) {
+			if(Gdx.input.isKeyJustPressed(Input.Keys.U)) {
 				System.out.println("/");
 				System.out.println("/");
 				System.out.println("/");
 				System.out.println("/");
 				player.getInventory().getItems().forEach(i -> System.out.println(i.getName()));
 			}
+			//TEMP TEMP TEMP
+			if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
+				if(!player.getInventory().getItems().isEmpty()) {
+					player.dropItem(player.getInventory().getItems().get(0));
+				}
+			}
 		}
         playerController.update();
-        cameraController.update();
+        cameraHandler.update();
         timer.update(entities);
         itemsContainer.update();
     }

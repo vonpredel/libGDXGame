@@ -10,6 +10,7 @@ public final class AssetsConstants {
     public static final String TEMP_PLAYER = "misc/player.png";
     public static final String TEMP_FOE = "misc/badlogic.jpg";
     public static final String DAMAGE = "misc/damage.png";
+    public static final String INVENTORY = "misc/eq.png";
 
     private AssetsConstants() {
 

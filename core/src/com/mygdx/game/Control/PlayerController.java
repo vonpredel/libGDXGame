@@ -2,20 +2,73 @@ package com.mygdx.game.Control;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Player;
-import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Graphics.AbstractGUI;
+import com.mygdx.game.Graphics.CharacterPanelGUI;
+import com.mygdx.game.Graphics.InventoryGUI;
+import com.mygdx.game.Graphics.MenuGUI;
+import com.mygdx.game.Graphics.QuickInfoGUI;
+import com.mygdx.game.World.World;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerController {
 
-    Player player;
-    Entity entity;
+    private static final int DEFAULT_STATE = 1;
+    private static final int INVENTORY_STATE = 2;
+    private static final int MENU_STATE = 3;
+    private static final int CHARACTER_PANEL_STATE = 4;
 
-    public PlayerController(Player player, Entity entity) {
+    Player player;
+    private int state;
+    private CharacterPanelGUI characterPanelGUI;
+    private InventoryGUI inventoryGUI;
+    private QuickInfoGUI quickInfoGUI;
+    private MenuGUI menuGUI;
+    private List<AbstractGUI> guiList;
+
+    public PlayerController(Player player) {
         this.player = player;
-        this.entity = entity;
+        this.characterPanelGUI = new CharacterPanelGUI(player);
+        this.inventoryGUI = new InventoryGUI(player);
+        this.menuGUI = new MenuGUI(player);
+        this.quickInfoGUI = new QuickInfoGUI(player);
+        guiList = new ArrayList<>();
+        guiList.add(characterPanelGUI);
+        guiList.add(inventoryGUI);
+        guiList.add(menuGUI);
+        guiList.add(quickInfoGUI);
+        this.state = 1;
     }
 
     public void update() {
+        movementControls();
+        switch (state) {
+            case 1:
+                defaultControls();
+                break;
+            case 2:
+                inventoryControls();
+                break;
+            case 3:
+                menuControls();
+                break;
+            case 4:
+                characterPanelControls();
+                break;
+            default:
+                defaultControls();
+        }
+        guiList.forEach(AbstractGUI::update);
+    }
+
+    public void draw(SpriteBatch batch, BitmapFont font) {
+        guiList.forEach(g -> g.draw(batch,font));
+    }
+
+    private void movementControls() {
         if(Gdx.input.isKeyPressed(Input.Keys.W)) {
             player.moveUp();
         }
@@ -28,6 +81,9 @@ public class PlayerController {
         if(Gdx.input.isKeyPressed(Input.Keys.D)) {
             player.moveRight();
         }
+    }
+
+    private void defaultControls() {
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
             player.attackUp();
         }
@@ -43,5 +99,32 @@ public class PlayerController {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             player.pickUpItems();
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+            inventoryGUI.isEnabled = true;
+            state = INVENTORY_STATE;
+        }
+    }
+
+    private void inventoryControls() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            inventoryGUI.isEnabled = false;
+            state = DEFAULT_STATE;
+        }
+    }
+
+    private void menuControls() {
+
+    }
+
+    private void characterPanelControls() {
+
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

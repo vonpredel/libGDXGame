@@ -12,7 +12,7 @@ public class ItemsContainer {
 
     public ItemsContainer(List<Entity> entities) {
         allItems = new ArrayList<>();
-        entities.forEach(e -> e.getInventory().getItems().forEach(allItems::add));
+        entities.forEach(e -> allItems.addAll(e.getInventory().getItems()));
     }
 
     public void update() {
