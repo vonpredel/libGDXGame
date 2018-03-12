@@ -12,6 +12,7 @@ import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
 import com.mygdx.game.World.World;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerController {
@@ -35,6 +36,7 @@ public class PlayerController {
         this.inventoryGUI = new InventoryGUI(player);
         this.menuGUI = new MenuGUI(player);
         this.quickInfoGUI = new QuickInfoGUI(player);
+        quickInfoGUI.isEnabled = true;
         guiList = new ArrayList<>();
         guiList.add(characterPanelGUI);
         guiList.add(inventoryGUI);
@@ -103,6 +105,15 @@ public class PlayerController {
             inventoryGUI.isEnabled = true;
             state = INVENTORY_STATE;
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
+            characterPanelGUI.isEnabled = true;
+            state = CHARACTER_PANEL_STATE;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            menuGUI.isEnabled = true;
+            state = MENU_STATE;
+        }
+
     }
 
     private void inventoryControls() {
@@ -112,12 +123,18 @@ public class PlayerController {
         }
     }
 
-    private void menuControls() {
-
+    private void characterPanelControls() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            characterPanelGUI.isEnabled = false;
+            state = DEFAULT_STATE;
+        }
     }
 
-    private void characterPanelControls() {
-
+    private void menuControls() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            menuGUI.isEnabled = false;
+            state = DEFAULT_STATE;
+        }
     }
 
     public int getState() {
