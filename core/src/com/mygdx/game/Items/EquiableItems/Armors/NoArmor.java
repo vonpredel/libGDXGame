@@ -6,11 +6,11 @@ import com.mygdx.game.Items.EquiableItems.EquiableItem;
 public class NoArmor extends Armor {
 
     public NoArmor() {
-        this("No Armor",0f,false,Armor.class,0,0,0);
+        this("No Armor",0f,false,0,0,0);
         this.texture = new Texture("items/noArmor.png");
     }
 
-    public NoArmor(String name, float weight, boolean stackable, Class<? extends EquiableItem> classType, int armorClass, int defence, int movementSpeedReduction) {
-        super(name, weight, stackable, classType, armorClass, defence, movementSpeedReduction);
+    public NoArmor(String name, float weight, boolean stackable, int armorClass, int defence, int movementSpeedReduction) {
+        super(name, weight, stackable, armorClass, defence, movementSpeedReduction);
     }
 }

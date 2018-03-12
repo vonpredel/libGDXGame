@@ -10,8 +10,8 @@ public abstract class Weapon extends EquiableItem {
     protected float speed;
     protected int critChance;
 
-    public Weapon(String name, float weight, boolean stackable, Class<? extends EquiableItem> classType, int minDamage, int maxDamage, int accuracy, float speed, int critChance) {
-        super(name, weight, stackable, classType);
+    public Weapon(String name, float weight, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance) {
+        super(name, weight, stackable);
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
         this.accuracy = accuracy;

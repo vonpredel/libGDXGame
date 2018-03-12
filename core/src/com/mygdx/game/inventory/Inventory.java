@@ -98,4 +98,12 @@ public class Inventory {
     public Weapon getEquipedWeapon() {
         return equipedWeapon;
     }
+
+    public void setEquipedArmor(Armor equipedArmor) {
+        this.equipedArmor = equipedArmor;
+    }
+
+    public void setEquipedWeapon(Weapon equipedWeapon) {
+        this.equipedWeapon = equipedWeapon;
+    }
 }

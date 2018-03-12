@@ -34,8 +34,7 @@ public class Player extends Character {
         World.getItemsContainer().getAllItems().forEach(item -> {
             if(item.isDropped()) {
                 if(item.x == x && item.y == y) {
-                    getInventory().getItems().add(item);
-                    item.setDropped(false);
+                    item.moveToInventory(this.getInventory());
                 }
             }
         });

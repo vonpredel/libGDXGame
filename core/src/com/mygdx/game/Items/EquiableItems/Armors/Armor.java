@@ -12,8 +12,8 @@ public abstract class Armor extends EquiableItem {
     protected int defence;
     protected int movementSpeedReduction;
 
-    public Armor(String name, float weight, boolean stackable, Class<? extends EquiableItem> classType, int armorClass, int defence, int movementSpeedReduction) {
-        super(name, weight, stackable, classType);
+    public Armor(String name, float weight, boolean stackable, int armorClass, int defence, int movementSpeedReduction) {
+        super(name, weight, stackable);
         this.armorClass = armorClass;
         this.defence = defence;
         this.movementSpeedReduction = movementSpeedReduction;
