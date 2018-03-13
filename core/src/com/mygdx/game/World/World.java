@@ -113,7 +113,7 @@ public class World {
 
     public static boolean isAbleToGo(Entity entity, int direction) {
         Tile tile = World.getTargetDirectionTile(entity, direction);
-        return tile != null && !tile.isSolid() &&!isTileOccupied(tile);
+        return tile != null && !tile.isSolid() && !isTileOccupied(tile);
     }
 
     public static void addEntity(Entity entity) {

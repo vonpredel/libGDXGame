@@ -10,9 +10,7 @@ import com.mygdx.game.Graphics.CharacterPanelGUI;
 import com.mygdx.game.Graphics.InventoryGUI;
 import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
-import com.mygdx.game.World.World;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class PlayerController {
@@ -117,9 +115,21 @@ public class PlayerController {
     }
 
     private void inventoryControls() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.I) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             inventoryGUI.isEnabled = false;
             state = DEFAULT_STATE;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            inventoryGUI.listDown();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            inventoryGUI.listUp();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            inventoryGUI.enterMenu();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            inventoryGUI.returnMenu();
         }
     }
 

@@ -1,7 +1,6 @@
 package com.mygdx.game.Items.EquiableItems.Weapons;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Items.EquiableItems.EquiableItem;
 
 public class NoWeapon extends Weapon {
 

@@ -1,8 +1,8 @@
 package com.mygdx.game.Items.EquiableItems.Weapons;
 
-import com.mygdx.game.Items.EquiableItems.EquiableItem;
+import com.mygdx.game.Items.Item;
 
-public abstract class Weapon extends EquiableItem {
+public abstract class Weapon extends Item {
 
     protected int minDamage;
     protected int maxDamage;

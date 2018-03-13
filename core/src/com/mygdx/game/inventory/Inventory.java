@@ -2,7 +2,6 @@ package com.mygdx.game.inventory;
 
 import com.mygdx.game.Items.EquiableItems.Armors.Armor;
 import com.mygdx.game.Items.EquiableItems.Armors.NoArmor;
-import com.mygdx.game.Items.EquiableItems.EquiableItem;
 import com.mygdx.game.Items.EquiableItems.Weapons.NoWeapon;
 import com.mygdx.game.Items.EquiableItems.Weapons.Sword;
 import com.mygdx.game.Items.EquiableItems.Weapons.Weapon;
@@ -34,7 +33,7 @@ public class Inventory {
         items.add(new Sword());
     }
 
-    private <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
+    public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
         return items.stream().filter(item -> itemClass
                 .isAssignableFrom(item.getClass()))
                 .map(itemClass::cast)
@@ -49,9 +48,6 @@ public class Inventory {
     }
     public List<MiscellaneousItem> getMiscellaneousItems() {
         return getSpecifiedItems(MiscellaneousItem.class);
-    }
-    public List<EquiableItem> getEquiableItems() {
-        return getSpecifiedItems(EquiableItem.class);
     }
     public List<Armor> getArmors() {
         return getSpecifiedItems(Armor.class);
