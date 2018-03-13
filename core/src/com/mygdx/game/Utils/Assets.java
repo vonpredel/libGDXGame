@@ -2,6 +2,7 @@ package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,6 +17,10 @@ public class Assets implements Disposable {
 
     public final AssetManager manager = new AssetManager();
 
+    public Assets() {
+        this.manager.setLoader(TextFile.class, new TextFileAssetLoader(new InternalFileHandleResolver()));
+    }
+
     private Class<? extends Disposable> determineClassFromExtension(final String fileName) {
         final String extension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
         switch (extension) {
@@ -29,6 +34,9 @@ public class Assets implements Disposable {
             }
             case ".ogg": {
                 return Sound.class;
+            }
+            case ".csv": {
+                return TextFile.class;
             }
         }
         return null;

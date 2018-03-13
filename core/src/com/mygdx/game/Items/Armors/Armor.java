@@ -1,8 +1,8 @@
-package com.mygdx.game.Items.EquiableItems.Armors;
+package com.mygdx.game.Items.Armors;
 
 import com.mygdx.game.Items.Item;
 
-public abstract class Armor extends Item {
+public class Armor extends Item {
 
     private static final int lightArmor = 1;
     private static final int mediumArmor = 2;

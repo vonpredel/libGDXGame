@@ -18,6 +18,10 @@ public class Foe extends Character {
         this.y = 1024;
         this.maxHealthPoints = 20;
         this.currentHealthPoints = maxHealthPoints;
+    }
+
+    @Override
+    public void initializeInventory() {
         this.inventory = new Inventory();
         // TEST EQ
         this.getInventory().startingEquipment();

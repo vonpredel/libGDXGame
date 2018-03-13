@@ -43,14 +43,12 @@ public abstract class Entity extends Rectangle {
         }
     }
 
+    public abstract void initializeInventory();
+
     protected void die() {
         World.removeEntity(this);
         dropEquipment();
     }
-
-//    protected void drop() {
-//        final List<Item> items = inventory.getItems();
-//    }
 
     protected void dropEquipment() {
         Tile tile = getCurrentTile();

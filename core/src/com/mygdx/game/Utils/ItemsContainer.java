@@ -10,9 +10,8 @@ public class ItemsContainer {
 
     List<Item> allItems;
 
-    public ItemsContainer(List<Entity> entities) {
+    public ItemsContainer() {
         allItems = new ArrayList<>();
-        entities.forEach(e -> allItems.addAll(e.getInventory().getItems()));
     }
 
     public void update() {

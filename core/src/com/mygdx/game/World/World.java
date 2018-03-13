@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Character;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.Statics.Static;
+import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.Constants;
@@ -32,11 +33,13 @@ public class World {
     private static Assets assets;
     private static ItemsContainer itemsContainer;
 
+    private static ItemsManager itemsManager;
+
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets,ItemsContainer itemsContainer) {
+    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets,ItemsContainer itemsContainer,ItemsManager itemsManager) {
         World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
@@ -45,6 +48,7 @@ public class World {
         World.font = font;
         World.assets = assets;
         World.itemsContainer = itemsContainer;
+        World.itemsManager = itemsManager;
     }
 
     public static Tile getTileByPosition(int position) {
@@ -154,5 +158,9 @@ public class World {
 
     public static ItemsContainer getItemsContainer() {
         return itemsContainer;
+    }
+
+    public static ItemsManager getItemsManager() {
+        return itemsManager;
     }
 }

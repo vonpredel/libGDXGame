@@ -1,6 +1,7 @@
 package com.mygdx.game.Entities.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.Items.ItemType;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
@@ -19,6 +20,10 @@ public class Player extends Character {
         this.y = 512;
         this.maxHealthPoints = Constants.DEFAULT_MAX_HEALTH_POINTS;
         this.currentHealthPoints = maxHealthPoints;
+    }
+
+    @Override
+    public void initializeInventory() {
         this.inventory = new Inventory();
         // TEMP EQUIP
         this.getInventory().startingEquipment();

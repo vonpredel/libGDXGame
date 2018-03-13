@@ -10,8 +10,7 @@ import com.mygdx.game.Control.PlayerController;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Graphics.AbstractGUI;
-import com.mygdx.game.Graphics.InventoryGUI;
+import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Utils.Assets;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.Utils.CameraHandler;
@@ -39,6 +38,7 @@ public class Game extends ApplicationAdapter {
 	private ZoneGenerator zoneGenerator;
 	private ZoneRenderer zoneRenderer;
 	private List<Entity> entities;
+	private ItemsManager itemsManager;
 
 	private boolean isDebug = true;
 
@@ -65,9 +65,11 @@ public class Game extends ApplicationAdapter {
 	private void loadData()  {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
+		itemsContainer = new ItemsContainer();
+		this.itemsManager = new ItemsManager(this.assets, itemsContainer);
+		this.itemsManager.loadDefinitions();
 		playerController = new PlayerController(player);
 		cameraHandler = new CameraHandler(batch,player);
-		itemsContainer = new ItemsContainer(entities);
         timer = new Timer();
 		zoneGenerator = new ZoneGenerator(assets);
 		Zone zone = null;
@@ -80,7 +82,8 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer);
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer,itemsManager);
+		entities.forEach(Entity::initializeInventory);
 	}
 
 	@Override

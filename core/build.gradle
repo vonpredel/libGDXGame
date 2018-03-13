@@ -1,6 +1,6 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.8
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
@@ -8,4 +8,65 @@ sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project {
     name = appName + "-core"
+}
+
+task generateItems(type: MyTask) {
+
+}
+
+class MyTask extends DefaultTask {
+
+    def fileMap = [
+            'core/assets/data/weapons.csv':'Weapon.class',
+            'core/assets/data/armors.csv':'Armor.class',
+            'core/assets/data/usableitems.csv':'UsableItem.class',
+            'core/assets/data/questitems.csv':'QuestItem.class',
+            'core/assets/data/miscellaneousitems.csv':'MiscellaneousItem.class'
+    ]
+
+    @TaskAction
+    def runTask() {
+        def classFile = new StringBuilder()
+        classFile.append 'package com.mygdx.game.Items;\n'
+        classFile.append 'import com.mygdx.game.Items.Armors.Armor;\n'
+        classFile.append 'import com.mygdx.game.Items.Weapons.Weapon;\n'
+        classFile.append 'import com.mygdx.game.Items.QuestItems.QuestItem;\n'
+        classFile.append 'import com.mygdx.game.Items.UsableItems.UsableItem;\n'
+        classFile.append 'import com.mygdx.game.Items.MiscellaneousItems.MiscellaneousItem;\n'
+        classFile.append '\n'
+        classFile.append 'public enum ItemType {\n'
+
+        def actualEnums = []
+        fileMap.each { k, v ->
+            def file = new File(k).text
+            def enums = file.split("\\n").collect { l ->
+                def line = l.split ','
+                line[0].toUpperCase().replace ' ', '_'
+            }
+
+            actualEnums += enums.collect { e ->
+                "\t" + e + '(' + v + ')'
+            }
+        }
+        //println actualEnums
+        classFile.append actualEnums.join(',\n')
+        classFile.append ';\n\n'
+
+        classFile.append '    private final Class<? extends Item> cls;\n'
+        classFile.append '\n'
+        classFile.append '    private ItemType(Class<? extends Item> cls) {\n'
+        classFile.append '        this.cls = cls;\n'
+        classFile.append '    }\n'
+        classFile.append '\n'
+        classFile.append '    public Class<? extends Item> getCls() {\n'
+        classFile.append '        return cls;\n'
+        classFile.append '    }'
+        classFile.append '\n}'
+
+        def contents = classFile.toString()
+
+        def srcFile = new File('core\\src\\com\\mygdx\\game\\Items\\ItemType.java')
+        srcFile.write contents
+    }
+
 }

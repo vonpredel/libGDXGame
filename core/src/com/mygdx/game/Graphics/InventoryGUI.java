@@ -4,8 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Characters.Player;
-import com.mygdx.game.Items.EquiableItems.Armors.Armor;
-import com.mygdx.game.Items.EquiableItems.Weapons.Weapon;
+import com.mygdx.game.Items.Weapons.Weapon;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.AssetsConstants;
 import com.mygdx.game.inventory.Inventory;
@@ -31,7 +30,6 @@ public class InventoryGUI extends AbstractGUI {
     private int menuSize = categoryList.length-1;
     private int itemsSize;
 
-    private Inventory inventory;
     private List<? extends Item> list;
 
     public InventoryGUI(Player player) {
@@ -41,14 +39,16 @@ public class InventoryGUI extends AbstractGUI {
         this.width = texture.getWidth();
         this.height = texture.getHeight();
         this.player = player;
-        inventory = player.getInventory();
         list = new ArrayList<>();
     }
 
     @Override
     public void draw(SpriteBatch batch, BitmapFont font) {
+        final Inventory inventory = player.getInventory();
         super.draw(batch, font);
         if(isEnabled) {
+            font.draw(batch,"CURRENT WEAPON : " + inventory.getEquipedWeapon().getName(),player.x-250,player.y -50);
+            font.draw(batch,"CURRENT ARMOR : " + inventory.getEquipedArmor().getName(),player.x-250,player.y - 100);
             if(!inside) {
                 int offSet = space * selectedMenu;
                 drawSelectors(batch,font,offSet);
@@ -66,18 +66,17 @@ public class InventoryGUI extends AbstractGUI {
                 itemsSize = list.size()-1;
                 int offSet = space * selectedItem;
                 drawSelectors(batch,font,offSet);
+                font.draw(batch,categoryList[selectedMenu],player.x - 50,player.y + 50);
                 for (int i = 0; i < list.size(); i++) {
                     font.draw(batch, list.get(i).getName(), player.x, player.y - space * i);
                 }
             }
-
         }
-
     }
 
     private void drawSelectors(SpriteBatch batch, BitmapFont font, int offSet) {
         font.draw(batch,"<",player.x + space*3,player.y - offSet);
-        font.draw(batch,"> ",player.x - space,player.y - offSet);
+        font.draw(batch,">",player.x - space,player.y - offSet);
     }
 
     public void listDown() {
@@ -103,11 +102,21 @@ public class InventoryGUI extends AbstractGUI {
     }
 
     public void enterMenu() {
-        if (!inside) inside = true;
+        if (!inside) {
+            inside = true;
+            selectedItem = 0;
+        }
         else {
-            if(selectedMenu == 0) {
+            final Inventory inventory = player.getInventory();
+            if(selectedMenu == WEAPON_CLASS_ENUM) {
                 inventory.equipWeapon((Weapon) list.get(selectedItem));
-            } else if (selectedMenu == 1) {
+            } else if (selectedMenu == ARMOR_CLASS_ENUM) {
+//                inventory.equipArmor((Armor) list.get(selectedItem));
+            } else if (selectedMenu == USABLE_CLASS_ENUM) {
+//                inventory.equipArmor((Armor) list.get(selectedItem));
+            } else if (selectedMenu == QUEST_CLASS_ENUM) {
+//                inventory.equipArmor((Armor) list.get(selectedItem));
+            } else if (selectedMenu == MISCELLANEOUS_CLASS_ENUM) {
 //                inventory.equipArmor((Armor) list.get(selectedItem));
             }
         }

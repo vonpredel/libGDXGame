@@ -1,22 +1,22 @@
 package com.mygdx.game.inventory;
 
-import com.mygdx.game.Items.EquiableItems.Armors.Armor;
-import com.mygdx.game.Items.EquiableItems.Armors.NoArmor;
-import com.mygdx.game.Items.EquiableItems.Weapons.NoWeapon;
-import com.mygdx.game.Items.EquiableItems.Weapons.Sword;
-import com.mygdx.game.Items.EquiableItems.Weapons.Weapon;
+import com.mygdx.game.Items.Armors.Armor;
+import com.mygdx.game.Items.ItemType;
+import com.mygdx.game.Items.ItemsManager;
+import com.mygdx.game.Items.Weapons.Weapon;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.MiscellaneousItems.MiscellaneousItem;
 import com.mygdx.game.Items.QuestItems.QuestItem;
 import com.mygdx.game.Items.UsableItems.UsableItem;
+import com.mygdx.game.World.World;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Inventory {
 
-    private static final NoArmor noArmor = new NoArmor();
-    private static final NoWeapon noWeapon = new NoWeapon();
+    private static final Armor noArmor = World.getItemsManager().create(ItemType.NO_ARMOR);
+    private static final Weapon noWeapon = World.getItemsManager().create(ItemType.NO_WEAPON);
 
     private Armor equipedArmor;
     private Weapon equipedWeapon;
@@ -30,7 +30,10 @@ public class Inventory {
     }
 
     public void startingEquipment() {
-        items.add(new Sword());
+        items.add(World.getItemsManager().create(ItemType.SWORD));
+        items.add(World.getItemsManager().create(ItemType.MISCE_MISCE));
+        items.add(World.getItemsManager().create(ItemType.QUEST_QUEST));
+        items.add(World.getItemsManager().create(ItemType.USABLE_USABLE));
     }
 
     public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
@@ -60,18 +63,12 @@ public class Inventory {
     }
 
     public void equipWeapon(Weapon weapon) {
-        if(equipedWeapon.equals(weapon)) {
-            return;
-        }
         items.add(equipedWeapon);
         this.equipedWeapon = weapon;
         items.remove(weapon);
     }
 
     public void equipArmor(Armor armor) {
-        if(equipedArmor.equals(armor)) {
-            return;
-        }
         items.add(equipedArmor);
         this.equipedArmor = armor;
         items.remove(armor);
@@ -80,11 +77,13 @@ public class Inventory {
     public void uNequipWeapon() {
         items.add(equipedWeapon);
         this.equipedWeapon = noWeapon;
+        items.remove(noWeapon);
     }
 
     public void uNequipArmor() {
         items.add(equipedArmor);
         this.equipedArmor = noArmor;
+        items.remove(noWeapon);
     }
 
     public Armor getEquipedArmor() {
@@ -95,11 +94,11 @@ public class Inventory {
         return equipedWeapon;
     }
 
-    public void setEquipedArmor(Armor equipedArmor) {
-        this.equipedArmor = equipedArmor;
+    public void setEquipedArmor(Armor armor) {
+        this.equipedArmor = armor;
     }
 
-    public void setEquipedWeapon(Weapon equipedWeapon) {
-        this.equipedWeapon = equipedWeapon;
+    public void setEquipedWeapon(Weapon weapon) {
+        this.equipedWeapon = weapon;
     }
 }
