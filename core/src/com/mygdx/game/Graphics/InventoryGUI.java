@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Items.types.Armor;
+import com.mygdx.game.Items.types.UsableItem;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.assets.Assets;
@@ -123,7 +124,7 @@ public class InventoryGUI extends AbstractGUI {
             } else if (selectedMenu == ARMOR_CLASS_ENUM) {
                 if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
             } else if (selectedMenu == USABLE_CLASS_ENUM) {
-//                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
+                if(!list.isEmpty()) inventory.useItem((UsableItem) list.get(selectedItem),player);
             } else if (selectedMenu == QUEST_CLASS_ENUM) {
 //                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
             } else if (selectedMenu == MISCELLANEOUS_CLASS_ENUM) {

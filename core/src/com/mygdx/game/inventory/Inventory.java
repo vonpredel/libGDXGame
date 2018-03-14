@@ -1,5 +1,6 @@
 package com.mygdx.game.inventory;
 
+import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Items.types.Armor;
 import com.mygdx.game.Items.ItemType;
 import com.mygdx.game.Items.types.Weapon;
@@ -27,7 +28,9 @@ public class Inventory {
         items.add(World.getItemsManager().create(ItemType.SWORD));
         items.add(World.getItemsManager().create(ItemType.MISCE_MISCE));
         items.add(World.getItemsManager().create(ItemType.QUEST_QUEST));
-        items.add(World.getItemsManager().create(ItemType.USABLE_USABLE));
+        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
     }
 
     public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
@@ -66,6 +69,23 @@ public class Inventory {
         if(equipedArmor!=null) items.add(equipedArmor);
         this.equipedArmor = armor;
         items.remove(armor);
+    }
+
+    public void useItem(UsableItem usableItem, Character character) {
+        switch (usableItem.function) {
+            case 0:
+                character.setCurrentHealthPoints(character.getCurrentHealthPoints() + 5);
+                break;
+            case 1:
+                character.setCurrentHealthPoints(character.getCurrentHealthPoints() + 20);
+                break;
+            case 2:
+                character.setCurrentHealthPoints(character.getMaxHealthPoints());
+                break;
+        }
+        if(character.getCurrentHealthPoints() > character.getMaxHealthPoints())
+            character.setCurrentHealthPoints(character.getMaxHealthPoints());
+        items.remove(usableItem);
     }
 
 //    public void uNequipWeapon() {

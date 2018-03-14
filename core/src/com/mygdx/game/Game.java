@@ -87,7 +87,9 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer,itemsManager,cameraHandler);
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),
+				zoneGenerator.getHeight(),batch,font,assets,itemsContainer, itemsManager,
+				cameraHandler,player);
 		entities.forEach(e -> {
 			if(e instanceof Character) ((Character) e).initializeInventory();
 		});

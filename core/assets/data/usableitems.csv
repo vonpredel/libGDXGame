@@ -1,1 +1,3 @@
-Usable Usable,items/noArmor.png,1,true
+Minor Potion Of Health,items/noArmor.png,1,true,0
+Potion Of Health,items/noArmor.png,1,true,1
+Major Potion Of Health,items/noArmor.png,1,true,2

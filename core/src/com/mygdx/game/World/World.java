@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsManager;
@@ -36,12 +37,17 @@ public class World {
     private static ItemsContainer itemsContainer;
     private static CameraHandler cameraHandler;
     private static ItemsManager itemsManager;
+    private static Player player;
 
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets,ItemsContainer itemsContainer,ItemsManager itemsManager,CameraHandler cameraHandler) {
+    public static void init(List<Entity> entityList, List<Tile> tileList,
+                            int worldWidth, int worldHeight, SpriteBatch batch,
+                            BitmapFont font, Assets assets, ItemsContainer itemsContainer,
+                            ItemsManager itemsManager, CameraHandler cameraHandler,
+                            Player player) {
         World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
@@ -52,6 +58,7 @@ public class World {
         World.itemsContainer = itemsContainer;
         World.itemsManager = itemsManager;
         World.cameraHandler = cameraHandler;
+        World.player = player;
     }
 
     public static Tile getTileByPosition(int position) {
@@ -169,5 +176,9 @@ public class World {
 
     public static CameraHandler getCameraHandler() {
         return cameraHandler;
+    }
+
+    public static Player getPlayer() {
+        return player;
     }
 }

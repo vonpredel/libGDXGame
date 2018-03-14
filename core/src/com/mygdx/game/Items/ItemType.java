@@ -9,7 +9,9 @@ public enum ItemType {
 	SWORD(Weapon.class),
 	NO_WEAPON(Weapon.class),
 	NO_ARMOR(Armor.class),
-	USABLE_USABLE(UsableItem.class),
+	MINOR_POTION_OF_HEALTH(UsableItem.class),
+	POTION_OF_HEALTH(UsableItem.class),
+	MAJOR_POTION_OF_HEALTH(UsableItem.class),
 	QUEST_QUEST(QuestItem.class),
 	MISCE_MISCE(MiscellaneousItem.class);
 

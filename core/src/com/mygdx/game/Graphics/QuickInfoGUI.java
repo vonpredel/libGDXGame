@@ -37,7 +37,7 @@ public class QuickInfoGUI extends AbstractGUI {
         batch.draw(weaponTexture,x+11,y+11,64,64);
         batch.draw(armorTexture,x+83,y+11,64,64);
         font.setColor(Color.RED);
-        font.draw(batch,String.valueOf(player.getCurHP() + "/" + String.valueOf(player.getMaxHP())),x+80,y+110);
+        font.draw(batch,String.valueOf(player.getCurrentHealthPoints() + "/" + String.valueOf(player.getMaxHealthPoints())),x+80,y+110);
     }
 
     @Override
@@ -64,8 +64,8 @@ public class QuickInfoGUI extends AbstractGUI {
         shapeRenderer.setColor(Color.GRAY);
         shapeRenderer.rect(x+7,y+80,143,16);
         shapeRenderer.setColor(Color.RED);
-        float healthPoints = player.getCurHP()<=0 ? 0
-                : (float) player.getCurHP() * 100 / (float) player.getMaxHP() / 100;
+        float healthPoints = player.getCurrentHealthPoints()<=0 ? 0
+                : (float) player.getCurrentHealthPoints() * 100 / (float) player.getMaxHealthPoints() / 100;
         shapeRenderer.rect(x+7,y+80,143*healthPoints,16);
     }
 }

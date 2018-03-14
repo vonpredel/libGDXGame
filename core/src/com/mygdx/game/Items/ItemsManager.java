@@ -66,7 +66,7 @@ public class ItemsManager {
         });
         this.itemCreators.put(UsableItem.class, values -> {
             final UsableItem usableItem = new UsableItem(values[0], Float.parseFloat(values[2]),
-                    Boolean.parseBoolean(values[3]));
+                    Boolean.parseBoolean(values[3]),Integer.parseInt(values[4]));
             usableItem.texture = this.assets.manager.get(values[1], Texture.class);
             return usableItem;
         });
