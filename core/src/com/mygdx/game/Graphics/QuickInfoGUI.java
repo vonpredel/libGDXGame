@@ -55,19 +55,17 @@ public class QuickInfoGUI extends AbstractGUI {
 
     public void drawShapes(SpriteBatch batch) {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
+        drawHealthBar();
+        shapeRenderer.end();
+    }
+
+    private void drawHealthBar() {
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.GRAY);
         shapeRenderer.rect(x+7,y+80,143,16);
         shapeRenderer.setColor(Color.RED);
-        float maxHP = player.getMaxHP();
-        float currHP = player.getCurHP();
-        float healthFillPoints;
-        if(currHP<=0) healthFillPoints = 0;
-        else {
-            healthFillPoints = (currHP*100)/maxHP;
-            healthFillPoints/=100;
-        }
-        shapeRenderer.rect(x+7,y+80,143*healthFillPoints,16);
-        shapeRenderer.end();
+        float healthPoints = player.getCurHP()<=0 ? 0
+                : (float) player.getCurHP() * 100 / (float) player.getMaxHP() / 100;
+        shapeRenderer.rect(x+7,y+80,143*healthPoints,16);
     }
 }
