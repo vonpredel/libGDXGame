@@ -2,7 +2,7 @@ package com.mygdx.game.World;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entities.Characters.Character;
+import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsManager;

@@ -1,4 +1,4 @@
-package com.mygdx.game.Entities.Characters;
+package com.mygdx.game.Entities.NonStatics.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.assets.Assets;
@@ -9,6 +9,11 @@ import com.mygdx.game.inventory.Inventory;
 
 public class Player extends Character {
 
+    private int strength;
+    private int dexterity;
+    private int vitality;
+    private int energy;
+
     public Player(Assets assets) {
         this.texture = assets.manager.get(AssetsConstants.TEMP_PLAYER, Texture.class);
         this.width = Constants.DEFAULT_CHARACTER_WIDTH;
@@ -18,14 +23,18 @@ public class Player extends Character {
         this.y = 512;
         this.maxHealthPoints = Constants.DEFAULT_MAX_HEALTH_POINTS;
         this.currentHealthPoints = maxHealthPoints;
+        this.strength = 1;
+        this.dexterity = 1;
+        this.vitality = 1;
+        this.energy = 1;
     }
 
     @Override
     public void initializeInventory() {
         this.inventory = new Inventory();
         // TEMP EQUIP
-        this.getInventory().startingEquipment();
-        this.getInventory().equipWeapon(this.getInventory().getWeapons().get(0));
+        this.inventory.startingEquipment();
+        this.inventory.equipWeapon(this.inventory.getWeapons().get(0));
     }
 
     @Override
@@ -37,7 +46,7 @@ public class Player extends Character {
         World.getItemsContainer().getAllItems().forEach(item -> {
             if(item.isDropped()) {
                 if(item.x == x && item.y == y) {
-                    item.moveToInventory(this.getInventory());
+                    item.moveToInventory(this.inventory);
                 }
             }
         });

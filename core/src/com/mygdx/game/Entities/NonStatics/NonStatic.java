@@ -1,13 +1,17 @@
-package com.mygdx.game.Entities.Characters;
+package com.mygdx.game.Entities.NonStatics;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
+import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 
-public abstract class Character extends Entity {
+public abstract class NonStatic extends Entity {
 
     protected int maxHealthPoints, currentHealthPoints;
     protected boolean isMoving;
@@ -19,10 +23,9 @@ public abstract class Character extends Entity {
     protected Tile destination;
     private float lastX,lastY;
 
-    @Override
-    public boolean isSolid() {
-        return true;
-    }
+    public boolean isDamaged = false;
+    public float cleanDamageTimerHelper = 0f;
+    public int damageGot = 0;
 
     public void moveUp() {
         if (!isMoving && World.isAbleToGo(this, World.UP)) {
@@ -75,27 +78,7 @@ public abstract class Character extends Entity {
         attack(World.getTargetDirectionTile(this, World.RIGHT));
     }
 
-    private void attack(Tile tile) {
-        if (!isAttacking && World.isTileOccupied(tile)) {
-            Character targetCharacter = World.getCharacterFromTile(tile);
-            if (!(targetCharacter instanceof Character)) return;
-            isAttacking = true;
-            int damage;
-            if(!(MathUtils.random(1,100) <= this.getInventory().getEquipedWeapon().getAccuracy())) damage = 0;
-            else {
-                damage = MathUtils.random(this.getInventory().getEquipedWeapon().getMinDamage(),
-                        this.getInventory().getEquipedWeapon().getMaxDamage());
-                damage = (MathUtils.random(1,100) <= this.getInventory().getEquipedWeapon().getCritChance() ? damage*2 : damage)
-                        - targetCharacter.getInventory().getEquipedArmor().getDefence();
-                damage = Math.max(0,damage);
-            }
-            targetCharacter.hurt(damage);
-            targetCharacter.isDamaged = true;
-            targetCharacter.damageGot = damage;
-            targetCharacter.cleanDamageTimerHelper = 0f;
-            attackTimeHelper = 0;
-        }
-    }
+    public abstract void attack(Tile tile);
 
     private void moveInit(int direction) {
         this.lastX = this.getCurrentTile().x;
@@ -103,22 +86,18 @@ public abstract class Character extends Entity {
         this.destination = World.getTargetDirectionTile(this, direction);
     }
 
-    @Override
+    protected void die() {
+        super.die();
+    }
+
     public void update() {
         moveUpdate();
         attackUpdate();
         ai();
     }
-
     protected abstract void ai();
 
-    private void attackUpdate() {
-            attackTimeHelper += Gdx.graphics.getDeltaTime();
-            if (attackTimeHelper > this.getInventory().getEquipedWeapon().getSpeed()) {
-                this.isAttacking = false;
-                attackTimeHelper = 0;
-        }
-    }
+    public abstract void attackUpdate();
 
     private void moveUpdate() {
         if (!this.isMoving || this.destination == null) return;
@@ -135,4 +114,18 @@ public abstract class Character extends Entity {
         this.lastY = this.getY();
     }
 
+    @Override
+    public void draw(SpriteBatch batch, BitmapFont font) {
+        super.draw(batch, font);
+        if (isDamaged) {
+            batch.draw(new Texture(AssetsConstants.DAMAGE), x, y, width, height);
+            font.setColor(Color.WHITE);
+            font.draw(batch, String.valueOf(damageGot), x + width *0.4f, y + height *0.6f);
+            cleanDamageTimerHelper += Gdx.graphics.getDeltaTime();
+            if (cleanDamageTimerHelper > 0.8f) {
+                isDamaged = false;
+                cleanDamageTimerHelper = 0f;
+            }
+        }
+    }
 }

@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
-import com.mygdx.game.Entities.Characters.Foe;
-import com.mygdx.game.Entities.Characters.Player;
+import com.mygdx.game.Entities.NonStatics.Characters.Character;
+import com.mygdx.game.Entities.NonStatics.Characters.Foe;
+import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Utils.assets.Assets;
@@ -83,7 +84,9 @@ public class Game extends ApplicationAdapter {
 
 	private void worldInit() {
 		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer,itemsManager);
-		entities.forEach(Entity::initializeInventory);
+		entities.forEach(e -> {
+			if(e instanceof Character) ((Character) e).initializeInventory();
+		});
 	}
 
 	@Override

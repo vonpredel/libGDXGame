@@ -1,7 +1,7 @@
 package com.mygdx.game.Graphics;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Entities.Characters.Player;
+import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 
 public class MenuGUI extends AbstractGUI {

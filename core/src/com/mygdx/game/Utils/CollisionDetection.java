@@ -1,12 +1,5 @@
 package com.mygdx.game.Utils;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Entities.Characters.Character;
-import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Tiles.Tile;
-import com.mygdx.game.Utils.Constants;
-import java.util.List;
-
 public class CollisionDetection {
 
 //    private boolean isSolid = false;

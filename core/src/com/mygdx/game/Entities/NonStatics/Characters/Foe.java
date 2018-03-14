@@ -1,4 +1,4 @@
-package com.mygdx.game.Entities.Characters;
+package com.mygdx.game.Entities.NonStatics.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -24,7 +24,7 @@ public class Foe extends Character {
     public void initializeInventory() {
         this.inventory = new Inventory();
         // TEST EQ
-        this.getInventory().startingEquipment();
+        this.inventory.startingEquipment();
     }
 
     @Override
