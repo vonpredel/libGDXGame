@@ -1,8 +1,9 @@
-package com.mygdx.game.Utils;
+package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Items.Item;
+import com.mygdx.game.Utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class ItemsContainer {
     public void draw(SpriteBatch batch) {
         allItems.forEach(i -> {
             if(i.isDropped()) {
-                batch.draw(i.getTexture(),i.x,i.y,Constants.DEFAULT_ITEM_WIDTH, Constants.DEFAULT_ITEM_HEIGHT);
+                batch.draw(i.getTexture(),i.x,i.y, Constants.DEFAULT_ITEM_WIDTH, Constants.DEFAULT_ITEM_HEIGHT);
             }
         });
     }

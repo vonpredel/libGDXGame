@@ -1,4 +1,4 @@
-package com.mygdx.game.Control;
+package com.mygdx.game.ControlAndGUIs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,7 +13,7 @@ import com.mygdx.game.Graphics.QuickInfoGUI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerController {
+public class ControlsAndGUIsHandler {
 
     private static final int DEFAULT_STATE = 1;
     private static final int INVENTORY_STATE = 2;
@@ -28,8 +28,13 @@ public class PlayerController {
     private MenuGUI menuGUI;
     private List<AbstractGUI> guiList;
 
-    public PlayerController(Player player) {
+    public ControlsAndGUIsHandler(Player player) {
         this.player = player;
+        initGUIs();
+        this.state = 1;
+    }
+
+    private void initGUIs() {
         this.characterPanelGUI = new CharacterPanelGUI(player);
         this.inventoryGUI = new InventoryGUI(player);
         this.menuGUI = new MenuGUI(player);
@@ -40,7 +45,6 @@ public class PlayerController {
         guiList.add(inventoryGUI);
         guiList.add(menuGUI);
         guiList.add(quickInfoGUI);
-        this.state = 1;
     }
 
     public void update() {

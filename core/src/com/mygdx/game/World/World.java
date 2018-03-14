@@ -7,9 +7,9 @@ import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Tiles.Tile;
-import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.Constants;
-import com.mygdx.game.Utils.ItemsContainer;
+import com.mygdx.game.Items.ItemsContainer;
 import java.util.List;
 
 public class World {

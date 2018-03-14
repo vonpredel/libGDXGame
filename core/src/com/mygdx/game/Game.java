@@ -6,20 +6,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Control.PlayerController;
+import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
 import com.mygdx.game.Entities.Characters.Foe;
 import com.mygdx.game.Entities.Characters.Player;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Items.ItemsManager;
-import com.mygdx.game.Utils.Assets;
-import com.mygdx.game.Utils.AssetsConstants;
+import com.mygdx.game.Utils.assets.Assets;
+import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.Utils.CameraHandler;
-import com.mygdx.game.Utils.ItemsContainer;
+import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Utils.Timer;
 import com.mygdx.game.World.World;
-import com.mygdx.game.World.ZoneGenerator;
-import com.mygdx.game.World.ZoneRenderer;
-import com.mygdx.game.World.Zones.Zone;
+import com.mygdx.game.Zones.ZoneGenerator;
+import com.mygdx.game.Zones.ZoneRenderer;
+import com.mygdx.game.Zones.Zone;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class Game extends ApplicationAdapter {
 	private Player player;
 	private Foe foe;
 	private Assets assets;
-	private PlayerController playerController;
+	private ControlsAndGUIsHandler controlsAndGUIsHandler;
 	private CameraHandler cameraHandler;
 	private ItemsContainer itemsContainer;
 	private Timer timer;
@@ -66,9 +66,9 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		itemsContainer = new ItemsContainer();
-		this.itemsManager = new ItemsManager(this.assets, itemsContainer);
-		this.itemsManager.loadDefinitions();
-		playerController = new PlayerController(player);
+		itemsManager = new ItemsManager(assets, itemsContainer);
+		itemsManager.loadDefinitions();
+		controlsAndGUIsHandler = new ControlsAndGUIsHandler(player);
 		cameraHandler = new CameraHandler(batch,player);
         timer = new Timer();
 		zoneGenerator = new ZoneGenerator(assets);
@@ -95,7 +95,7 @@ public class Game extends ApplicationAdapter {
 		zoneRenderer.renderZone();
 		itemsContainer.draw(batch);
 		entities.forEach(e->e.draw(batch,font));
-		playerController.draw(batch,font);
+		controlsAndGUIsHandler.draw(batch,font);
 		batch.end();
 	}
 
@@ -119,13 +119,6 @@ public class Game extends ApplicationAdapter {
 			if(Gdx.input.isKeyPressed(Input.Keys.M)) {
 				cameraHandler.rotateCameraRight();
 			}
-			if(Gdx.input.isKeyJustPressed(Input.Keys.U)) {
-				System.out.println("/");
-				System.out.println("/");
-				System.out.println("/");
-				System.out.println("/");
-				player.getInventory().getItems().forEach(i -> System.out.println(i.getName()));
-			}
 			//TEMP TEMP TEMP
 			if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
 				if(!player.getInventory().getItems().isEmpty()) {
@@ -133,7 +126,7 @@ public class Game extends ApplicationAdapter {
 				}
 			}
 		}
-        playerController.update();
+        controlsAndGUIsHandler.update();
         cameraHandler.update();
         timer.update(entities);
         itemsContainer.update();

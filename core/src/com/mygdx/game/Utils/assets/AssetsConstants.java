@@ -1,4 +1,4 @@
-package com.mygdx.game.Utils;
+package com.mygdx.game.Utils.assets;
 
 public final class AssetsConstants {
 

@@ -28,11 +28,11 @@ class MyTask extends DefaultTask {
     def runTask() {
         def classFile = new StringBuilder()
         classFile.append 'package com.mygdx.game.Items;\n'
-        classFile.append 'import com.mygdx.game.Items.Armors.Armor;\n'
-        classFile.append 'import com.mygdx.game.Items.Weapons.Weapon;\n'
-        classFile.append 'import com.mygdx.game.Items.QuestItems.QuestItem;\n'
-        classFile.append 'import com.mygdx.game.Items.UsableItems.UsableItem;\n'
-        classFile.append 'import com.mygdx.game.Items.MiscellaneousItems.MiscellaneousItem;\n'
+        classFile.append 'import com.mygdx.game.Items.types.Armor;\n'
+        classFile.append 'import com.mygdx.game.Items.types.Weapon;\n'
+        classFile.append 'import com.mygdx.game.Items.types.QuestItem;\n'
+        classFile.append 'import com.mygdx.game.Items.types.UsableItem;\n'
+        classFile.append 'import com.mygdx.game.Items.types.MiscellaneousItem;\n'
         classFile.append '\n'
         classFile.append 'public enum ItemType {\n'
 

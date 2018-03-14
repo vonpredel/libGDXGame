@@ -1,9 +1,9 @@
 package com.mygdx.game.Items;
-import com.mygdx.game.Items.Armors.Armor;
-import com.mygdx.game.Items.Weapons.Weapon;
-import com.mygdx.game.Items.QuestItems.QuestItem;
-import com.mygdx.game.Items.UsableItems.UsableItem;
-import com.mygdx.game.Items.MiscellaneousItems.MiscellaneousItem;
+import com.mygdx.game.Items.types.Armor;
+import com.mygdx.game.Items.types.Weapon;
+import com.mygdx.game.Items.types.QuestItem;
+import com.mygdx.game.Items.types.UsableItem;
+import com.mygdx.game.Items.types.MiscellaneousItem;
 
 public enum ItemType {
 	SWORD(Weapon.class),

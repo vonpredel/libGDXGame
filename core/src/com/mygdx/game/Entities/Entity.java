@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Tiles.Tile;
-import com.mygdx.game.Utils.AssetsConstants;
+import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;

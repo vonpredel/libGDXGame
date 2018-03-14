@@ -1,7 +1,7 @@
 package com.mygdx.game.Tiles;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Utils.Assets;
+import com.mygdx.game.Utils.assets.Assets;
 import java.awt.Color;
 
 public class GrassTile extends Tile {

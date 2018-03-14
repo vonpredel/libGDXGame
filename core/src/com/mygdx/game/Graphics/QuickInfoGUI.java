@@ -2,7 +2,7 @@ package com.mygdx.game.Graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Entities.Characters.Player;
-import com.mygdx.game.Utils.AssetsConstants;
+import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 
 public class QuickInfoGUI extends AbstractGUI {

@@ -1,13 +1,12 @@
 package com.mygdx.game.inventory;
 
-import com.mygdx.game.Items.Armors.Armor;
+import com.mygdx.game.Items.types.Armor;
 import com.mygdx.game.Items.ItemType;
-import com.mygdx.game.Items.ItemsManager;
-import com.mygdx.game.Items.Weapons.Weapon;
+import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Items.Item;
-import com.mygdx.game.Items.MiscellaneousItems.MiscellaneousItem;
-import com.mygdx.game.Items.QuestItems.QuestItem;
-import com.mygdx.game.Items.UsableItems.UsableItem;
+import com.mygdx.game.Items.types.MiscellaneousItem;
+import com.mygdx.game.Items.types.QuestItem;
+import com.mygdx.game.Items.types.UsableItem;
 import com.mygdx.game.World.World;
 import java.util.ArrayList;
 import java.util.List;

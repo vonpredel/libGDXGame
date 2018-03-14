@@ -1,4 +1,4 @@
-package com.mygdx.game.World.Zones;
+package com.mygdx.game.Zones;
 
 import com.mygdx.game.Tiles.Tile;
 import java.util.List;

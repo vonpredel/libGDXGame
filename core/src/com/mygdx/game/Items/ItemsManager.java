@@ -1,14 +1,13 @@
 package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Items.Armors.Armor;
-import com.mygdx.game.Items.MiscellaneousItems.MiscellaneousItem;
-import com.mygdx.game.Items.QuestItems.QuestItem;
-import com.mygdx.game.Items.UsableItems.UsableItem;
-import com.mygdx.game.Items.Weapons.Weapon;
-import com.mygdx.game.Utils.Assets;
-import com.mygdx.game.Utils.ItemsContainer;
-import com.mygdx.game.Utils.TextFile;
+import com.mygdx.game.Items.types.Armor;
+import com.mygdx.game.Items.types.MiscellaneousItem;
+import com.mygdx.game.Items.types.QuestItem;
+import com.mygdx.game.Items.types.UsableItem;
+import com.mygdx.game.Items.types.Weapon;
+import com.mygdx.game.Utils.assets.Assets;
+import com.mygdx.game.Utils.textFile.TextFile;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;

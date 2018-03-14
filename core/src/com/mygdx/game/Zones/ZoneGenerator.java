@@ -1,4 +1,4 @@
-package com.mygdx.game.World;
+package com.mygdx.game.Zones;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -8,11 +8,9 @@ import com.mygdx.game.Tiles.GrassTile;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Tiles.WallTile;
 import com.mygdx.game.Tiles.WaterTile;
-import com.mygdx.game.Utils.Assets;
-import com.mygdx.game.Utils.AssetsConstants;
-import com.mygdx.game.World.Zones.Zone;
+import com.mygdx.game.Utils.assets.Assets;
+import com.mygdx.game.Utils.assets.AssetsConstants;
 import java.awt.Color;
-import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -20,14 +18,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import javax.imageio.ImageIO;
-
-import static java.time.zone.ZoneOffsetTransitionRule.TimeDefinition.WALL;
 
 public class ZoneGenerator {
 

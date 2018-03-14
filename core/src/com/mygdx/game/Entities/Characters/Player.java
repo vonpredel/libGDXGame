@@ -1,10 +1,8 @@
 package com.mygdx.game.Entities.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.mygdx.game.Items.ItemType;
-import com.mygdx.game.Tiles.Tile;
-import com.mygdx.game.Utils.Assets;
-import com.mygdx.game.Utils.AssetsConstants;
+import com.mygdx.game.Utils.assets.Assets;
+import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;

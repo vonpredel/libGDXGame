@@ -1,4 +1,4 @@
-package com.mygdx.game.Items.UsableItems;
+package com.mygdx.game.Items.types;
 
 import com.mygdx.game.Items.Item;
 
