@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Characters.Player;
+import com.mygdx.game.Utils.assets.Assets;
 
 public abstract class AbstractGUI {
 
@@ -15,7 +16,9 @@ public abstract class AbstractGUI {
 
     protected Player player;
 
-    public void draw(SpriteBatch batch, BitmapFont font) {
+    protected Assets assets;
+
+    public void draw(SpriteBatch batch) {
         if(isEnabled) {
             batch.draw(texture, x, y, width, height);
         }

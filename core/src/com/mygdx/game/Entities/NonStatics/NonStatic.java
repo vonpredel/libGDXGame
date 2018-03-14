@@ -7,28 +7,39 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Entities.NonStatics.Characters.Character;
-import com.mygdx.game.Entities.NonStatics.Creatures.Creature;
+import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
+import java.util.Optional;
 
 public abstract class NonStatic extends Entity {
 
     protected int maxHealthPoints, currentHealthPoints;
     protected boolean isMoving;
-    protected boolean isAttacking;
+    private boolean isAttacking = true;
     protected float movementSpeed;
 
-    protected float attackTimeHelper = 0;
+    private float attackTimeHelper = 0;
 
-    protected Tile destination;
+    private Tile destination;
     private float lastX,lastY;
 
-    public boolean isDamaged = false;
-    public float cleanDamageTimerHelper = 0f;
-    public int damageGot = 0;
+    private boolean isDamaged = false;
+    private float cleanDamageTimerHelper = 0f;
+    private String damageGot = "0";
+
+    protected Optional<Weapon> getWeapon() {
+        return Optional.empty();
+    }
+
+    public abstract int getDefence();
+    public abstract int getMinDamage();
+    public abstract int getMaxDamage() ;
+    public abstract float getAttackSpeed();
+    public abstract int getCritChance();
+    public abstract int getAccuracy();
 
     public void moveUp() {
         if (!isMoving && World.isAbleToGo(this, World.UP)) {
@@ -63,6 +74,9 @@ public abstract class NonStatic extends Entity {
         if(currentHealthPoints <= 0) {
             die();
         }
+        damageGot = (dmgAmt==0) ? "MISS" : String.valueOf(dmgAmt);
+        isDamaged = true;
+        cleanDamageTimerHelper = 0f;
     }
 
     public void attackUp() {
@@ -86,16 +100,28 @@ public abstract class NonStatic extends Entity {
             NonStatic targetNonStatic = World.getNonStaticFromTile(tile);
             if (!(targetNonStatic instanceof NonStatic)) return;
             isAttacking = true;
-            int damage = countDamage(targetNonStatic);
+            int damage;
+            if(!(MathUtils.random(1,100) <= getAccuracy())) damage = 0;
+            else {
+                int reducedDamage = targetNonStatic.getDefence();
+
+                damage = MathUtils.random(getMinDamage(), getMaxDamage());
+                damage = (MathUtils.random(1,100) <= getCritChance() ? damage*2 : damage)
+                        - reducedDamage;
+                damage = Math.max(0,damage);
+            }
             targetNonStatic.hurt(damage);
-            targetNonStatic.isDamaged = true;
-            targetNonStatic.damageGot = damage;
-            targetNonStatic.cleanDamageTimerHelper = 0f;
             attackTimeHelper = 0;
         }
     }
 
-    public abstract int countDamage(NonStatic targetNonStatic);
+    public void attackUpdate() {
+        attackTimeHelper += Gdx.graphics.getDeltaTime();
+        if (attackTimeHelper > getAttackSpeed()) {
+            this.isAttacking = false;
+            attackTimeHelper = 0;
+        }
+    }
 
     private void moveInit(int direction) {
         this.lastX = this.getCurrentTile().x;
@@ -110,11 +136,38 @@ public abstract class NonStatic extends Entity {
     public void update() {
         moveUpdate();
         attackUpdate();
+        cleanDamageUpdate();
         ai();
     }
     protected abstract void ai();
 
-    public abstract void attackUpdate();
+    protected void defaultAi() {
+        spamAttack();
+        if(!isMoving) {
+            int i = MathUtils.random(1,4);
+            switch (i) {
+                case 1:
+                    moveUp();
+                    break;
+                case 2:
+                    moveDown();
+                    break;
+                case 3:
+                    moveLeft();
+                    break;
+                case 4:
+                    moveRight();
+                    break;
+            }
+        }
+    }
+
+    private void spamAttack() {
+        attackUp();
+        attackDown();
+        attackLeft();
+        attackRight();
+    }
 
     private void moveUpdate() {
         if (!this.isMoving || this.destination == null) return;
@@ -138,6 +191,11 @@ public abstract class NonStatic extends Entity {
             batch.draw(new Texture(AssetsConstants.DAMAGE), x, y, width, height);
             font.setColor(Color.WHITE);
             font.draw(batch, String.valueOf(damageGot), x + width *0.4f, y + height *0.6f);
+        }
+    }
+
+    private void cleanDamageUpdate() {
+        if (isDamaged) {
             cleanDamageTimerHelper += Gdx.graphics.getDeltaTime();
             if (cleanDamageTimerHelper > 0.8f) {
                 isDamaged = false;

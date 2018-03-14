@@ -8,6 +8,7 @@ import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Tiles.Tile;
+import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.Items.ItemsContainer;
@@ -33,14 +34,14 @@ public class World {
     private static BitmapFont font;
     private static Assets assets;
     private static ItemsContainer itemsContainer;
-
+    private static CameraHandler cameraHandler;
     private static ItemsManager itemsManager;
 
     private World() {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets,ItemsContainer itemsContainer,ItemsManager itemsManager) {
+    public static void init(List<Entity> entityList, List<Tile> tileList, int worldWidth, int worldHeight, SpriteBatch batch, BitmapFont font, Assets assets,ItemsContainer itemsContainer,ItemsManager itemsManager,CameraHandler cameraHandler) {
         World.batch = batch;
         World.entityList = entityList;
         World.tileList = tileList;
@@ -50,6 +51,7 @@ public class World {
         World.assets = assets;
         World.itemsContainer = itemsContainer;
         World.itemsManager = itemsManager;
+        World.cameraHandler = cameraHandler;
     }
 
     public static Tile getTileByPosition(int position) {
@@ -163,5 +165,9 @@ public class World {
 
     public static ItemsManager getItemsManager() {
         return itemsManager;
+    }
+
+    public static CameraHandler getCameraHandler() {
+        return cameraHandler;
     }
 }

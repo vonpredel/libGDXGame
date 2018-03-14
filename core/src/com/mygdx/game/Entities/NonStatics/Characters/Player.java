@@ -34,7 +34,6 @@ public class Player extends Character {
         this.inventory = new Inventory();
         // TEMP EQUIP
         this.inventory.startingEquipment();
-        this.inventory.equipWeapon(this.inventory.getWeapons().get(0));
     }
 
     @Override
@@ -54,6 +53,14 @@ public class Player extends Character {
 
     @Override
     protected void die() {
+        World.getCameraHandler().zoomIn(50);
         System.out.println("YOU'RE DEAD");
+    }
+
+    public int getCurHP() {
+        return currentHealthPoints;
+    }
+    public int getMaxHP() {
+        return maxHealthPoints;
     }
 }

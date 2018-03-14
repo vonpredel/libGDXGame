@@ -11,6 +11,7 @@ import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Entities.NonStatics.Characters.Foe;
 import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.NonStatics.Creatures.Wolf;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
@@ -31,6 +32,7 @@ public class Game extends ApplicationAdapter {
 	private BitmapFont font;
 	private Player player;
 	private Foe foe;
+	private Wolf wolf;
 	private Assets assets;
 	private ControlsAndGUIsHandler controlsAndGUIsHandler;
 	private CameraHandler cameraHandler;
@@ -56,11 +58,13 @@ public class Game extends ApplicationAdapter {
 	}
 
     private void loadEntities() {
-        player = new Player(assets);
-        foe = new Foe(assets);
-        entities = new ArrayList<>();
+		player = new Player(assets);
+		foe = new Foe(assets);
+		wolf = new Wolf(assets);
+		entities = new ArrayList<>();
         entities.add(player);
         entities.add(foe);
+        entities.add(wolf);
     }
 
 	private void loadData()  {
@@ -69,7 +73,7 @@ public class Game extends ApplicationAdapter {
 		itemsContainer = new ItemsContainer();
 		itemsManager = new ItemsManager(assets, itemsContainer);
 		itemsManager.loadDefinitions();
-		controlsAndGUIsHandler = new ControlsAndGUIsHandler(player);
+		controlsAndGUIsHandler = new ControlsAndGUIsHandler(player,assets);
 		cameraHandler = new CameraHandler(batch,player);
         timer = new Timer();
 		zoneGenerator = new ZoneGenerator(assets);
@@ -83,7 +87,7 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer,itemsManager);
+		World.init(entities,zoneGenerator.getTileList(),zoneGenerator.getWidth(),zoneGenerator.getHeight(),batch,font,assets,itemsContainer,itemsManager,cameraHandler);
 		entities.forEach(e -> {
 			if(e instanceof Character) ((Character) e).initializeInventory();
 		});
@@ -98,8 +102,9 @@ public class Game extends ApplicationAdapter {
 		zoneRenderer.renderZone();
 		itemsContainer.draw(batch);
 		entities.forEach(e->e.draw(batch,font));
-		controlsAndGUIsHandler.draw(batch,font);
+		controlsAndGUIsHandler.draw(batch);
 		batch.end();
+		controlsAndGUIsHandler.drawShapes(batch);
 	}
 
 	private void update() {
@@ -111,10 +116,10 @@ public class Game extends ApplicationAdapter {
 				cameraHandler.focusOn(player);
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.K)) {
-				cameraHandler.zoomIn();
+				cameraHandler.zoomOut();
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.L)) {
-				cameraHandler.zoomOut();
+				cameraHandler.zoomIn();
 			}
 			if(Gdx.input.isKeyPressed(Input.Keys.N)) {
 				cameraHandler.rotateCameraLeft();

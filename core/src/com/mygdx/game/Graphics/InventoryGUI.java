@@ -4,8 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Characters.Player;
+import com.mygdx.game.Items.types.Armor;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Items.Item;
+import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.inventory.Inventory;
 import java.util.ArrayList;
@@ -25,30 +27,38 @@ public class InventoryGUI extends AbstractGUI {
 
     public boolean inside = false;
 
+    private BitmapFont font;
+
     private int selectedMenu;
     private int selectedItem;
     private int menuSize = categoryList.length-1;
     private int itemsSize;
 
+    private Inventory inventory;
+
     private List<? extends Item> list;
 
-    public InventoryGUI(Player player) {
-        this.texture = new Texture(AssetsConstants.INVENTORY);
+    public InventoryGUI(Player player, Assets assets) {
+        this.texture = assets.manager.get(AssetsConstants.INVENTORY);
         this.x = 0;
         this.y = 0;
         this.width = texture.getWidth();
         this.height = texture.getHeight();
         this.player = player;
+        font = new BitmapFont();
         list = new ArrayList<>();
+        this.assets = assets;
     }
 
     @Override
-    public void draw(SpriteBatch batch, BitmapFont font) {
-        final Inventory inventory = player.getInventory();
-        super.draw(batch, font);
+    public void draw(SpriteBatch batch) {
+        inventory = player.getInventory();
+        super.draw(batch);
         if(isEnabled) {
-            font.draw(batch,"CURRENT WEAPON : " + inventory.getEquipedWeapon().getName(),player.x-250,player.y -50);
-            font.draw(batch,"CURRENT ARMOR : " + inventory.getEquipedArmor().getName(),player.x-250,player.y - 100);
+            String weaponName = inventory.getEquipedWeapon() == null ? "No Weapon" : inventory.getEquipedWeapon().getName();
+            String armorName = inventory.getEquipedArmor() == null ? "No Weapon" : inventory.getEquipedArmor().getName();
+            font.draw(batch,"CURRENT WEAPON : " + weaponName,player.x-250,player.y -50);
+            font.draw(batch,"CURRENT ARMOR : " + armorName,player.x-250,player.y - 100);
             if(!inside) {
                 int offSet = space * selectedMenu;
                 drawSelectors(batch,font,offSet);
@@ -107,17 +117,17 @@ public class InventoryGUI extends AbstractGUI {
             selectedItem = 0;
         }
         else {
-            final Inventory inventory = player.getInventory();
+            inventory = player.getInventory();
             if(selectedMenu == WEAPON_CLASS_ENUM) {
-                inventory.equipWeapon((Weapon) list.get(selectedItem));
+                if(!list.isEmpty()) inventory.equipWeapon((Weapon) list.get(selectedItem));
             } else if (selectedMenu == ARMOR_CLASS_ENUM) {
-//                inventory.equipArmor((Armor) list.get(selectedItem));
+                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
             } else if (selectedMenu == USABLE_CLASS_ENUM) {
-//                inventory.equipArmor((Armor) list.get(selectedItem));
+//                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
             } else if (selectedMenu == QUEST_CLASS_ENUM) {
-//                inventory.equipArmor((Armor) list.get(selectedItem));
+//                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
             } else if (selectedMenu == MISCELLANEOUS_CLASS_ENUM) {
-//                inventory.equipArmor((Armor) list.get(selectedItem));
+//                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
             }
         }
     }

@@ -10,6 +10,7 @@ import com.mygdx.game.Graphics.CharacterPanelGUI;
 import com.mygdx.game.Graphics.InventoryGUI;
 import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
+import com.mygdx.game.Utils.assets.Assets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,19 +27,21 @@ public class ControlsAndGUIsHandler {
     private InventoryGUI inventoryGUI;
     private QuickInfoGUI quickInfoGUI;
     private MenuGUI menuGUI;
+    private Assets assets;
     private List<AbstractGUI> guiList;
 
-    public ControlsAndGUIsHandler(Player player) {
+    public ControlsAndGUIsHandler(Player player,Assets assets) {
+        this.assets = assets;
         this.player = player;
         initGUIs();
         this.state = 1;
     }
 
     private void initGUIs() {
-        this.characterPanelGUI = new CharacterPanelGUI(player);
-        this.inventoryGUI = new InventoryGUI(player);
-        this.menuGUI = new MenuGUI(player);
-        this.quickInfoGUI = new QuickInfoGUI(player);
+        this.characterPanelGUI = new CharacterPanelGUI(player,assets);
+        this.inventoryGUI = new InventoryGUI(player,assets);
+        this.menuGUI = new MenuGUI(player,assets);
+        this.quickInfoGUI = new QuickInfoGUI(player,assets);
         quickInfoGUI.isEnabled = true;
         guiList = new ArrayList<>();
         guiList.add(characterPanelGUI);
@@ -68,8 +71,12 @@ public class ControlsAndGUIsHandler {
         guiList.forEach(AbstractGUI::update);
     }
 
-    public void draw(SpriteBatch batch, BitmapFont font) {
-        guiList.forEach(g -> g.draw(batch,font));
+    public void draw(SpriteBatch batch) {
+        guiList.forEach(g -> g.draw(batch));
+    }
+
+    public void drawShapes(SpriteBatch batch) {
+        quickInfoGUI.drawShapes(batch);
     }
 
     private void movementControls() {

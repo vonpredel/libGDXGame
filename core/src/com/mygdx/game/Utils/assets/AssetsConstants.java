@@ -11,6 +11,7 @@ public final class AssetsConstants {
     public static final String TEMP_FOE = "misc/badlogic.jpg";
     public static final String DAMAGE = "misc/damage.png";
     public static final String INVENTORY = "misc/eq.png";
+    public static final String QUISC_INFO = "misc/quickInfo.png";
 
     private AssetsConstants() {
 

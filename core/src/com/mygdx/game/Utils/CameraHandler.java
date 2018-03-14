@@ -24,12 +24,20 @@ public class CameraHandler {
         camera.position.set(entity.x + entity.width / 2, entity.y + entity.height / 2, 0);
     }
 
-    public void zoomIn() {
+    public void zoomOut() {
         camera.zoom += 1 * Gdx.graphics.getDeltaTime();
     }
 
-    public void zoomOut() {
+    public void zoomOut(int i) {
+        camera.zoom += i * Gdx.graphics.getDeltaTime();
+    }
+
+    public void zoomIn() {
         camera.zoom -= 1 * Gdx.graphics.getDeltaTime();
+    }
+
+    public void zoomIn(int i) {
+        camera.zoom -= i * Gdx.graphics.getDeltaTime();
     }
 
     public void rotateCameraRight() {

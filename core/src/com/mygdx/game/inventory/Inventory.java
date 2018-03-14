@@ -14,9 +14,6 @@ import java.util.stream.Collectors;
 
 public class Inventory {
 
-    private static final Armor noArmor = World.getItemsManager().create(ItemType.NO_ARMOR);
-    private static final Weapon noWeapon = World.getItemsManager().create(ItemType.NO_WEAPON);
-
     private Armor equipedArmor;
     private Weapon equipedWeapon;
 
@@ -24,8 +21,6 @@ public class Inventory {
 
     public Inventory() {
         items = new ArrayList<>();
-        this.equipedArmor = noArmor;
-        this.equipedWeapon = noWeapon;
     }
 
     public void startingEquipment() {
@@ -62,28 +57,28 @@ public class Inventory {
     }
 
     public void equipWeapon(Weapon weapon) {
-        items.add(equipedWeapon);
+        if(equipedWeapon!=null) items.add(equipedWeapon);
         this.equipedWeapon = weapon;
         items.remove(weapon);
     }
 
     public void equipArmor(Armor armor) {
-        items.add(equipedArmor);
+        if(equipedArmor!=null) items.add(equipedArmor);
         this.equipedArmor = armor;
         items.remove(armor);
     }
 
-    public void uNequipWeapon() {
-        items.add(equipedWeapon);
-        this.equipedWeapon = noWeapon;
-        items.remove(noWeapon);
-    }
-
-    public void uNequipArmor() {
-        items.add(equipedArmor);
-        this.equipedArmor = noArmor;
-        items.remove(noWeapon);
-    }
+//    public void uNequipWeapon() {
+//        items.add(equipedWeapon);
+//        this.equipedWeapon = noWeapon;
+//        items.remove(noWeapon);
+//    }
+//
+//    public void uNequipArmor() {
+//        items.add(equipedArmor);
+//        this.equipedArmor = noArmor;
+//        items.remove(noWeapon);
+//    }
 
     public Armor getEquipedArmor() {
         return equipedArmor;

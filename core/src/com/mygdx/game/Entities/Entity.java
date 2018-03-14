@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
@@ -25,6 +26,12 @@ public abstract class Entity extends Rectangle {
 
     protected void die() {
         World.removeEntity(this);
+    }
+
+    public void createItem(Item item) {
+        Tile tile = getCurrentTile();
+        item.generateOnMap(tile.x,tile.y);
+        item.setDropped(true);
     }
 
     public Texture getTexture() {

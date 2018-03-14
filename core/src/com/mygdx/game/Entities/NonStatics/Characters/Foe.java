@@ -29,22 +29,6 @@ public class Foe extends Character {
 
     @Override
     public void ai() {
-        if(!isMoving) {
-            int i = MathUtils.random(1,4);
-            switch (i) {
-                case 1:
-                    moveUp();
-                    break;
-                case 2:
-                    moveDown();
-                    break;
-                case 3:
-                    moveLeft();
-                    break;
-                case 4:
-                    moveRight();
-                    break;
-            }
-        }
+        defaultAi();
     }
 }
