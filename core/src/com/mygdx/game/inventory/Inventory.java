@@ -40,6 +40,7 @@ public class Inventory {
         items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
         items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
         items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.NO_ARMOR));
     }
 
     public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {

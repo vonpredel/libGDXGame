@@ -54,4 +54,17 @@ public class Armor extends Item {
     public void setMovementSpeedReduction(int movementSpeedReduction) {
         this.movementSpeedReduction = movementSpeedReduction;
     }
+
+    public String getArmorClassToString() {
+        switch (armorClass) {
+            case 0:
+                return "Light Armor";
+            case 1:
+                return "Medium Armor";
+            case 2:
+                return "Heavy Armor";
+            default:
+                return "ERROR";
+        }
+    }
 }

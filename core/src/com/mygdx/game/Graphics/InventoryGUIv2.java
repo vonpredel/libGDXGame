@@ -31,6 +31,8 @@ public class InventoryGUIv2 extends AbstractGUI {
     private BitmapFont font;
     private Inventory inventory;
 
+    private Item describedItem;
+
     Texture weaponTab;
     Texture armorTab;
     Texture usableTab;
@@ -96,6 +98,33 @@ public class InventoryGUIv2 extends AbstractGUI {
 
             //DRAW CATEGORIES ICONS
             drawCategoriesMethods(batch);
+
+            //DRAW DESCRIPTION
+            drawDescription(batch);
+        }
+    }
+
+    private void drawDescription(SpriteBatch batch) {
+
+        if(selectedItemIndex<list.size()) {
+            describedItem = list.get(selectedItemIndex);
+            font.draw(batch,describedItem.getName(),x+45,y+280);
+            if(selectedMenuIndex == WEAPON_CLASS_ENUM) {
+                font.draw(batch,"Damage = " + ((Weapon) describedItem).getMinDamage() + " - " + ((Weapon) describedItem).getMaxDamage(),x+45,y+260);
+                font.draw(batch,"Accuracy = " + ((Weapon) describedItem).getAccuracy(),x+45,y+240);
+                font.draw(batch,"Attack Speed = " + ((Weapon) describedItem).getSpeed(),x+45,y+220);
+                font.draw(batch,"Critical Chance = " + ((Weapon) describedItem).getCritChance(),x+45,y+200);
+            } else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
+                font.draw(batch,"Defence = " + ((Armor) describedItem).getDefence(),x+45,y+260);
+                font.draw(batch,"Movement Speed Reduction = " + ((Armor) describedItem).getMovementSpeedReduction(),x+45,y+240);
+                font.draw(batch,"Armor Class = " + ((Armor) describedItem).getArmorClassToString(),x+45,y+220);
+            } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
+
+            } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
+
+            } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {
+
+            }
         }
     }
 
@@ -181,6 +210,7 @@ public class InventoryGUIv2 extends AbstractGUI {
 
     public void enterMenu() {
         if(!inside) {
+            if(!(selectedItemIndex<list.size())) return;
             inside = true;
         } else {
             inventory = player.getInventory();
@@ -188,11 +218,11 @@ public class InventoryGUIv2 extends AbstractGUI {
                 player.dropItem(list.get(selectedItemIndex));
             } else {
                 if(selectedMenuIndex == WEAPON_CLASS_ENUM) {
-                    if(!list.isEmpty()) inventory.equipWeapon((Weapon) list.get(selectedItemIndex));
+                    inventory.equipWeapon((Weapon) list.get(selectedItemIndex));
                 } else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
-                    if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItemIndex));
+                    inventory.equipArmor((Armor) list.get(selectedItemIndex));
                 } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
-                    if(!list.isEmpty()) inventory.useItem((UsableItem) list.get(selectedItemIndex),player);
+                    inventory.useItem((UsableItem) list.get(selectedItemIndex),player);
                 } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
 //                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
                 } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {
