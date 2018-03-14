@@ -41,8 +41,6 @@ public class InventoryGUI extends AbstractGUI {
 
     public InventoryGUI(Player player, Assets assets) {
         this.texture = assets.manager.get(AssetsConstants.INVENTORY);
-        this.x = 0;
-        this.y = 0;
         this.width = texture.getWidth();
         this.height = texture.getHeight();
         this.player = player;

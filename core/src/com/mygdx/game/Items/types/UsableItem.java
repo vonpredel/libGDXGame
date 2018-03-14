@@ -1,8 +1,6 @@
 package com.mygdx.game.Items.types;
 
-import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Items.Item;
-import com.mygdx.game.World.World;
 
 public class UsableItem extends Item {
 

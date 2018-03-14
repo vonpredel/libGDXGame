@@ -29,7 +29,16 @@ public class Inventory {
         items.add(World.getItemsManager().create(ItemType.MISCE_MISCE));
         items.add(World.getItemsManager().create(ItemType.QUEST_QUEST));
         items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
         items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
         items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
     }
 
@@ -87,18 +96,6 @@ public class Inventory {
             character.setCurrentHealthPoints(character.getMaxHealthPoints());
         items.remove(usableItem);
     }
-
-//    public void uNequipWeapon() {
-//        items.add(equipedWeapon);
-//        this.equipedWeapon = noWeapon;
-//        items.remove(noWeapon);
-//    }
-//
-//    public void uNequipArmor() {
-//        items.add(equipedArmor);
-//        this.equipedArmor = noArmor;
-//        items.remove(noWeapon);
-//    }
 
     public Armor getEquipedArmor() {
         return equipedArmor;

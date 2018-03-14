@@ -21,8 +21,6 @@ public class QuickInfoGUI extends AbstractGUI {
 
     public QuickInfoGUI(Player player, Assets assets) {
         this.texture = assets.manager.get(AssetsConstants.QUISC_INFO);
-        this.x = 0;
-        this.y = 0;
         this.width = texture.getWidth();
         this.height = texture.getHeight();
         this.player = player;

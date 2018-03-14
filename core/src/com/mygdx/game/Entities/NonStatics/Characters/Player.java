@@ -1,6 +1,7 @@
 package com.mygdx.game.Entities.NonStatics.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
@@ -42,13 +43,19 @@ public class Player extends Character {
     }
 
     public void pickUpItems() {
-        World.getItemsContainer().getAllItems().forEach(item -> {
-            if(item.isDropped()) {
-                if(item.x == x && item.y == y) {
+        World.getItemsContainer().getAllItems().forEach(this::pickUpItem);
+    }
+
+    public void pickUpItem(Item item) {
+        if(item.isDropped()) {
+            if(item.x == x && item.y == y) {
+                if (inventory.getSpecifiedItems(item.getClass()).size()>14) {
+                    return;
+                } else {
                     item.moveToInventory(this.inventory);
                 }
             }
-        });
+        }
     }
 
     @Override
