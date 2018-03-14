@@ -2,10 +2,10 @@ package com.mygdx.game.Entities.NonStatics.Characters;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.mygdx.game.Entities.NonStatics.Creatures.Creature;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Tiles.Tile;
-import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
 
 public abstract class Character extends NonStatic {
@@ -13,25 +13,19 @@ public abstract class Character extends NonStatic {
     protected Inventory inventory;
 
     @Override
-    public void attack(Tile tile) {
-        if (!isAttacking && World.isTileOccupied(tile)) {
-            Character targetCharacter = World.getCharacterFromTile(tile);
-            if (!(targetCharacter instanceof NonStatic)) return;
-            isAttacking = true;
-            int damage;
-            if(!(MathUtils.random(1,100) <= inventory.getEquipedWeapon().getAccuracy())) damage = 0;
-            else {
-                damage = MathUtils.random(this.inventory.getEquipedWeapon().getMinDamage(),
-                        this.inventory.getEquipedWeapon().getMaxDamage());
-                damage = (MathUtils.random(1,100) <= this.inventory.getEquipedWeapon().getCritChance() ? damage*2 : damage)
-                        - targetCharacter.inventory.getEquipedArmor().getDefence();
-                damage = Math.max(0,damage);
-            }
-            targetCharacter.hurt(damage);
-            targetCharacter.isDamaged = true;
-            targetCharacter.damageGot = damage;
-            targetCharacter.cleanDamageTimerHelper = 0f;
-            attackTimeHelper = 0;
+    public int countDamage(NonStatic targetNonStatic) {
+        int damage;
+        if(!(MathUtils.random(1,100) <= inventory.getEquipedWeapon().getAccuracy())) return 0;
+        else {
+            int reducedDamage = targetNonStatic instanceof Character
+                    ? ((Character) targetNonStatic).getInventory().getEquipedArmor().getDefence()
+                    : ((Creature) targetNonStatic).getDefence();
+
+            damage = MathUtils.random(inventory.getEquipedWeapon().getMinDamage(),
+                    inventory.getEquipedWeapon().getMaxDamage());
+            damage = (MathUtils.random(1,100) <= inventory.getEquipedWeapon().getCritChance() ? damage*2 : damage)
+                    - reducedDamage;
+            return Math.max(0,damage);
         }
     }
 

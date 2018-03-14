@@ -5,7 +5,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.NonStatics.Characters.Character;
+import com.mygdx.game.Entities.NonStatics.Creatures.Creature;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
 import com.mygdx.game.Utils.assets.AssetsConstants;
@@ -78,7 +81,21 @@ public abstract class NonStatic extends Entity {
         attack(World.getTargetDirectionTile(this, World.RIGHT));
     }
 
-    public abstract void attack(Tile tile);
+    public void attack(Tile tile) {
+        if (!isAttacking && World.isTileOccupied(tile)) {
+            NonStatic targetNonStatic = World.getNonStaticFromTile(tile);
+            if (!(targetNonStatic instanceof NonStatic)) return;
+            isAttacking = true;
+            int damage = countDamage(targetNonStatic);
+            targetNonStatic.hurt(damage);
+            targetNonStatic.isDamaged = true;
+            targetNonStatic.damageGot = damage;
+            targetNonStatic.cleanDamageTimerHelper = 0f;
+            attackTimeHelper = 0;
+        }
+    }
+
+    public abstract int countDamage(NonStatic targetNonStatic);
 
     private void moveInit(int direction) {
         this.lastX = this.getCurrentTile().x;
