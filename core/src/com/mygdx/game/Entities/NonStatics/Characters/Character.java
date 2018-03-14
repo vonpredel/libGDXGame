@@ -13,11 +13,6 @@ public abstract class Character extends NonStatic {
     protected Inventory inventory;
 
     @Override
-    public boolean isSolid() {
-        return true;
-    }
-
-    @Override
     public void attack(Tile tile) {
         if (!isAttacking && World.isTileOccupied(tile)) {
             Character targetCharacter = World.getCharacterFromTile(tile);
@@ -59,11 +54,10 @@ public abstract class Character extends NonStatic {
 
     protected void dropEquipment() {
         Tile tile = getCurrentTile();
+        inventory.getEquipedWeapon().generateOnMap(tile.x,tile.y);
+        inventory.getEquipedArmor().generateOnMap(tile.x,tile.y);
         inventory.getItems().forEach(i -> i.generateOnMap(tile.x,tile.y));
-    }
-
-    protected void dropAllItems() {
-        inventory.getItems().forEach(this::dropItem);
+        inventory.getItems().clear();
     }
 
     public void dropItem(Item item) {

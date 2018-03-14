@@ -39,7 +39,7 @@ public class Player extends Character {
 
     @Override
     protected void ai() {
-
+        // Do Nothing.
     }
 
     public void pickUpItems() {

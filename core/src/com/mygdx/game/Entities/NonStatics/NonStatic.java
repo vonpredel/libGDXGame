@@ -128,4 +128,9 @@ public abstract class NonStatic extends Entity {
             }
         }
     }
+
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
 }
