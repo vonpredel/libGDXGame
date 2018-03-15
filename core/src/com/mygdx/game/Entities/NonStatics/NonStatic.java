@@ -5,12 +5,14 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
+import com.mygdx.game.Utils.assets.AssetChopper;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 import java.util.Optional;
@@ -23,6 +25,8 @@ public abstract class NonStatic extends Entity {
     protected float movementSpeed;
 
     private float attackTimeHelper = 0;
+    private float animationTimeHelper = 0;
+    private float idleTimeHelper = 0f;
 
     private Tile destination;
     private float lastX,lastY;
@@ -30,6 +34,13 @@ public abstract class NonStatic extends Entity {
     private boolean isDamaged = false;
     private float cleanDamageTimerHelper = 0f;
     private String damageGot = "0";
+
+    private TextureRegion textureToRender;
+    private int movementDirection;
+
+    private int animationFrame;
+
+    TextureRegion[] animations;
 
     protected Optional<Weapon> getWeapon() {
         return Optional.empty();
@@ -125,6 +136,7 @@ public abstract class NonStatic extends Entity {
     }
 
     private void moveInit(int direction) {
+        this.movementDirection = direction;
         this.lastX = this.getCurrentTile().x;
         this.lastY = this.getCurrentTile().y;
         this.destination = World.getTargetDirectionTile(this, direction);
@@ -138,8 +150,48 @@ public abstract class NonStatic extends Entity {
         moveUpdate();
         attackUpdate();
         cleanDamageUpdate();
+        textureToRenderUpdate();
         ai();
     }
+
+    public void textureToRenderUpdate() {
+        animationTimeHelper += Gdx.graphics.getDeltaTime();
+        idleTimeHelper += Gdx.graphics.getDeltaTime();
+        if (animationTimeHelper > 1f - (this.movementSpeed/10)) {
+            if(animationFrame ==2) animationFrame =0;
+            else animationFrame++;
+            animationTimeHelper = 0;
+        }
+
+        switch (movementDirection) {
+            case World.DOWN:
+                textureToRender = animations[animationFrame];
+                break;
+            case World.LEFT:
+                textureToRender = animations[animationFrame +3];
+                break;
+            case World.RIGHT:
+                textureToRender = animations[animationFrame +6];
+                break;
+            case World.UP:
+                textureToRender = animations[animationFrame +9];
+                break;
+            default:
+                textureToRender = animations[1];
+                break;
+        }
+
+        if (!isMoving && idleTimeHelper >= 0.1f) {
+            textureToRender = animations[1];
+        }
+    }
+
+    @Override
+    public void setTexture(Texture texture) {
+        super.setTexture(texture);
+        animations = AssetChopper.crop(texture);
+    }
+
     protected abstract void ai();
 
     protected void defaultAi() {
@@ -176,6 +228,7 @@ public abstract class NonStatic extends Entity {
         if (MyMathUtils.areEqual(this.x, destination.x) && MyMathUtils.areEqual(this.y, destination.y)) {
             this.destination = null;
             this.isMoving = false;
+            this.idleTimeHelper = 0.0f;
             return;
         }
 
@@ -205,7 +258,7 @@ public abstract class NonStatic extends Entity {
 
     @Override
     public void draw(SpriteBatch batch, BitmapFont font) {
-        super.draw(batch, font);
+        batch.draw(textureToRender, x, y, width, height);
         if (isDamaged) {
             batch.draw(new Texture(AssetsConstants.DAMAGE), x, y, width, height);
             font.setColor(Color.WHITE);

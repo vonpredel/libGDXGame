@@ -11,7 +11,7 @@ import com.mygdx.game.World.World;
 
 public abstract class Entity extends Rectangle {
 
-    protected Texture texture;
+    private Texture texture;
 
     public Entity() {
         this.x = Constants.DEFAULT_START_POSITION_X;
@@ -36,6 +36,10 @@ public abstract class Entity extends Rectangle {
 
     public Texture getTexture() {
         return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
     }
 
     public abstract boolean isSolid();

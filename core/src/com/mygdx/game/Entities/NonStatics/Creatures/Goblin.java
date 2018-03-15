@@ -7,10 +7,10 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 
-public class Wolf extends Creature {
+public class Goblin extends Creature {
 
-    public Wolf(Assets assets) {
-        this.texture = assets.manager.get(AssetsConstants.TEMP_PLAYER, Texture.class);
+    public Goblin(Assets assets) {
+        setTexture(assets.manager.get(AssetsConstants.GOBLIN_SHEET, Texture.class));
         this.width = Constants.DEFAULT_CHARACTER_WIDTH;
         this.height = Constants.DEFAULT_CHARACTER_HEIGHT;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED/3;

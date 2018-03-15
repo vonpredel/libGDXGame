@@ -16,7 +16,7 @@ public class Player extends Character {
     private int energy;
 
     public Player(Assets assets) {
-        this.texture = assets.manager.get(AssetsConstants.TEMP_PLAYER, Texture.class);
+        setTexture(assets.manager.get(AssetsConstants.PLAYER_SHEET, Texture.class));
         this.width = Constants.DEFAULT_CHARACTER_WIDTH;
         this.height = Constants.DEFAULT_CHARACTER_HEIGHT;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED;

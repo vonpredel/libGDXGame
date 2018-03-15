@@ -10,9 +10,9 @@ import com.mygdx.game.inventory.Inventory;
 public class Foe extends Character {
 
     public Foe(Assets assets) {
-        this.texture = assets.manager.get(AssetsConstants.TEMP_FOE, Texture.class);
-        this.width = texture.getWidth()/4;
-        this.height = texture.getHeight()/4;
+        setTexture(assets.manager.get(AssetsConstants.FOE_SHEET, Texture.class));
+        this.width = Constants.DEFAULT_CHARACTER_WIDTH;
+        this.height = Constants.DEFAULT_CHARACTER_HEIGHT;
         this.movementSpeed = Constants.DEFAULT_MOVEMENT_SPEED/5;
         this.x = 1024;
         this.y = 1024;

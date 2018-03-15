@@ -6,12 +6,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
 import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Entities.NonStatics.Characters.Foe;
 import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Entities.NonStatics.Creatures.Wolf;
+import com.mygdx.game.Entities.NonStatics.Creatures.Goblin;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
@@ -32,7 +33,7 @@ public class Game extends ApplicationAdapter {
 	private BitmapFont font;
 	private Player player;
 	private Foe foe;
-	private Wolf wolf;
+	private Goblin goblin;
 	private Assets assets;
 	private ControlsAndGUIsHandler controlsAndGUIsHandler;
 	private CameraHandler cameraHandler;
@@ -44,6 +45,9 @@ public class Game extends ApplicationAdapter {
 	private ItemsManager itemsManager;
 
 	private boolean isDebug = true;
+
+
+	TextureRegion[] cropped;
 
 	@Override
 	public void create () {
@@ -60,11 +64,11 @@ public class Game extends ApplicationAdapter {
     private void loadEntities() {
 		player = new Player(assets);
 		foe = new Foe(assets);
-		wolf = new Wolf(assets);
+		goblin = new Goblin(assets);
 		entities = new ArrayList<>();
         entities.add(player);
         entities.add(foe);
-        entities.add(wolf);
+        entities.add(goblin);
     }
 
 	private void loadData()  {
