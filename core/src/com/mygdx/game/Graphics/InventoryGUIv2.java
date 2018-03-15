@@ -119,7 +119,7 @@ public class InventoryGUIv2 extends AbstractGUI {
                 font.draw(batch,"Movement Speed Reduction = " + ((Armor) describedItem).getMovementSpeedReduction(),x+45,y+240);
                 font.draw(batch,"Armor Class = " + ((Armor) describedItem).getArmorClassToString(),x+45,y+220);
             } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
-
+                font.draw(batch,"Temp temp temp = 000",x+45,y+260);
             } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
 
             } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {
