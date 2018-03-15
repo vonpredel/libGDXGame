@@ -180,9 +180,22 @@ public abstract class NonStatic extends Entity {
         }
 
         float exitMovementSpeed = movementSpeed;
-        if(this instanceof Character && ((Character) this).getInventory().getEquipedArmor() != null) {
-            exitMovementSpeed = this instanceof Character ? movementSpeed-((Character) this).getInventory().getEquipedArmor().getMovementSpeedReduction() : movementSpeed;
+        float armorRedSpeed = 0;
+        float shieldRedSpeed= 0;
+        float helmetRedSpeed = 0;
+        if(this instanceof Character) {
+            if(((Character) this).getInventory().getEquipedArmor() != null) {
+                armorRedSpeed = ((Character) this).getInventory().getEquipedArmor().getMovementSpeedReduction();
+            }
+            if(((Character) this).getInventory().getEquipedShield() != null) {
+                shieldRedSpeed = ((Character) this).getInventory().getEquipedShield().getMovementSpeedReduction();
+            }
+            if(((Character) this).getInventory().getEquipedHelmet() != null) {
+                helmetRedSpeed = ((Character) this).getInventory().getEquipedHelmet().getMovementSpeedReduction();
+            }
+
         }
+        exitMovementSpeed = exitMovementSpeed-(armorRedSpeed+shieldRedSpeed+helmetRedSpeed);
 
         this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, exitMovementSpeed));
         this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, exitMovementSpeed));

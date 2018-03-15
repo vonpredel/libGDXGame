@@ -4,39 +4,23 @@ import com.mygdx.game.Items.Item;
 
 public class Armor extends Item {
 
-    private static final int lightArmor = 1;
-    private static final int mediumArmor = 2;
-    private static final int heavyArmor = 3;
-
-    protected int armorClass;
+    protected int armorSlot;
     protected int defence;
     protected int movementSpeedReduction;
 
-    public Armor(String name, boolean stackable, int armorClass, int defence, int movementSpeedReduction) {
+    public Armor(String name, boolean stackable, int armorSlot, int defence, int movementSpeedReduction) {
         super(name, stackable);
-        this.armorClass = armorClass;
+        this.armorSlot = armorSlot;
         this.defence = defence;
         this.movementSpeedReduction = movementSpeedReduction;
     }
 
-    public static int getLightArmor() {
-        return lightArmor;
+    public int getArmorSlot() {
+        return armorSlot;
     }
 
-    public static int getMediumArmor() {
-        return mediumArmor;
-    }
-
-    public static int getHeavyArmor() {
-        return heavyArmor;
-    }
-
-    public int getArmorClass() {
-        return armorClass;
-    }
-
-    public void setArmorClass(int armorClass) {
-        this.armorClass = armorClass;
+    public void setArmorSlot(int armorSlot) {
+        this.armorSlot = armorSlot;
     }
 
     public int getDefence() {
@@ -56,13 +40,13 @@ public class Armor extends Item {
     }
 
     public String getArmorClassToString() {
-        switch (armorClass) {
+        switch (armorSlot) {
             case 0:
-                return "Light Armor";
+                return "Chest";
             case 1:
-                return "Medium Armor";
+                return "Shield";
             case 2:
-                return "Heavy Armor";
+                return "Helmet";
             default:
                 return "ERROR";
         }

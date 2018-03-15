@@ -15,8 +15,14 @@ import java.util.stream.Collectors;
 
 public class Inventory {
 
-    private Armor equipedArmor;
+    private static final int ARMOR = 0;
+    private static final int SHIELD = 1;
+    private static final int HELMET = 2;
+
     private Weapon equipedWeapon;
+    private Armor equipedArmor;
+    private Armor equipedShield;
+    private Armor equipedHelmet;
 
     List<Item> items;
 
@@ -38,6 +44,20 @@ public class Inventory {
         items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
         items.add(World.getItemsManager().create(ItemType.ARMOR));
         items.add(World.getItemsManager().create(ItemType.GOLDEN_ARMOR));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_AXE));
+
+        items.add(World.getItemsManager().create(ItemType.LEATHER_ARMOR));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_LEATHER_ARMOR));
+
+        items.add(World.getItemsManager().create(ItemType.HELMET));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_HELMET));
+
+        items.add(World.getItemsManager().create(ItemType.WOODEN_SHIELD));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_WOODEN_SHIELD));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_SHIELD));
+        items.add(World.getItemsManager().create(ItemType.SHIELD));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_SMALL_SHIELD));
+        items.add(World.getItemsManager().create(ItemType.SMALL_SHIELD));
     }
 
     public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
@@ -73,8 +93,20 @@ public class Inventory {
     }
 
     public void equipArmor(Armor armor) {
-        if(equipedArmor!=null) items.add(equipedArmor);
-        this.equipedArmor = armor;
+        switch (armor.getArmorSlot()) {
+            case ARMOR:
+                if(equipedArmor!=null) items.add(equipedArmor);
+                this.equipedArmor = armor;
+                break;
+            case SHIELD:
+                if(equipedShield!=null) items.add(equipedShield);
+                this.equipedShield = armor;
+                break;
+            case HELMET:
+                if(equipedHelmet!=null) items.add(equipedHelmet);
+                this.equipedHelmet = armor;
+                break;
+        }
         items.remove(armor);
     }
 
@@ -101,6 +133,14 @@ public class Inventory {
 
     public Weapon getEquipedWeapon() {
         return equipedWeapon;
+    }
+
+    public Armor getEquipedHelmet() {
+        return equipedHelmet;
+    }
+
+    public Armor getEquipedShield() {
+        return equipedShield;
     }
 
     public void setEquipedArmor(Armor armor) {

@@ -22,6 +22,7 @@ public final class AssetsConstants {
     public static final String INVENTORY_USE_BUTTON = "inv/useButton.png";
     public static final String INVENTORY_DROP_BUTTON = "inv/dropButton.png";
     public static final String QUISC_INFO = "misc/quickInfo.png";
+    public static final String PLAYER_SHEET = "characters/player.png";
 
     private AssetsConstants() {
 

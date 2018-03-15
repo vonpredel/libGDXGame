@@ -33,15 +33,15 @@ public class InventoryGUIv2 extends AbstractGUI {
 
     private Item describedItem;
 
-    Texture weaponTab;
-    Texture armorTab;
-    Texture usableTab;
-    Texture questTab;
-    Texture miscTab;
-    Texture selectedTab;
-    Texture selectedItem;
-    Texture dropButton;
-    Texture useButton;
+    private Texture weaponTab;
+    private Texture armorTab;
+    private Texture usableTab;
+    private Texture questTab;
+    private Texture miscTab;
+    private Texture selectedTab;
+    private Texture selectedItem;
+    private Texture dropButton;
+    private Texture useButton;
 
     private int selectedMenuIndex;
     private int selectedItemIndex;
@@ -50,6 +50,12 @@ public class InventoryGUIv2 extends AbstractGUI {
     private int itemIndexY;
 
     private int insideIndex;
+
+    private Texture armorTexture;
+    private Texture weaponTexture;
+    private Texture shieldTexture;
+    private Texture helmetTexture;
+    private Texture trinketTexture;
 
     public InventoryGUIv2(Player player, Assets assets) {
         this.texture = assets.manager.get(AssetsConstants.INVENTORY_V2);
@@ -98,6 +104,9 @@ public class InventoryGUIv2 extends AbstractGUI {
 
             //DRAW CATEGORIES ICONS
             drawCategoriesMethods(batch);
+
+            //DRAW EQUIPPED ITEMS
+            drawEquipedItems(batch);
 
             //DRAW DESCRIPTION
             drawDescription(batch);
@@ -162,11 +171,30 @@ public class InventoryGUIv2 extends AbstractGUI {
         }
     }
 
+    private void drawEquipedItems(SpriteBatch batch) {
+        batch.draw(weaponTexture,x+40+(WindowGap*0),y+36,windowSize,windowSize);
+        batch.draw(shieldTexture,x+40+(WindowGap*1),y+36,windowSize,windowSize);
+        batch.draw(armorTexture,x+40+(WindowGap*2),y+36,windowSize,windowSize);
+        batch.draw(helmetTexture,x+40+(WindowGap*3),y+36,windowSize,windowSize);
+//        batch.draw(trinketTexture,x+40+(WindowGap*4),y+36,windowSize,windowSize);
+    }
+
+    private <T extends Item> Texture chooseItemTexture(final T item) {
+        return item == null ? selectedItem : item.getTexture();
+    }
+
     @Override
     public void update() {
         super.update();
         itemIndexX = selectedItemIndex % 5;
         itemIndexY = selectedItemIndex / 5;
+
+        weaponTexture = this.chooseItemTexture(player.getInventory().getEquipedWeapon());
+        shieldTexture = this.chooseItemTexture(player.getInventory().getEquipedShield());
+        armorTexture = this.chooseItemTexture(player.getInventory().getEquipedArmor());
+        helmetTexture = this.chooseItemTexture(player.getInventory().getEquipedHelmet());
+//        trinketTexture = this.chooseItemTexture(player.getInventory().getEquipedTrinket());
+
     }
 
     public void changeTab() {
