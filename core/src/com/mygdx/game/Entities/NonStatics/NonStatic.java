@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
@@ -178,8 +179,13 @@ public abstract class NonStatic extends Entity {
             return;
         }
 
-        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, movementSpeed));
-        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, movementSpeed));
+        float exitMovementSpeed = movementSpeed;
+        if(this instanceof Character && ((Character) this).getInventory().getEquipedArmor() != null) {
+            exitMovementSpeed = this instanceof Character ? movementSpeed-((Character) this).getInventory().getEquipedArmor().getMovementSpeedReduction() : movementSpeed;
+        }
+
+        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, exitMovementSpeed));
+        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, exitMovementSpeed));
         this.lastX = this.getX();
         this.lastY = this.getY();
     }

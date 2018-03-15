@@ -26,21 +26,18 @@ public class Inventory {
 
     public void startingEquipment() {
         items.add(World.getItemsManager().create(ItemType.SWORD));
-        items.add(World.getItemsManager().create(ItemType.MISCE_MISCE));
-        items.add(World.getItemsManager().create(ItemType.QUEST_QUEST));
+        items.add(World.getItemsManager().create(ItemType.WOODEN_SWORD));
+        items.add(World.getItemsManager().create(ItemType.LEGENDARY_DOUBLE_AXE));
+        items.add(World.getItemsManager().create(ItemType.SPEAR));
+        items.add(World.getItemsManager().create(ItemType.WAND));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_BOW));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_DAGGER));
+        items.add(World.getItemsManager().create(ItemType.HAMMER));
         items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.MINOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
         items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.MAJOR_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.NO_ARMOR));
+        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
+        items.add(World.getItemsManager().create(ItemType.ARMOR));
+        items.add(World.getItemsManager().create(ItemType.GOLDEN_ARMOR));
     }
 
     public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {

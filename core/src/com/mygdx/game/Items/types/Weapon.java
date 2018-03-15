@@ -10,8 +10,8 @@ public class Weapon extends Item {
     protected float speed;
     protected int critChance;
 
-    public Weapon(String name, float weight, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance) {
-        super(name, weight, stackable);
+    public Weapon(String name, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance) {
+        super(name, stackable);
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
         this.accuracy = accuracy;

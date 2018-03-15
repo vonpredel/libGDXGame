@@ -10,8 +10,8 @@ public class UsableItem extends Item {
 
     public int function;
 
-    public UsableItem(String name, float weight, boolean stackable,int function) {
-        super(name, weight, stackable);
+    public UsableItem(String name, boolean stackable,int function) {
+        super(name, stackable);
         this.function = function;
     }
 }

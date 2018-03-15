@@ -7,7 +7,6 @@ import com.mygdx.game.inventory.Inventory;
 public abstract class Item {
 
     protected String name;
-    protected float weight;
     protected boolean stackable;
     protected Texture texture;
 
@@ -15,9 +14,8 @@ public abstract class Item {
     public float x,y;
     protected boolean isDropped = false;
 
-    public Item(String name, float weight, boolean stackable) {
+    public Item(String name, boolean stackable) {
         this.name = name;
-        this.weight = weight;
         this.stackable = stackable;
         this.width = Constants.DEFAULT_TILE_WIDTH;
         this.height = Constants.DEFAULT_TILE_HEIGHT;
@@ -29,14 +27,6 @@ public abstract class Item {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
     }
 
     public boolean isStackable() {
