@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.NonStatics.Characters.Character;
+import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
@@ -52,6 +53,7 @@ public abstract class NonStatic extends Entity {
     public abstract float getAttackSpeed();
     public abstract int getCritChance();
     public abstract int getAccuracy();
+    public abstract float getMovementSpeed();
 
     public void moveUp() {
         if (!isMoving && World.isAbleToGo(this, World.UP)) {
@@ -157,7 +159,7 @@ public abstract class NonStatic extends Entity {
     public void textureToRenderUpdate() {
         animationTimeHelper += Gdx.graphics.getDeltaTime();
         idleTimeHelper += Gdx.graphics.getDeltaTime();
-        if (animationTimeHelper > 1f - (this.movementSpeed/10)) {
+        if (animationTimeHelper > 1f - (this.getMovementSpeed()/10)) {
             if(animationFrame ==2) animationFrame =0;
             else animationFrame++;
             animationTimeHelper = 0;
@@ -232,26 +234,8 @@ public abstract class NonStatic extends Entity {
             return;
         }
 
-        float exitMovementSpeed = movementSpeed;
-        float armorRedSpeed = 0;
-        float shieldRedSpeed= 0;
-        float helmetRedSpeed = 0;
-        if(this instanceof Character) {
-            if(((Character) this).getInventory().getEquipedArmor() != null) {
-                armorRedSpeed = ((Character) this).getInventory().getEquipedArmor().getMovementSpeedReduction();
-            }
-            if(((Character) this).getInventory().getEquipedShield() != null) {
-                shieldRedSpeed = ((Character) this).getInventory().getEquipedShield().getMovementSpeedReduction();
-            }
-            if(((Character) this).getInventory().getEquipedHelmet() != null) {
-                helmetRedSpeed = ((Character) this).getInventory().getEquipedHelmet().getMovementSpeedReduction();
-            }
-
-        }
-        exitMovementSpeed = exitMovementSpeed-(armorRedSpeed+shieldRedSpeed+helmetRedSpeed);
-
-        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, exitMovementSpeed));
-        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, exitMovementSpeed));
+        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, getMovementSpeed()));
+        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, getMovementSpeed()));
         this.lastX = this.getX();
         this.lastY = this.getY();
     }
@@ -295,5 +279,9 @@ public abstract class NonStatic extends Entity {
 
     public void setCurrentHealthPoints(int currentHealthPoints) {
         this.currentHealthPoints = currentHealthPoints;
+    }
+
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
     }
 }

@@ -46,9 +46,6 @@ public class Game extends ApplicationAdapter {
 
 	private boolean isDebug = true;
 
-
-	TextureRegion[] cropped;
-
 	@Override
 	public void create () {
 		assets = new Assets();
@@ -110,7 +107,6 @@ public class Game extends ApplicationAdapter {
 		entities.forEach(e->e.draw(batch,font));
 		controlsAndGUIsHandler.draw(batch);
 		batch.end();
-		controlsAndGUIsHandler.drawShapes(batch);
 	}
 
 	private void update() {
@@ -140,8 +136,8 @@ public class Game extends ApplicationAdapter {
 				}
 			}
 		}
-        controlsAndGUIsHandler.update();
-        cameraHandler.update();
+		cameraHandler.update();
+		controlsAndGUIsHandler.update();
         timer.update(entities);
         itemsContainer.update();
     }

@@ -208,7 +208,7 @@ public class InventoryGUIv2 extends AbstractGUI {
         if (inside) {
             insideIndex = insideIndex!=1 ? 1 : 0;
         } else {
-            if (selectedItemIndex < 4) return;
+            if (selectedItemIndex < 5) return;
             else selectedItemIndex-=5;
         }
     }
@@ -259,6 +259,10 @@ public class InventoryGUIv2 extends AbstractGUI {
             }
             inside = false;
         }
+    }
+
+    public List<? extends Item> getList() {
+        return list;
     }
 
     public void escape() {

@@ -19,6 +19,11 @@ public abstract class Creature extends NonStatic {
     protected abstract void dropLoot();
 
     @Override
+    public float getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    @Override
     public int getDefence() {
         return defence;
     }

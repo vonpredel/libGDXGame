@@ -19,9 +19,9 @@ public class CameraHandler {
     }
 
     public void update() {
-        batch.setProjectionMatrix(camera.combined);
-        camera.update();
         camera.position.set(entity.x + entity.width / 2, entity.y + entity.height / 2, 0);
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
     }
 
     public void zoomOut() {
@@ -41,11 +41,11 @@ public class CameraHandler {
     }
 
     public void rotateCameraRight() {
-        camera.rotate(-1);
+        camera.rotate(-0.5f);
     }
 
     public void rotateCameraLeft() {
-        camera.rotate(1);
+        camera.rotate(0.5f);
     }
 
     public void resetZoom() {

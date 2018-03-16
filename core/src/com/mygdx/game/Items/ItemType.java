@@ -37,9 +37,13 @@ public enum ItemType {
 	GOLDEN_WOODEN_SHIELD(Armor.class),
 	HELMET(Armor.class),
 	GOLDEN_HELMET(Armor.class),
-	MINOR_POTION_OF_HEALTH(UsableItem.class),
+	LESSER_POTION_OF_HEALTH(UsableItem.class),
 	POTION_OF_HEALTH(UsableItem.class),
-	MAJOR_POTION_OF_HEALTH(UsableItem.class),
+	LESSER_POTION_OF_STAMINA(UsableItem.class),
+	POTION_OF_STAMINA(UsableItem.class),
+	LESSER_POTION_OF_MANA(UsableItem.class),
+	POTION_OF_MANA(UsableItem.class),
+	POTION_OF_SOMETHING(UsableItem.class),
 	QUEST_QUEST(QuestItem.class),
 	MISCE_MISCE(MiscellaneousItem.class);
 

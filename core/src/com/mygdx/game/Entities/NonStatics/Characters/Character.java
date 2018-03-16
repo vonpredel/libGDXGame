@@ -46,7 +46,21 @@ public abstract class Character extends NonStatic {
     @Override
     public int getDefence() {
         final Armor equipedArmor = this.getInventory().getEquipedArmor();
-        return equipedArmor == null ? 0 : equipedArmor.getDefence();
+        final Armor equipedShield = this.getInventory().getEquipedShield();
+        final Armor equipedHelmet = this.getInventory().getEquipedHelmet();
+        return (equipedArmor == null ? 0 : equipedArmor.getDefence())
+                +  (equipedShield == null ? 0 : equipedShield.getDefence())
+                +  (equipedHelmet == null ? 0 : equipedHelmet.getDefence());
+    }
+
+    @Override
+    public float getMovementSpeed() {
+        return movementSpeed - ((this.getInventory().getEquipedArmor() == null ? 0
+                    : this.getInventory().getEquipedArmor().getMovementSpeedReduction())
+                + (this.getInventory().getEquipedShield() == null ? 0
+                    : this.getInventory().getEquipedShield().getMovementSpeedReduction())
+                + (this.getInventory().getEquipedHelmet() == null ? 0
+                    : this.getInventory().getEquipedHelmet().getMovementSpeedReduction()));
     }
 
     @Override

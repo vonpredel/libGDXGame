@@ -11,8 +11,11 @@ import com.mygdx.game.Graphics.InventoryGUI;
 import com.mygdx.game.Graphics.InventoryGUIv2;
 import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.assets.Assets;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ControlsAndGUIsHandler {
@@ -83,10 +86,6 @@ public class ControlsAndGUIsHandler {
 
     public void draw(SpriteBatch batch) {
         guiList.forEach(g -> g.draw(batch));
-    }
-
-    public void drawShapes(SpriteBatch batch) {
-        quickInfoGUI.drawShapes(batch);
     }
 
     private void movementControls() {
