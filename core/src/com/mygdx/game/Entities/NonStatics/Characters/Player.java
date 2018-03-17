@@ -56,7 +56,7 @@ public class Player extends Character {
     }
 
     public void pickUpItems() {
-        World.getItemsContainer().getAllItems().forEach(this::pickUpItem);
+        World.getItemsManager().getItemsContainer().getAllItems().forEach(this::pickUpItem);
     }
 
     public void pickUpItem(Item item) {

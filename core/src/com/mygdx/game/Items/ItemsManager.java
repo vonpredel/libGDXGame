@@ -105,4 +105,7 @@ public class ItemsManager {
         return createdItem;
     }
 
+    public ItemsContainer getItemsContainer() {
+        return itemsContainer;
+    }
 }

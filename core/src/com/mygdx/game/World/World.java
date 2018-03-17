@@ -13,6 +13,8 @@ import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.Items.ItemsContainer;
+import com.mygdx.game.Zones.Zone;
+import com.mygdx.game.Zones.ZoneRenderer;
 import java.util.List;
 
 public class World {
@@ -28,13 +30,14 @@ public class World {
     public static final int RIGHT = EAST;
 
     private static List<Entity> entityList;
+    private static Zone currentZone;
     private static List<Tile> tileList;
+    private static ZoneRenderer zoneRenderer;
     private static int worldWidth;
     private static int worldHeight;
     private static SpriteBatch batch;
     private static BitmapFont font;
     private static Assets assets;
-    private static ItemsContainer itemsContainer;
     private static CameraHandler cameraHandler;
     private static ItemsManager itemsManager;
     private static Player player;
@@ -43,19 +46,18 @@ public class World {
 
     }
 
-    public static void init(List<Entity> entityList, List<Tile> tileList,
-                            int worldWidth, int worldHeight, SpriteBatch batch,
-                            BitmapFont font, Assets assets, ItemsContainer itemsContainer,
-                            ItemsManager itemsManager, CameraHandler cameraHandler,
-                            Player player) {
+    public static void init(List<Entity> entityList,ZoneRenderer zoneRenderer, SpriteBatch batch,
+                            BitmapFont font, Assets assets, ItemsManager itemsManager,
+                            CameraHandler cameraHandler, Player player) {
         World.batch = batch;
         World.entityList = entityList;
-        World.tileList = tileList;
-        World.worldWidth = worldWidth;
-        World.worldHeight = worldHeight;
+        World.zoneRenderer = zoneRenderer;
+        World.currentZone = zoneRenderer.getZone();
+        World.tileList = currentZone.getTileList();
+        World.worldWidth = currentZone.getWidth();
+        World.worldHeight = currentZone.getHeight();
         World.font = font;
         World.assets = assets;
-        World.itemsContainer = itemsContainer;
         World.itemsManager = itemsManager;
         World.cameraHandler = cameraHandler;
         World.player = player;
@@ -166,10 +168,6 @@ public class World {
         return assets;
     }
 
-    public static ItemsContainer getItemsContainer() {
-        return itemsContainer;
-    }
-
     public static ItemsManager getItemsManager() {
         return itemsManager;
     }
@@ -180,5 +178,13 @@ public class World {
 
     public static Player getPlayer() {
         return player;
+    }
+
+    public static void setCurrentZone(Zone currentZone) {
+        World.zoneRenderer.setZone(currentZone);
+        World.currentZone = currentZone;
+        World.tileList = currentZone.getTileList();
+        World.worldWidth = currentZone.getWidth();
+        World.worldHeight = currentZone.getHeight();
     }
 }

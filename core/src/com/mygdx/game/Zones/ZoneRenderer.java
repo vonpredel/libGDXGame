@@ -2,6 +2,7 @@ package com.mygdx.game.Zones;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Tiles.Tile;
+import com.mygdx.game.World.World;
 import java.util.List;
 
 public class ZoneRenderer {
@@ -9,8 +10,7 @@ public class ZoneRenderer {
     private Zone zone;
     private SpriteBatch batch;
 
-    public ZoneRenderer(Zone zone, SpriteBatch batch) {
-        this.zone = zone;
+    public ZoneRenderer(SpriteBatch batch) {
         this.batch = batch;
     }
 
@@ -36,5 +36,9 @@ public class ZoneRenderer {
 
     public void setZone(Zone zone) {
         this.zone = zone;
+    }
+
+    public Zone getZone() {
+        return zone;
     }
 }
