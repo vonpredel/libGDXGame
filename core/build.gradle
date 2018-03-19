@@ -10,23 +10,15 @@ eclipse.project {
     name = appName + "-core"
 }
 
-task generateItems(type: MyTask) {
-
-}
-
-class MyTask extends DefaultTask {
-
-    def fileMap = [
-            'core/assets/data/weapons.csv':'Weapon.class',
-            'core/assets/data/armors.csv':'Armor.class',
-            'core/assets/data/usableitems.csv':'UsableItem.class',
-            'core/assets/data/questitems.csv':'QuestItem.class',
-            'core/assets/data/miscellaneousitems.csv':'MiscellaneousItem.class'
+task generateItems(type: GenerateTask) {
+    fileMap = [
+            'core/assets/dataItems/weapons.csv':'Weapon.class',
+            'core/assets/dataItems/armors.csv':'Armor.class',
+            'core/assets/dataItems/usableitems.csv':'UsableItem.class',
+            'core/assets/dataItems/questitems.csv':'QuestItem.class',
+            'core/assets/dataItems/miscellaneousitems.csv':'MiscellaneousItem.class'
     ]
-
-    @TaskAction
-    def runTask() {
-        def classFile = new StringBuilder()
+    preamble = { classFile ->
         classFile.append 'package com.mygdx.game.Items;\n'
         classFile.append 'import com.mygdx.game.Items.types.Armor;\n'
         classFile.append 'import com.mygdx.game.Items.types.Weapon;\n'
@@ -35,6 +27,58 @@ class MyTask extends DefaultTask {
         classFile.append 'import com.mygdx.game.Items.types.MiscellaneousItem;\n'
         classFile.append '\n'
         classFile.append 'public enum ItemType {\n'
+    }
+    epilogue = { classFile ->
+        classFile.append '    private final Class<? extends Item> cls;\n'
+        classFile.append '\n'
+        classFile.append '    private ItemType(Class<? extends Item> cls) {\n'
+        classFile.append '        this.cls = cls;\n'
+        classFile.append '    }\n'
+        classFile.append '\n'
+        classFile.append '    public Class<? extends Item> getCls() {\n'
+        classFile.append '        return cls;\n'
+        classFile.append '    }'
+        classFile.append '\n}'
+    }
+    outputFile = 'core\\src\\com\\mygdx\\game\\Items\\ItemType.java'
+}
+
+task generateEntities(type: GenerateTask, dependsOn: generateItems) {
+    fileMap = [
+            'core/assets/dataEntities/enemies.csv':'Enemy.class'
+    ]
+    preamble = { classFile ->
+        classFile.append 'package com.mygdx.game.Entities;\n'
+        classFile.append 'import com.mygdx.game.Entities.NonStatics.Enemy;\n'
+        classFile.append '\n'
+        classFile.append 'public enum EntityType {\n'
+    }
+    epilogue = { classFile ->
+        classFile.append '    private final Class<? extends Entity> cls;\n'
+        classFile.append '\n'
+        classFile.append '    private EntityType(Class<? extends Entity> cls) {\n'
+        classFile.append '        this.cls = cls;\n'
+        classFile.append '    }\n'
+        classFile.append '\n'
+        classFile.append '    public Class<? extends Entity> getCls() {\n'
+        classFile.append '        return cls;\n'
+        classFile.append '    }'
+        classFile.append '\n}'
+    }
+    outputFile = 'core\\src\\com\\mygdx\\game\\Entities\\EntityType.java'
+}
+
+class GenerateTask extends DefaultTask {
+
+    def fileMap
+    def preamble
+    def epilogue
+    def outputFile
+
+    @TaskAction
+    def runTask() {
+        def classFile = new StringBuilder()
+        preamble classFile
 
         def actualEnums = []
         fileMap.each { k, v ->
@@ -48,24 +92,14 @@ class MyTask extends DefaultTask {
                 "\t" + e + '(' + v + ')'
             }
         }
-        //println actualEnums
         classFile.append actualEnums.join(',\n')
         classFile.append ';\n\n'
 
-        classFile.append '    private final Class<? extends Item> cls;\n'
-        classFile.append '\n'
-        classFile.append '    private ItemType(Class<? extends Item> cls) {\n'
-        classFile.append '        this.cls = cls;\n'
-        classFile.append '    }\n'
-        classFile.append '\n'
-        classFile.append '    public Class<? extends Item> getCls() {\n'
-        classFile.append '        return cls;\n'
-        classFile.append '    }'
-        classFile.append '\n}'
+        epilogue classFile
 
         def contents = classFile.toString()
 
-        def srcFile = new File('core\\src\\com\\mygdx\\game\\Items\\ItemType.java')
+        def srcFile = new File(outputFile)
         srcFile.write contents
     }
 

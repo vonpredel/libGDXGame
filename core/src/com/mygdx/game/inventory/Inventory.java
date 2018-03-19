@@ -1,6 +1,6 @@
 package com.mygdx.game.inventory;
 
-import com.mygdx.game.Entities.NonStatics.Characters.Player;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemType;
 import com.mygdx.game.Items.types.Armor;

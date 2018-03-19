@@ -1,40 +1,18 @@
 package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Utils.BaseContainer;
 import com.mygdx.game.Utils.Constants;
-import java.util.ArrayList;
-import java.util.List;
 
-public class ItemsContainer {
+public class ItemsContainer extends BaseContainer<Item> {
 
-    List<Item> allItems;
-
-    public ItemsContainer() {
-        allItems = new ArrayList<>();
-    }
-
-    public void update() {
-
-    }
-
+    @Override
     public void draw(SpriteBatch batch) {
-        allItems.forEach(i -> {
-            if(i.isDropped()) {
-                batch.draw(i.getTexture(),i.x,i.y, Constants.DEFAULT_ITEM_WIDTH, Constants.DEFAULT_ITEM_HEIGHT);
+        this.getAllItems().forEach(i -> {
+            if (i.isDropped()) {
+                batch.draw(i.getTexture(), i.x, i.y, Constants.DEFAULT_ITEM_WIDTH, Constants.DEFAULT_ITEM_HEIGHT);
             }
         });
-    }
-
-    public List<Item> getAllItems() {
-        return allItems;
-    }
-
-    public void setAllItems(List<Item> allItems) {
-        this.allItems = allItems;
-    }
-
-    public void addItem(Item item) {
-        allItems.add(item);
     }
 
 

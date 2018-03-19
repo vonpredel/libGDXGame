@@ -8,50 +8,129 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Items.Item;
+import com.mygdx.game.Items.types.Armor;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
 import com.mygdx.game.Utils.assets.AssetChopper;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
+import com.mygdx.game.inventory.Inventory;
 import java.util.Optional;
 
 public abstract class NonStatic extends Entity {
 
-    protected int maxHealthPoints, currentHealthPoints;
-    protected boolean isMoving;
-    private boolean isAttacking = true;
-    protected float movementSpeed;
+    private boolean isMoving;
+    private boolean isAttacking;
 
-    private float attackTimeHelper = 0;
-    private float animationTimeHelper = 0;
-    private float idleTimeHelper = 0f;
+    private float attackTimeHelper;
+    private float animationTimeHelper;
+    private float idleTimeHelper;
+    private float cleanDamageTimerHelper;
 
     private Tile destination;
-    private float lastX,lastY;
-
-    private boolean isDamaged = false;
-    private float cleanDamageTimerHelper = 0f;
-    private String damageGot = "0";
-
-    private TextureRegion textureToRender;
+    private float lastX, lastY;
     private int movementDirection;
 
+    private boolean isDamaged;
+    private String damageGot;
+
+    private TextureRegion textureToRender;
+    private TextureRegion[] animations;
     private int animationFrame;
 
-    TextureRegion[] animations;
+    private int strength;
+    private int dexterity;
+    private int vitality;
+    private int energy;
 
-    protected Optional<Weapon> getWeapon() {
-        return Optional.empty();
+    private float movementSpeed;
+
+    private int maxHealthPoints;
+    private int currentHealthPoints;
+    private int currentManaPoints;
+    private int maxManaPoints;
+    private int currentStaminaPoints;
+    private int maxStaminaPoints;
+
+    private Inventory inventory;
+
+    public NonStatic() {
+        this.isDamaged = false;
+        this.isAttacking = true;
+        this.damageGot = "0";
+        this.inventory = new Inventory();
+        this.animationTimeHelper = this.attackTimeHelper = this.idleTimeHelper = this.cleanDamageTimerHelper = 0.0f;
     }
 
-    public abstract int getDefence();
-    public abstract int getMinDamage();
-    public abstract int getMaxDamage() ;
-    public abstract float getAttackSpeed();
-    public abstract int getCritChance();
-    public abstract int getAccuracy();
-    public abstract float getMovementSpeed();
+    //<editor-fold desc="Inventory" defaultstate="collapsed">
+
+    public void initializeInventory() {
+
+    }
+
+    protected void dropEquipment() {
+        Tile tile = getCurrentTile();
+        if (inventory.getEquipedWeapon() != null) inventory.getEquipedWeapon().generateOnMap(tile.x, tile.y);
+        if (inventory.getEquipedArmor() != null) inventory.getEquipedArmor().generateOnMap(tile.x, tile.y);
+        if (inventory.getEquipedShield() != null) inventory.getEquipedShield().generateOnMap(tile.x, tile.y);
+        if (inventory.getEquipedHelmet() != null) inventory.getEquipedHelmet().generateOnMap(tile.x, tile.y);
+        inventory.getItems().forEach(i -> i.generateOnMap(tile.x, tile.y));
+        inventory.getItems().clear();
+    }
+
+    public void dropItem(Item item) {
+        Tile tile = getCurrentTile();
+        item.generateOnMap(tile.x, tile.y);
+        inventory.getItems().remove(item);
+    }
+
+//    </editor-fold>
+
+    //<editor-fold desc="getters for statistics" defaultstate="collapsed">
+
+    public int getDefence() {
+        final Armor equipedArmor = this.getInventory().getEquipedArmor();
+        final Armor equipedShield = this.getInventory().getEquipedShield();
+        final Armor equipedHelmet = this.getInventory().getEquipedHelmet();
+        return (equipedArmor == null ? 0 : equipedArmor.getDefence())
+                + (equipedShield == null ? 0 : equipedShield.getDefence())
+                + (equipedHelmet == null ? 0 : equipedHelmet.getDefence());
+    }
+
+    public float getMovementSpeed() {
+        return movementSpeed - ((this.getInventory().getEquipedArmor() == null ? 0
+                : this.getInventory().getEquipedArmor().getMovementSpeedReduction())
+                + (this.getInventory().getEquipedShield() == null ? 0
+                : this.getInventory().getEquipedShield().getMovementSpeedReduction())
+                + (this.getInventory().getEquipedHelmet() == null ? 0
+                : this.getInventory().getEquipedHelmet().getMovementSpeedReduction()));
+    }
+
+    public int getMinDamage() {
+        return this.getWeapon().map(Weapon::getMinDamage).orElse(0);
+    }
+
+    public int getMaxDamage() {
+        return this.getWeapon().map(Weapon::getMaxDamage).orElse(1);
+    }
+
+    public float getAttackSpeed() {
+        return this.getWeapon().map(Weapon::getSpeed).orElse(1.0f);
+    }
+
+    public int getCritChance() {
+        return this.getWeapon().map(Weapon::getCritChance).orElse(0);
+    }
+
+    public int getAccuracy() {
+        return this.getWeapon().map(Weapon::getAccuracy).orElse(50);
+    }
+
+//    </editor-fold>
+
+    //<editor-fold desc="Moving" defaultstate="collapsed">
 
     public void moveUp() {
         if (!isMoving && World.isAbleToGo(this, World.UP)) {
@@ -81,15 +160,32 @@ public abstract class NonStatic extends Entity {
         }
     }
 
-    public void hurt(int dmgAmt) {
-        currentHealthPoints -= dmgAmt;
-        if(currentHealthPoints <= 0) {
-            die();
-        }
-        damageGot = (dmgAmt==0) ? "MISS" : String.valueOf(dmgAmt);
-        isDamaged = true;
-        cleanDamageTimerHelper = 0f;
+    private void moveInit(int direction) {
+        this.movementDirection = direction;
+        this.lastX = this.getCurrentTile().x;
+        this.lastY = this.getCurrentTile().y;
+        this.destination = World.getTargetDirectionTile(this, direction);
     }
+
+    private void moveUpdate() {
+        if (!this.isMoving || this.destination == null) return;
+
+        if (MyMathUtils.areEqual(this.x, destination.x) && MyMathUtils.areEqual(this.y, destination.y)) {
+            this.destination = null;
+            this.isMoving = false;
+            this.idleTimeHelper = 0.0f;
+            return;
+        }
+
+        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, getMovementSpeed()));
+        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, getMovementSpeed()));
+        this.lastX = this.getX();
+        this.lastY = this.getY();
+    }
+
+    //</editor-fold>
+
+    //<editor-fold desc="Attacking" defaultstate="collapsed">
 
     public void attackUp() {
         attack(World.getTargetDirectionTile(this, World.UP));
@@ -113,14 +209,14 @@ public abstract class NonStatic extends Entity {
             if (!(targetNonStatic instanceof NonStatic)) return;
             isAttacking = true;
             int damage;
-            if(!(MathUtils.random(1,100) <= getAccuracy())) damage = 0;
+            if (!(MathUtils.random(1, 100) <= getAccuracy())) damage = 0;
             else {
                 int reducedDamage = targetNonStatic.getDefence();
 
                 damage = MathUtils.random(getMinDamage(), getMaxDamage());
-                damage = (MathUtils.random(1,100) <= getCritChance() ? damage*2 : damage)
+                damage = (MathUtils.random(1, 100) <= getCritChance() ? damage * 2 : damage)
                         - reducedDamage;
-                damage = Math.max(0,damage);
+                damage = Math.max(0, damage);
             }
             targetNonStatic.hurt(damage);
             attackTimeHelper = 0;
@@ -135,17 +231,11 @@ public abstract class NonStatic extends Entity {
         }
     }
 
-    private void moveInit(int direction) {
-        this.movementDirection = direction;
-        this.lastX = this.getCurrentTile().x;
-        this.lastY = this.getCurrentTile().y;
-        this.destination = World.getTargetDirectionTile(this, direction);
-    }
+    //</editor-fold>
 
-    protected void die() {
-        super.die();
-    }
+    //<editor-fold desc="Internal" defaultstate="collapsed">
 
+    @Override
     public void update() {
         moveUpdate();
         attackUpdate();
@@ -154,11 +244,11 @@ public abstract class NonStatic extends Entity {
         ai();
     }
 
-    public void textureToRenderUpdate() {
+    private void textureToRenderUpdate() {
         animationTimeHelper += Gdx.graphics.getDeltaTime();
         idleTimeHelper += Gdx.graphics.getDeltaTime();
-        if (animationTimeHelper > 1f - (this.getMovementSpeed()/10)) {
-            if(animationFrame ==2) animationFrame =0;
+        if (animationTimeHelper > 1f - (this.getMovementSpeed() / 10)) {
+            if (animationFrame == 2) animationFrame = 0;
             else animationFrame++;
             animationTimeHelper = 0;
         }
@@ -168,13 +258,13 @@ public abstract class NonStatic extends Entity {
                 textureToRender = animations[animationFrame];
                 break;
             case World.LEFT:
-                textureToRender = animations[animationFrame +3];
+                textureToRender = animations[animationFrame + 3];
                 break;
             case World.RIGHT:
-                textureToRender = animations[animationFrame +6];
+                textureToRender = animations[animationFrame + 6];
                 break;
             case World.UP:
-                textureToRender = animations[animationFrame +9];
+                textureToRender = animations[animationFrame + 9];
                 break;
             default:
                 textureToRender = animations[1];
@@ -187,64 +277,12 @@ public abstract class NonStatic extends Entity {
     }
 
     @Override
-    public void setTexture(Texture texture) {
-        super.setTexture(texture);
-        animations = AssetChopper.crop(texture);
-    }
-
-    protected abstract void ai();
-
-    protected void defaultAi() {
-        spamAttack();
-        if(!isMoving) {
-            int i = MathUtils.random(1,4);
-            switch (i) {
-                case 1:
-                    moveUp();
-                    break;
-                case 2:
-                    moveDown();
-                    break;
-                case 3:
-                    moveLeft();
-                    break;
-                case 4:
-                    moveRight();
-                    break;
-            }
-        }
-    }
-
-    private void spamAttack() {
-        attackUp();
-        attackDown();
-        attackLeft();
-        attackRight();
-    }
-
-    private void moveUpdate() {
-        if (!this.isMoving || this.destination == null) return;
-
-        if (MyMathUtils.areEqual(this.x, destination.x) && MyMathUtils.areEqual(this.y, destination.y)) {
-            this.destination = null;
-            this.isMoving = false;
-            this.idleTimeHelper = 0.0f;
-            return;
-        }
-
-        this.setX(MyMathUtils.moveTowards(this.lastX, this.destination.x, getMovementSpeed()));
-        this.setY(MyMathUtils.moveTowards(this.lastY, this.destination.y, getMovementSpeed()));
-        this.lastX = this.getX();
-        this.lastY = this.getY();
-    }
-
-    @Override
     public void draw(SpriteBatch batch, BitmapFont font) {
         batch.draw(textureToRender, x, y, width, height);
         if (isDamaged) {
             batch.draw(new Texture(AssetsConstants.DAMAGE), x, y, width, height);
             font.setColor(Color.WHITE);
-            font.draw(batch, String.valueOf(damageGot), x + width *0.4f, y + height *0.6f);
+            font.draw(batch, String.valueOf(damageGot), x + width * 0.4f, y + height * 0.6f);
         }
     }
 
@@ -258,9 +296,104 @@ public abstract class NonStatic extends Entity {
         }
     }
 
+    ///</editor-fold>
+
+    @Override
+    protected void die() {
+        super.die();
+        dropEquipment();
+    }
+
+    public void hurt(int dmgAmt) {
+        currentHealthPoints -= dmgAmt;
+        if (currentHealthPoints <= 0) {
+            die();
+        }
+        damageGot = (dmgAmt == 0) ? "MISS" : String.valueOf(dmgAmt);
+        isDamaged = true;
+        cleanDamageTimerHelper = 0f;
+    }
+
+    protected abstract void ai();
+
     @Override
     public boolean isSolid() {
         return true;
+    }
+
+    public void setMovementSpeed(float movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    protected Optional<Weapon> getWeapon() {
+        return Optional.ofNullable(this.getInventory().getEquipedWeapon());
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
+    public int getDexterity() {
+        return dexterity;
+    }
+
+    public void setDexterity(int dexterity) {
+        this.dexterity = dexterity;
+    }
+
+    public int getVitality() {
+        return vitality;
+    }
+
+    public void setVitality(int vitality) {
+        this.vitality = vitality;
+    }
+
+    public int getEnergy() {
+        return energy;
+    }
+
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public boolean isAttacking() {
+        return isAttacking;
+    }
+
+    @Override
+    public void setTexture(Texture texture) {
+        super.setTexture(texture);
+        animations = AssetChopper.crop(texture);
+    }
+
+    public int getCurrentManaPoints() {
+        return currentManaPoints;
+    }
+
+    public void setCurrentManaPoints(int currentManaPoints) {
+        this.currentManaPoints = currentManaPoints;
+    }
+
+    public int getMaxManaPoints() {
+        return maxManaPoints;
+    }
+
+    public void setMaxManaPoints(int maxManaPoints) {
+        this.maxManaPoints = maxManaPoints;
+        this.currentManaPoints = maxManaPoints;
     }
 
     public int getMaxHealthPoints() {
@@ -269,6 +402,7 @@ public abstract class NonStatic extends Entity {
 
     public void setMaxHealthPoints(int maxHealthPoints) {
         this.maxHealthPoints = maxHealthPoints;
+        this.currentHealthPoints = maxHealthPoints;
     }
 
     public int getCurrentHealthPoints() {
@@ -279,7 +413,31 @@ public abstract class NonStatic extends Entity {
         this.currentHealthPoints = currentHealthPoints;
     }
 
-    public void setMovementSpeed(float movementSpeed) {
-        this.movementSpeed = movementSpeed;
+    public int getCurrentStaminaPoints() {
+        return currentStaminaPoints;
     }
+
+    public void setCurrentStaminaPoints(int currentStaminaPoints) {
+        this.currentStaminaPoints = currentStaminaPoints;
+    }
+
+    public int getMaxStaminaPoints() {
+        return maxStaminaPoints;
+    }
+
+    public void setMaxStaminaPoints(int maxStaminaPoints) {
+        this.maxStaminaPoints = maxStaminaPoints;
+        this.currentStaminaPoints = maxStaminaPoints;
+    }
+
+    public void warp(float x, float y) {
+        this.setX(x);
+        this.setY(y);
+
+        final Tile currentTile = this.getCurrentTile();
+        this.lastX = currentTile.getX();
+        this.lastY = currentTile.getY();
+    }
+
+
 }

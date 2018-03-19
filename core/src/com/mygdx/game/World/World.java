@@ -2,11 +2,14 @@ package com.mygdx.game.World;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Entities.EntitiesContainer;
+import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Entities.NonStatics.Characters.Player;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsManager;
+import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Utils.Constants;
@@ -40,6 +43,8 @@ public class World {
     private static Assets assets;
     private static CameraHandler cameraHandler;
     private static ItemsManager itemsManager;
+    private static EntitiesManager entitiesManager;
+    private static EntitiesContainer entitiesContainer;
     private static Player player;
 
     private World() {
@@ -48,7 +53,7 @@ public class World {
 
     public static void init(List<Entity> entityList,ZoneRenderer zoneRenderer,ZoneContainer zoneContainer, SpriteBatch batch,
                             BitmapFont font, Assets assets, ItemsManager itemsManager,
-                            CameraHandler cameraHandler, Player player) {
+                            CameraHandler cameraHandler, EntitiesManager entitiesManager, Player player) {
         World.batch = batch;
         World.entityList = entityList;
         World.zoneRenderer = zoneRenderer;
@@ -61,6 +66,8 @@ public class World {
         World.assets = assets;
         World.itemsManager = itemsManager;
         World.cameraHandler = cameraHandler;
+        World.entitiesManager = entitiesManager;
+        World.entitiesContainer = entitiesManager.getContainer();
         World.player = player;
     }
 
@@ -98,7 +105,7 @@ public class World {
     }
 
     public static boolean isTileOccupied(Tile tile) {
-        for (Entity e : entityList) {
+        for (Entity e : entitiesContainer.getAllItems()) {
             if (e.getCurrentTile().equals(tile)) {
                 return true;
             }
@@ -108,7 +115,7 @@ public class World {
 
     public static NonStatic getNonStaticFromTile(Tile tile) {
         if (isTileOccupied(tile)) {
-            for (Entity e : entityList) {
+            for (Entity e : entitiesContainer.getAllItems()) {
                 if (e instanceof NonStatic && e.getCurrentTile().equals(tile)) {
                     return (NonStatic) e;
                 }
@@ -119,7 +126,7 @@ public class World {
 
     public static Static getStaticFromTile(Tile tile) {
         if (isTileOccupied(tile)) {
-            for (Entity e : entityList) {
+            for (Entity e : entitiesContainer.getAllItems()) {
                 if (e instanceof Static && e.getCurrentTile().equals(tile)) {
                     return (Static) e;
                 }
@@ -138,11 +145,11 @@ public class World {
     }
 
     public static void removeEntity(Entity entity) {
-        entityList.remove(entity);
+        entitiesContainer.removeItem(entity);
     }
 
     public static List<Entity> getEntityList() {
-        return entityList;
+        return entitiesContainer.getAllItems();
     }
 
     public static List<Tile> getTileList() {

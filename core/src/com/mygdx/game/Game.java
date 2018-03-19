@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
+import com.mygdx.game.Entities.EntitiesContainer;
+import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Entities.NonStatics.Characters.Character;
-import com.mygdx.game.Entities.NonStatics.Characters.Foe;
-import com.mygdx.game.Entities.NonStatics.Characters.Player;
-import com.mygdx.game.Entities.NonStatics.Creatures.Goblin;
+import com.mygdx.game.Entities.EntityType;
+import com.mygdx.game.Entities.NonStatics.Enemy;
+import com.mygdx.game.Entities.NonStatics.Player;
+import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Utils.CameraHandler;
@@ -28,22 +30,20 @@ public class Game extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private Player player;
-	private Foe foe;
-	private Goblin goblin;
+	private Enemy enemy;
 	private Assets assets;
 	private ControlsAndGUIsHandler controlsAndGUIsHandler;
 	private CameraHandler cameraHandler;
 	private ItemsContainer itemsContainer;
+	private EntitiesContainer entitiesContainer;
 	private Updater updater;
 	private ZoneRenderer zoneRenderer;
 	private ZoneContainer zoneContainer;
 	private List<Entity> entities;
 	private ItemsManager itemsManager;
+	private EntitiesManager entitiesManager;
 
 	private Debugger debugger;
-
-	private boolean isDebug = true;
-
 	@Override
 	public void create () {
 		assets = new Assets();
@@ -57,21 +57,22 @@ public class Game extends ApplicationAdapter {
 	}
 
     private void loadEntities() {
-		player = new Player(assets);
-		foe = new Foe(assets);
-		goblin = new Goblin(assets);
+		player = new Player(assets,100,100);
+//		enemy = new Enemy(assets,200,200);
 		entities = new ArrayList<>();
         entities.add(player);
-        entities.add(foe);
-        entities.add(goblin);
+//        entities.add(enemy);
     }
 
 	private void loadData()  {
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		itemsContainer = new ItemsContainer();
+		entitiesContainer = new EntitiesContainer(this.font);
 		itemsManager = new ItemsManager(assets, itemsContainer);
+		entitiesManager = new EntitiesManager(assets, entitiesContainer, itemsManager);
 		itemsManager.loadDefinitions();
+		entitiesManager.loadDefinitions();
 		controlsAndGUIsHandler = new ControlsAndGUIsHandler(player,assets);
 		cameraHandler = new CameraHandler(batch,player);
         updater = new Updater();
@@ -84,10 +85,14 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(entities,zoneRenderer,zoneContainer,batch,font,assets,itemsManager, cameraHandler,player);
+		World.init(entities,zoneRenderer,zoneContainer,batch,font,assets,itemsManager, cameraHandler, entitiesManager, player);
 		entities.forEach(e -> {
-			if(e instanceof Character) ((Character) e).initializeInventory();
+			if(e instanceof NonStatic) ((NonStatic) e).initializeInventory();
 		});
+		entitiesContainer.addItem(player);
+		entitiesManager.create(EntityType.NIGGA,(entity, objects) -> {
+			((NonStatic) entity).warp((Float) objects[0], (Float) objects[1]);
+		},600.0f,600.0f);
 	}
 
 	@Override
@@ -98,18 +103,22 @@ public class Game extends ApplicationAdapter {
 		batch.begin();
 		zoneRenderer.renderZone();
 		itemsContainer.draw(batch);
-		entities.forEach(e->e.draw(batch,font));
+
+		//
+		entitiesContainer.draw(batch);
+
+		//
+//		entities.forEach(e->e.draw(batch,font));
 		controlsAndGUIsHandler.draw(batch);
 		batch.end();
 	}
 
 	private void update() {
 		debugger.update();
-
 		cameraHandler.update();
 		controlsAndGUIsHandler.update();
-        updater.update(entities);
-        itemsContainer.update();
+		itemsContainer.update();
+		entitiesContainer.update();
     }
 
 

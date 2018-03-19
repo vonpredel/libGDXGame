@@ -3,33 +3,30 @@ package com.mygdx.game.ControlAndGUIs;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entities.NonStatics.Characters.Player;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Graphics.AbstractGUI;
 import com.mygdx.game.Graphics.CharacterPanelGUI;
 import com.mygdx.game.Graphics.InventoryGUI;
-import com.mygdx.game.Graphics.InventoryGUIv2;
 import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
 import com.mygdx.game.Utils.assets.Assets;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.CHARACTER_PANEL_STATE;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.DEFAULT_STATE;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.INVENTORY_STATE_V2;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MENU_STATE;
+
 public class ControlsAndGUIsHandler {
 
-    private static final int DEFAULT_STATE = 1;
-    private static final int INVENTORY_STATE = 2;
-    private static final int MENU_STATE = 3;
-    private static final int CHARACTER_PANEL_STATE = 4;
-    private static final int INVENTORY_STATE_V2 = 5;
-
     Player player;
-    private int state;
+    private GUIState state;
     private CharacterPanelGUI characterPanelGUI;
-    private InventoryGUI inventoryGUI;
     private QuickInfoGUI quickInfoGUI;
     private MenuGUI menuGUI;
 
-    private InventoryGUIv2 inventoryGUIv2;
+    private InventoryGUI inventoryGUI;
 
     private Assets assets;
     private List<AbstractGUI> guiList;
@@ -38,40 +35,35 @@ public class ControlsAndGUIsHandler {
         this.assets = assets;
         this.player = player;
         initGUIs();
-        this.state = 1;
+        this.state = DEFAULT_STATE;
     }
 
     private void initGUIs() {
         this.characterPanelGUI = new CharacterPanelGUI(player,assets);
-        this.inventoryGUI = new InventoryGUI(player,assets);
         this.menuGUI = new MenuGUI(player,assets);
         this.quickInfoGUI = new QuickInfoGUI(player,assets);
-        this.inventoryGUIv2 = new InventoryGUIv2(player,assets);
+        this.inventoryGUI = new InventoryGUI(player,assets);
         quickInfoGUI.isEnabled = true;
         guiList = new ArrayList<>();
         guiList.add(characterPanelGUI);
-        guiList.add(inventoryGUI);
         guiList.add(menuGUI);
         guiList.add(quickInfoGUI);
-        guiList.add(inventoryGUIv2);
+        guiList.add(inventoryGUI);
     }
 
     public void update() {
         movementControls();
         switch (state) {
-            case 1:
+            case DEFAULT_STATE:
                 defaultControls();
                 break;
-            case 2:
-                inventoryControls();
-                break;
-            case 3:
+            case MENU_STATE:
                 menuControls();
                 break;
-            case 4:
+            case CHARACTER_PANEL_STATE:
                 characterPanelControls();
                 break;
-            case 5:
+            case INVENTORY_STATE_V2:
                 inventoryControlsV2();
                 break;
             default:
@@ -115,13 +107,9 @@ public class ControlsAndGUIsHandler {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             player.pickUpItems();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.I)) {
-            inventoryGUI.isEnabled = true;
-            state = INVENTORY_STATE;
-        }
         // TEST
         if(Gdx.input.isKeyJustPressed(Input.Keys.U)) {
-            inventoryGUIv2.isEnabled = true;
+            inventoryGUI.isEnabled = true;
             state = INVENTORY_STATE_V2;
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.C)) {
@@ -135,50 +123,31 @@ public class ControlsAndGUIsHandler {
 
     }
 
-    private void inventoryControls() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+    private void inventoryControlsV2() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.U)) {
             inventoryGUI.isEnabled = false;
             state = DEFAULT_STATE;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            inventoryGUI.listUp();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             inventoryGUI.listDown();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            inventoryGUI.listUp();
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            inventoryGUI.listLeft();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            inventoryGUI.listRight();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            inventoryGUI.changeTab();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
             inventoryGUI.enterMenu();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            inventoryGUI.returnMenu();
-        }
-    }
-
-    private void inventoryControlsV2() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.U)) {
-            inventoryGUIv2.isEnabled = false;
-            state = DEFAULT_STATE;
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            inventoryGUIv2.listUp();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            inventoryGUIv2.listDown();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
-            inventoryGUIv2.listLeft();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
-            inventoryGUIv2.listRight();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
-            inventoryGUIv2.changeTab();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-            inventoryGUIv2.enterMenu();
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            inventoryGUIv2.escape();
+            inventoryGUI.escape();
         }
     }
 
@@ -196,11 +165,10 @@ public class ControlsAndGUIsHandler {
         }
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
+    enum GUIState {
+        DEFAULT_STATE,
+        MENU_STATE,
+        CHARACTER_PANEL_STATE,
+        INVENTORY_STATE_V2;
     }
 }

@@ -13,9 +13,8 @@ public class ZoneRenderer {
         this.batch = batch;
     }
 
-    public void renderZone() {
+    private void prepareZoneTiles() {
         List<Tile> tileList = zone.getTileList();
-        int width = zone.getWidth();
         int heigth = zone.getHeight();
 
         int xpositionToRender = 0;
@@ -25,7 +24,6 @@ public class ZoneRenderer {
         for (Tile t : tileList) {
             t.x = xpositionToRender;
             t.y = ypositionToRender;
-            t.draw(batch);
             ypositionToRender += t.height;
             if (ypositionToRender >= heigth * t.height) {
                 ypositionToRender = 0;
@@ -34,8 +32,13 @@ public class ZoneRenderer {
         }
     }
 
+    public void renderZone() {
+        zone.getTileList().forEach(tile -> tile.draw(this.batch));
+    }
+
     public void setZone(Zone zone) {
         this.zone = zone;
+        this.prepareZoneTiles();
     }
 
     public Zone getZone() {

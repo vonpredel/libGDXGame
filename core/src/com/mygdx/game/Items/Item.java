@@ -2,9 +2,10 @@ package com.mygdx.game.Items;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Constants;
+import com.mygdx.game.Utils.Updateable;
 import com.mygdx.game.inventory.Inventory;
 
-public abstract class Item {
+public abstract class Item implements Updateable {
 
     protected String name;
     protected boolean stackable;

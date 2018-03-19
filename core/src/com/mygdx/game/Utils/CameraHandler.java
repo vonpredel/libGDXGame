@@ -3,8 +3,8 @@ package com.mygdx.game.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.NonStatics.NonStatic;
 
 public class CameraHandler {
 
@@ -12,7 +12,7 @@ public class CameraHandler {
     private SpriteBatch batch;
     private Entity entity;
 
-    public CameraHandler(SpriteBatch batch, Character initialEntity) {
+    public CameraHandler(SpriteBatch batch, NonStatic initialEntity) {
         this.camera = new OrthographicCamera(Constants.DEFAULT_RESOLUTION_WIDTH,Constants.DEFAULT_RESOLUTION_HEIGHT);
         this.batch = batch;
         this.entity = initialEntity;

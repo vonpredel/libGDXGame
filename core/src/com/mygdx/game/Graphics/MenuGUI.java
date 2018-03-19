@@ -1,7 +1,7 @@
 package com.mygdx.game.Graphics;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.mygdx.game.Entities.NonStatics.Characters.Player;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 
