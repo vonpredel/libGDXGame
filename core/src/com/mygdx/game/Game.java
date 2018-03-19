@@ -13,6 +13,7 @@ import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.NonStatics.Creatures.Goblin;
 import com.mygdx.game.Items.ItemsManager;
+import com.mygdx.game.Utils.Debugger;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Items.ItemsContainer;
@@ -39,6 +40,8 @@ public class Game extends ApplicationAdapter {
 	private ZoneContainer zoneContainer;
 	private List<Entity> entities;
 	private ItemsManager itemsManager;
+
+	private Debugger debugger;
 
 	private boolean isDebug = true;
 
@@ -76,10 +79,13 @@ public class Game extends ApplicationAdapter {
         zoneContainer = new ZoneContainer(assets);
 		zoneRenderer = new ZoneRenderer(batch);
 		zoneRenderer.setZone(zoneContainer.getZoneList().get(0));
+
+		debugger = new Debugger();
+		debugger.setDebug(true);
     }
 
 	private void worldInit() {
-		World.init(entities,zoneRenderer,batch,font,assets,itemsManager, cameraHandler,player);
+		World.init(entities,zoneRenderer,zoneContainer,batch,font,assets,itemsManager, cameraHandler,player);
 		entities.forEach(e -> {
 			if(e instanceof Character) ((Character) e).initializeInventory();
 		});
@@ -99,35 +105,8 @@ public class Game extends ApplicationAdapter {
 	}
 
 	private void update() {
-		if(isDebug) {
-			if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-				cameraHandler.focusOn(foe);
-			}
-			if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-				cameraHandler.focusOn(player);
-			}
-			if(Gdx.input.isKeyPressed(Input.Keys.K)) {
-				cameraHandler.zoomOut();
-			}
-			if(Gdx.input.isKeyPressed(Input.Keys.L)) {
-				cameraHandler.zoomIn();
-			}
-			if(Gdx.input.isKeyPressed(Input.Keys.N)) {
-				cameraHandler.rotateCameraLeft();
-			}
-			if(Gdx.input.isKeyPressed(Input.Keys.M)) {
-				cameraHandler.rotateCameraRight();
-			}
-			if(Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-				World.setCurrentZone(zoneContainer.getZoneList().get(1));
-			}
-			//TEMP TEMP TEMP
-			if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
-				if(!player.getInventory().getItems().isEmpty()) {
-					player.dropItem(player.getInventory().getItems().get(0));
-				}
-			}
-		}
+		debugger.update();
+
 		cameraHandler.update();
 		controlsAndGUIsHandler.update();
         updater.update(entities);

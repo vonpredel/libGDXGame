@@ -17,19 +17,31 @@ public class ZoneRenderer {
     public void renderZone() {
         List<Tile> tileList = zone.getTileList();
         int width = zone.getWidth();
+        int heigth = zone.getHeight();
 
         int xpositionToRender = 0;
         int ypositionToRender = 0;
 
 
+//        for (Tile t : tileList) {
+//            t.x = xpositionToRender;
+//            t.y = ypositionToRender;
+//            t.draw(batch);
+//            xpositionToRender += t.width;
+//            if (xpositionToRender >= width * t.width) {
+//                xpositionToRender = 0;
+//                ypositionToRender += t.height;
+//            }
+//        }
+
         for (Tile t : tileList) {
             t.x = xpositionToRender;
             t.y = ypositionToRender;
             t.draw(batch);
-            xpositionToRender += t.width;
-            if (xpositionToRender >= width * t.width) {
-                xpositionToRender = 0;
-                ypositionToRender += t.height;
+            ypositionToRender += t.height;
+            if (ypositionToRender >= heigth * t.height) {
+                ypositionToRender = 0;
+                xpositionToRender += t.width;
             }
         }
     }

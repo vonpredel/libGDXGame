@@ -19,20 +19,4 @@ public final class AssetChopper {
         return Arrays.stream(split).flatMap(Arrays::stream).toArray(TextureRegion[]::new);
     }
 
-    private Texture[] moveUpAnimations(Texture texture) {
-        return null;
-    }
-
-    private Texture[] moveDownAnimations(Texture texture) {
-        return null;
-    }
-
-    private Texture[] moveLeftAnimations(Texture texture) {
-        return null;
-    }
-
-    private Texture[] moveRightAnimations(Texture texture) {
-        return null;
-    }
-
 }

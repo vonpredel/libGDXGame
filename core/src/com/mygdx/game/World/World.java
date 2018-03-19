@@ -14,6 +14,7 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Zones.Zone;
+import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;
 import java.util.List;
 
@@ -33,6 +34,7 @@ public class World {
     private static Zone currentZone;
     private static List<Tile> tileList;
     private static ZoneRenderer zoneRenderer;
+    private static ZoneContainer zoneContainer;
     private static int worldWidth;
     private static int worldHeight;
     private static SpriteBatch batch;
@@ -46,12 +48,13 @@ public class World {
 
     }
 
-    public static void init(List<Entity> entityList,ZoneRenderer zoneRenderer, SpriteBatch batch,
+    public static void init(List<Entity> entityList,ZoneRenderer zoneRenderer,ZoneContainer zoneContainer, SpriteBatch batch,
                             BitmapFont font, Assets assets, ItemsManager itemsManager,
                             CameraHandler cameraHandler, Player player) {
         World.batch = batch;
         World.entityList = entityList;
         World.zoneRenderer = zoneRenderer;
+        World.zoneContainer = zoneContainer;
         World.currentZone = zoneRenderer.getZone();
         World.tileList = currentZone.getTileList();
         World.worldWidth = currentZone.getWidth();
@@ -70,7 +73,7 @@ public class World {
     public static int getCurrentEntityPosition(Entity entity) {
         float xPosition = Math.round(entity.x / Constants.DEFAULT_TILE_WIDTH);
         float yPosition = Math.round(entity.y / Constants.DEFAULT_TILE_HEIGHT);
-        float position = xPosition + (yPosition * worldWidth);
+        float position = yPosition + (xPosition * worldHeight);
         return (int) position;
     }
 
@@ -79,16 +82,16 @@ public class World {
         int currentEntityPosition = getCurrentEntityPosition(entity);
         switch (direction) {
             case UP:
-                tile = getTileByPosition(currentEntityPosition + worldHeight);
+                tile = getTileByPosition(currentEntityPosition + 1);
                 break;
             case DOWN:
-                tile = getTileByPosition(currentEntityPosition - worldHeight);
-                break;
-            case LEFT:
                 tile = getTileByPosition(currentEntityPosition - 1);
                 break;
+            case LEFT:
+                tile = getTileByPosition(currentEntityPosition - worldWidth);
+                break;
             case RIGHT:
-                tile = getTileByPosition(currentEntityPosition + 1);
+                tile = getTileByPosition(currentEntityPosition + worldHeight);
                 break;
             default:
                 return null;
@@ -178,6 +181,18 @@ public class World {
 
     public static Player getPlayer() {
         return player;
+    }
+
+    public static Zone getCurrentZone() {
+        return currentZone;
+    }
+
+    public static ZoneRenderer getZoneRenderer() {
+        return zoneRenderer;
+    }
+
+    public static ZoneContainer getZoneContainer() {
+        return zoneContainer;
     }
 
     public static void setCurrentZone(Zone currentZone) {

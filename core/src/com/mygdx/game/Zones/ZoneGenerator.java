@@ -57,7 +57,10 @@ public class ZoneGenerator {
         for (int xPixel = 0; xPixel < array2D.length; xPixel++) {
             for (int yPixel = 0; yPixel < array2D[xPixel].length; yPixel++) {
                 int color = image.getRGB(xPixel, yPixel);
-                array2D[height - yPixel-1][xPixel] = new Color(color);
+//                array2D[xPixel][yPixel] = new Color(color);
+//                array2D[width - xPixel - 1][yPixel] = new Color(color);
+                array2D[xPixel][height - yPixel - 1] = new Color(color);
+//                array2D[width - xPixel - 1][height - yPixel - 1] = new Color(color);
             }
         }
         return array2D;
@@ -65,15 +68,15 @@ public class ZoneGenerator {
 
     private String getAssetName(Color[][] colors, Color type, String defaultAsset, int i, int j) {
 
-        Color colorU = i == width - 1 ? null : colors[i + 1][j];
-        Color colorD = i == 0 ? null : colors[i - 1][j];
-        Color colorL = j == 0 ? null : colors[i][j - 1];
-        Color colorR = j == height - 1 ? null : colors[i][j + 1];
+        Color colorU = j == height - 1 ? null : colors[i][j + 1];
+        Color colorD = j == 0 ? null : colors[i][j - 1];
+        Color colorL = i == 0 ? null : colors[i - 1][j];
+        Color colorR = i == width - 1 ? null : colors[i + 1][j];
 
+        Color colorUL = i == 0 || j == height - 1 ? null : colors[i - 1][j + 1];
         Color colorUR = i == width - 1 || j == height - 1 ? null : colors[i + 1][j + 1];
-        Color colorUL = i == width - 1 || j == 0 ? null : colors[i + 1][j - 1];
-        Color colorDR = i == 0 || j == height - 1 ? null : colors[i - 1][j + 1];
         Color colorDL = i == 0 || j == 0 ? null : colors[i - 1][j - 1];
+        Color colorDR = i == width - 1 || j == 0 ? null : colors[i + 1][j - 1];
 
         String assetToRender = defaultAsset;
         if (type.equals(colorU)) assetToRender += "U";
@@ -100,7 +103,9 @@ public class ZoneGenerator {
         tileList = new ArrayList<>(width * height);
 
         for (int i = 0; i < width; i++) {
+//        for (int i = width - 1; i >+ 0; i--) {
             for (int j = 0; j < height; j++) {
+//            for (int j = height - 1; j >= 0; j--) {
                 Color color = colors[i][j];
                 String assetToRender = "";
 

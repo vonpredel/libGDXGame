@@ -10,7 +10,9 @@ import java.util.Map;
 
 public class ZoneContainer {
 
-    private static final String [] assetsConstantsPaths = {AssetsConstants.MAP1,AssetsConstants.MAP2};
+    private static final String [] assetsConstantsPaths = {AssetsConstants.MAP1,AssetsConstants.MAP2
+            ,AssetsConstants.MAP3, AssetsConstants.MAP4,AssetsConstants.MAP5
+        };
 
     private List<Zone> zoneList;
     private Map<String, Zone> zoneMap;
