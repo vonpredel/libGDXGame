@@ -1,10 +1,8 @@
 package com.mygdx.game.Utils.assets;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public final class AssetChopper {
 

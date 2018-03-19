@@ -2,7 +2,6 @@ package com.mygdx.game.World;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entities.NonStatics.Characters.Character;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.NonStatics.Characters.Player;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
@@ -10,9 +9,8 @@ import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsManager;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.CameraHandler;
-import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.Constants;
-import com.mygdx.game.Items.ItemsContainer;
+import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;

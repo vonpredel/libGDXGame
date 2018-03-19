@@ -1,10 +1,9 @@
 package com.mygdx.game.Entities.NonStatics.Characters;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
+import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
-import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.inventory.Inventory;
 
 public class Foe extends Character {
