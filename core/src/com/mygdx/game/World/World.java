@@ -31,7 +31,6 @@ public class World {
     public static final int LEFT = WEST;
     public static final int RIGHT = EAST;
 
-    private static List<Entity> entityList;
     private static Zone currentZone;
     private static List<Tile> tileList;
     private static ZoneRenderer zoneRenderer;
@@ -51,11 +50,10 @@ public class World {
 
     }
 
-    public static void init(List<Entity> entityList,ZoneRenderer zoneRenderer,ZoneContainer zoneContainer, SpriteBatch batch,
+    public static void init(ZoneRenderer zoneRenderer,ZoneContainer zoneContainer, SpriteBatch batch,
                             BitmapFont font, Assets assets, ItemsManager itemsManager,
                             CameraHandler cameraHandler, EntitiesManager entitiesManager, Player player) {
         World.batch = batch;
-        World.entityList = entityList;
         World.zoneRenderer = zoneRenderer;
         World.zoneContainer = zoneContainer;
         World.currentZone = zoneRenderer.getZone();
@@ -141,7 +139,7 @@ public class World {
     }
 
     public static void addEntity(Entity entity) {
-        entityList.add(entity);
+        entitiesContainer.addItem(entity);
     }
 
     public static void removeEntity(Entity entity) {
