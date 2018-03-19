@@ -8,11 +8,11 @@ import com.mygdx.game.Utils.Constants;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "2DGAME !";
+		config.title = "2D GAME !";
 		config.width = Constants.DEFAULT_RESOLUTION_WIDTH;
-//		config.width = 1920;
+//		config.width = 1280;
 		config.height = Constants.DEFAULT_RESOLUTION_HEIGHT;
-//		config.height = 1080;
+//		config.height = 720;
 		config.resizable = false;
 //		config.fullscreen = true;
 		new LwjglApplication(new Game(), config);

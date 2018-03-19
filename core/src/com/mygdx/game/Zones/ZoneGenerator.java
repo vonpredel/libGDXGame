@@ -57,10 +57,7 @@ public class ZoneGenerator {
         for (int xPixel = 0; xPixel < array2D.length; xPixel++) {
             for (int yPixel = 0; yPixel < array2D[xPixel].length; yPixel++) {
                 int color = image.getRGB(xPixel, yPixel);
-//                array2D[xPixel][yPixel] = new Color(color);
-//                array2D[width - xPixel - 1][yPixel] = new Color(color);
                 array2D[xPixel][height - yPixel - 1] = new Color(color);
-//                array2D[width - xPixel - 1][height - yPixel - 1] = new Color(color);
             }
         }
         return array2D;
@@ -103,9 +100,7 @@ public class ZoneGenerator {
         tileList = new ArrayList<>(width * height);
 
         for (int i = 0; i < width; i++) {
-//        for (int i = width - 1; i >+ 0; i--) {
             for (int j = 0; j < height; j++) {
-//            for (int j = height - 1; j >= 0; j--) {
                 Color color = colors[i][j];
                 String assetToRender = "";
 
