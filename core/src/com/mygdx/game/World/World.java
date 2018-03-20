@@ -5,11 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.EntitiesContainer;
 import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.Entity;
-import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Entities.Statics.Static;
+import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Items.ItemsManager;
-import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Utils.Constants;
@@ -38,10 +38,10 @@ public class World {
     private static int worldWidth;
     private static int worldHeight;
     private static SpriteBatch batch;
-    private static BitmapFont font;
     private static Assets assets;
     private static CameraHandler cameraHandler;
     private static ItemsManager itemsManager;
+    private static ItemsContainer itemsContainer;
     private static EntitiesManager entitiesManager;
     private static EntitiesContainer entitiesContainer;
     private static Player player;
@@ -51,8 +51,8 @@ public class World {
     }
 
     public static void init(ZoneRenderer zoneRenderer,ZoneContainer zoneContainer, SpriteBatch batch,
-                            BitmapFont font, Assets assets, ItemsManager itemsManager,
-                            CameraHandler cameraHandler, EntitiesManager entitiesManager, Player player) {
+                            Assets assets, ItemsManager itemsManager, CameraHandler cameraHandler,
+                            EntitiesManager entitiesManager) {
         World.batch = batch;
         World.zoneRenderer = zoneRenderer;
         World.zoneContainer = zoneContainer;
@@ -60,12 +60,15 @@ public class World {
         World.tileList = currentZone.getTileList();
         World.worldWidth = currentZone.getWidth();
         World.worldHeight = currentZone.getHeight();
-        World.font = font;
         World.assets = assets;
-        World.itemsManager = itemsManager;
         World.cameraHandler = cameraHandler;
+        World.itemsManager = itemsManager;
+        World.itemsContainer = itemsManager.getContainer();
         World.entitiesManager = entitiesManager;
         World.entitiesContainer = entitiesManager.getContainer();
+    }
+
+    public static void setPlayer(Player player) {
         World.player = player;
     }
 
@@ -138,44 +141,12 @@ public class World {
         return tile != null && !tile.isSolid() && !isTileOccupied(tile);
     }
 
-    public static void addEntity(Entity entity) {
-        entitiesContainer.addItem(entity);
-    }
-
-    public static void removeEntity(Entity entity) {
-        entitiesContainer.removeItem(entity);
-    }
-
-    public static List<Entity> getEntityList() {
-        return entitiesContainer.getAllItems();
-    }
-
-    public static List<Tile> getTileList() {
-        return tileList;
-    }
-
-    public static int getWorldWidth() {
-        return worldWidth;
-    }
-
-    public static int getWorldHeight() {
-        return worldHeight;
-    }
-
     public static SpriteBatch getBatch() {
         return batch;
     }
 
-    public static BitmapFont getFont() {
-        return font;
-    }
-
     public static Assets getAssets() {
         return assets;
-    }
-
-    public static ItemsManager getItemsManager() {
-        return itemsManager;
     }
 
     public static CameraHandler getCameraHandler() {
@@ -190,12 +161,24 @@ public class World {
         return currentZone;
     }
 
+    public static ItemsManager getItemsManager() {
+        return itemsManager;
+    }
+
     public static ZoneRenderer getZoneRenderer() {
         return zoneRenderer;
     }
 
     public static ZoneContainer getZoneContainer() {
         return zoneContainer;
+    }
+
+    public static EntitiesManager getEntitiesManager() {
+        return entitiesManager;
+    }
+
+    public static EntitiesContainer getEntitiesContainer() {
+        return entitiesContainer;
     }
 
     public static void setCurrentZone(Zone currentZone) {

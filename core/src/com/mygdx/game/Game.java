@@ -22,7 +22,6 @@ import com.mygdx.game.Zones.ZoneRenderer;
 public class Game extends ApplicationAdapter {
 
 	private SpriteBatch batch;
-	private BitmapFont font;
 	private Player player;
 	private Assets assets;
 	private ControlsAndGUIsHandler controlsAndGUIsHandler;
@@ -50,9 +49,8 @@ public class Game extends ApplicationAdapter {
 
 	private void loadData()  {
 		batch = new SpriteBatch();
-		font = new BitmapFont();
 		itemsContainer = new ItemsContainer();
-		entitiesContainer = new EntitiesContainer(this.font);
+		entitiesContainer = new EntitiesContainer();
 		itemsManager = new ItemsManager(assets, itemsContainer);
 		entitiesManager = new EntitiesManager(assets, entitiesContainer, itemsManager);
 		itemsManager.loadDefinitions();
@@ -61,6 +59,7 @@ public class Game extends ApplicationAdapter {
 		cameraHandler = new CameraHandler(batch);
         zoneContainer = new ZoneContainer(assets);
 		zoneRenderer = new ZoneRenderer(batch);
+
 		zoneRenderer.setZone(zoneContainer.getZoneList().get(0));
 
 		debugger = new Debugger();
@@ -68,17 +67,22 @@ public class Game extends ApplicationAdapter {
     }
 
 	private void worldInit() {
-		World.init(zoneRenderer,zoneContainer,batch,font,assets,itemsManager, cameraHandler, entitiesManager, player);
+		World.init(zoneRenderer,zoneContainer,batch,assets,itemsManager, cameraHandler, entitiesManager);
 
 	}
 
 	private void loadEntities() {
-		entitiesManager.create(EntityType.PLAYER,(entity, objects) -> entity.warp((Float) objects[0], (Float) objects[1]),100.0f,100.0f);
-		entitiesManager.create(EntityType.NIGGA,(entity, objects) -> entity.warp((Float) objects[0], (Float) objects[1]),600.0f,600.0f);
+		entitiesManager.create(EntityType.PLAYER,(entity, objects)
+				-> entity.warp(128,128));
+		entitiesManager.create(EntityType.NIGGA,(entity, objects)
+				-> entity.warp(600,600));
+		entitiesManager.create(EntityType.CHEST, (entity, objects)
+				-> entity.warp(256,64));
 	}
 
 	private void configure() {
 		player = (Player) entitiesContainer.getAllItems().get(0);
+		World.setPlayer(player);
 		cameraHandler.focusOn(player);
 		controlsAndGUIsHandler.initGUIs(player);
 	}
@@ -98,6 +102,7 @@ public class Game extends ApplicationAdapter {
 
 	private void update() {
 		debugger.update();
+
 		cameraHandler.update();
 		controlsAndGUIsHandler.update();
 		itemsContainer.update();

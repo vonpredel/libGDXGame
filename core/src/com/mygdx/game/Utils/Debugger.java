@@ -15,7 +15,7 @@ public class Debugger {
     public void update() {
         if(isDebug) {
             if(Gdx.input.isKeyPressed(Input.Keys.O)) {
-                World.getCameraHandler().focusOn(World.getEntityList().get(1));
+                World.getCameraHandler().focusOn(World.getEntitiesContainer().getAllItems().get(1));
             }
             if(Gdx.input.isKeyPressed(Input.Keys.P)) {
                 World.getCameraHandler().focusOn(World.getPlayer());

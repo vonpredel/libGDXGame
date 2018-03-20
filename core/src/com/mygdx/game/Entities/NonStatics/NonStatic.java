@@ -92,7 +92,8 @@ public abstract class NonStatic extends Entity {
         final Armor equipedHelmet = this.getInventory().getEquipedHelmet();
         return (equipedArmor == null ? 0 : equipedArmor.getDefence())
                 + (equipedShield == null ? 0 : equipedShield.getDefence())
-                + (equipedHelmet == null ? 0 : equipedHelmet.getDefence());
+                + (equipedHelmet == null ? 0 : equipedHelmet.getDefence())
+                + (vitality/10);
     }
 
     public float getMovementSpeed() {
@@ -101,27 +102,33 @@ public abstract class NonStatic extends Entity {
                 + (this.getInventory().getEquipedShield() == null ? 0
                 : this.getInventory().getEquipedShield().getMovementSpeedReduction())
                 + (this.getInventory().getEquipedHelmet() == null ? 0
-                : this.getInventory().getEquipedHelmet().getMovementSpeedReduction()));
+                : this.getInventory().getEquipedHelmet().getMovementSpeedReduction()))
+                + (dexterity*0.02f);
     }
 
     public int getMinDamage() {
-        return this.getWeapon().map(Weapon::getMinDamage).orElse(0);
+        final Integer minDamage = this.getWeapon().map(Weapon::getMinDamage).orElse(0);
+        return minDamage + (strength/5);
     }
 
     public int getMaxDamage() {
-        return this.getWeapon().map(Weapon::getMaxDamage).orElse(1);
+        final Integer maxDamage = this.getWeapon().map(Weapon::getMaxDamage).orElse(1);
+        return maxDamage + (strength/5);
     }
 
     public float getAttackSpeed() {
-        return this.getWeapon().map(Weapon::getSpeed).orElse(1.0f);
+        final Float attackSpeed = this.getWeapon().map(Weapon::getSpeed).orElse(1.0f);
+        return attackSpeed + (dexterity * 0.02f);
     }
 
     public int getCritChance() {
-        return this.getWeapon().map(Weapon::getCritChance).orElse(0);
+        final Integer critCahnce = this.getWeapon().map(Weapon::getCritChance).orElse(0);
+        return critCahnce + (dexterity/10);
     }
 
     public int getAccuracy() {
-        return this.getWeapon().map(Weapon::getAccuracy).orElse(50);
+        final Integer accuracy = this.getWeapon().map(Weapon::getAccuracy).orElse(50);
+        return accuracy + (dexterity/5);
     }
 
 //    </editor-fold>

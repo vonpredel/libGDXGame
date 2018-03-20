@@ -24,10 +24,10 @@ public abstract class Entity extends Rectangle implements Updateable {
     }
 
     protected void die() {
-        World.removeEntity(this);
+        World.getEntitiesContainer().removeItem(this);
     }
 
-    public void warp(float x, float y) {
+    public void warp(int x, int y) {
         this.setX(x);
         this.setY(y);
     }
