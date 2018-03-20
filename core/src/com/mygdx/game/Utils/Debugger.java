@@ -4,15 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.mygdx.game.World.World;
 
-public class Debugger {
+public final class Debugger {
 
-    private boolean isDebug = false;
+    private static boolean isDebug = false;
+    static int i = 0;
 
-    public void setDebug(boolean debug) {
-        isDebug = debug;
+    private Debugger() {
+
     }
 
-    public void update() {
+    public static void update() {
         if(isDebug) {
             if(Gdx.input.isKeyPressed(Input.Keys.O)) {
                 World.getCameraHandler().focusOn(World.getEntitiesContainer().getAllItems().get(1));
@@ -53,7 +54,15 @@ public class Debugger {
                     World.getPlayer().dropItem(World.getPlayer().getInventory().getItems().get(0));
                 }
             }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(i));
+                i++;
+            }
         }
+    }
+
+    public static void setDebug(boolean debug) {
+        isDebug = debug;
     }
 
 }

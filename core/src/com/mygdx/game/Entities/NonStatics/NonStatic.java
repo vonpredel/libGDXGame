@@ -107,28 +107,28 @@ public abstract class NonStatic extends Entity {
     }
 
     public int getMinDamage() {
-        final Integer minDamage = this.getWeapon().map(Weapon::getMinDamage).orElse(0);
-        return minDamage + (strength/5);
+        return this.getWeapon().map(Weapon::getMinDamage).orElse(0)
+                + (strength/5);
     }
 
     public int getMaxDamage() {
-        final Integer maxDamage = this.getWeapon().map(Weapon::getMaxDamage).orElse(1);
-        return maxDamage + (strength/5);
+        return this.getWeapon().map(Weapon::getMaxDamage).orElse(1)
+                + (strength/5);
     }
 
     public float getAttackSpeed() {
-        final Float attackSpeed = this.getWeapon().map(Weapon::getSpeed).orElse(1.0f);
-        return attackSpeed + (dexterity * 0.02f);
+        return this.getWeapon().map(Weapon::getSpeed).orElse(1.0f)
+                + (dexterity * 0.02f);
     }
 
     public int getCritChance() {
-        final Integer critCahnce = this.getWeapon().map(Weapon::getCritChance).orElse(0);
-        return critCahnce + (dexterity/10);
+        return this.getWeapon().map(Weapon::getCritChance).orElse(0)
+                + (dexterity/10);
     }
 
     public int getAccuracy() {
-        final Integer accuracy = this.getWeapon().map(Weapon::getAccuracy).orElse(50);
-        return accuracy + (dexterity/5);
+        return this.getWeapon().map(Weapon::getAccuracy).orElse(50)
+                + (dexterity/5);
     }
 
 //    </editor-fold>

@@ -1,7 +1,7 @@
 package com.mygdx.game.World;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
 import com.mygdx.game.Entities.EntitiesContainer;
 import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.Entity;
@@ -44,28 +44,39 @@ public class World {
     private static ItemsContainer itemsContainer;
     private static EntitiesManager entitiesManager;
     private static EntitiesContainer entitiesContainer;
+    private static ControlsAndGUIsHandler controlsAndGUIsHandler;
     private static Player player;
 
     private World() {
 
     }
 
-    public static void init(ZoneRenderer zoneRenderer,ZoneContainer zoneContainer, SpriteBatch batch,
-                            Assets assets, ItemsManager itemsManager, CameraHandler cameraHandler,
+    public static void init(SpriteBatch batch,
+                            Assets assets, ItemsManager itemsManager,
                             EntitiesManager entitiesManager) {
         World.batch = batch;
-        World.zoneRenderer = zoneRenderer;
-        World.zoneContainer = zoneContainer;
-        World.currentZone = zoneRenderer.getZone();
-        World.tileList = currentZone.getTileList();
-        World.worldWidth = currentZone.getWidth();
-        World.worldHeight = currentZone.getHeight();
+        World.zoneRenderer = new ZoneRenderer(batch);
+        World.zoneContainer = new ZoneContainer(assets);
         World.assets = assets;
-        World.cameraHandler = cameraHandler;
+        World.cameraHandler = new CameraHandler(batch);
         World.itemsManager = itemsManager;
         World.itemsContainer = itemsManager.getContainer();
         World.entitiesManager = entitiesManager;
         World.entitiesContainer = entitiesManager.getContainer();
+        World.controlsAndGUIsHandler = new ControlsAndGUIsHandler(assets);
+
+        World.loadExternals();
+    }
+
+    private static void loadExternals() {
+        World.itemsManager.loadDefinitions();
+        World.entitiesManager.loadDefinitions();
+    }
+
+    public static void configureCameraAndGUI() {
+        World.setPlayer((Player) World.getEntitiesContainer().getAllItems().get(0));
+        World.getCameraHandler().focusOn(World.getPlayer());
+        World.getControlsAndGUIsHandler().initGUIs(World.getPlayer());
     }
 
     public static void setPlayer(Player player) {
@@ -165,6 +176,10 @@ public class World {
         return itemsManager;
     }
 
+    public static ItemsContainer getItemsContainer() {
+        return itemsContainer;
+    }
+
     public static ZoneRenderer getZoneRenderer() {
         return zoneRenderer;
     }
@@ -179,6 +194,10 @@ public class World {
 
     public static EntitiesContainer getEntitiesContainer() {
         return entitiesContainer;
+    }
+
+    public static ControlsAndGUIsHandler getControlsAndGUIsHandler() {
+        return controlsAndGUIsHandler;
     }
 
     public static void setCurrentZone(Zone currentZone) {

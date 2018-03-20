@@ -2,6 +2,7 @@ package com.mygdx.game.Zones;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Tiles.Tile;
+import com.mygdx.game.World.World;
 import java.util.List;
 
 public class ZoneRenderer {
