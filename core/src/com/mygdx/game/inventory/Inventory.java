@@ -30,42 +30,6 @@ public class Inventory {
         items = new ArrayList<>();
     }
 
-    public void startingEquipment() {
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_SWORD));
-        items.add(World.getItemsManager().create(ItemType.BIG_WOODEN_SWORD));
-        items.add(World.getItemsManager().create(ItemType.WOODEN_SWORD));
-        items.add(World.getItemsManager().create(ItemType.LEGENDARY_DOUBLE_AXE));
-        items.add(World.getItemsManager().create(ItemType.SPEAR));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_WAND));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_BOW));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_DAGGER));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_HAMMER));
-        items.add(World.getItemsManager().create(ItemType.ARMOR));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_ARMOR));
-        items.add(World.getItemsManager().create(ItemType.LEGENDARY_AXE));
-
-        items.add(World.getItemsManager().create(ItemType.LEATHER_ARMOR));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_LEATHER_ARMOR));
-
-        items.add(World.getItemsManager().create(ItemType.HELMET));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_HELMET));
-
-        items.add(World.getItemsManager().create(ItemType.WOODEN_SHIELD));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_WOODEN_SHIELD));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_SHIELD));
-        items.add(World.getItemsManager().create(ItemType.SHIELD));
-        items.add(World.getItemsManager().create(ItemType.GOLDEN_SMALL_SHIELD));
-        items.add(World.getItemsManager().create(ItemType.SMALL_SHIELD));
-
-        items.add(World.getItemsManager().create(ItemType.LESSER_POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_HEALTH));
-        items.add(World.getItemsManager().create(ItemType.LESSER_POTION_OF_STAMINA));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_STAMINA));
-        items.add(World.getItemsManager().create(ItemType.LESSER_POTION_OF_MANA));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_MANA));
-        items.add(World.getItemsManager().create(ItemType.POTION_OF_SOMETHING));
-    }
-
     public <T extends Item> List<T> getSpecifiedItems(Class<T> itemClass) {
         return items.stream().filter(item -> itemClass
                 .isAssignableFrom(item.getClass()))
@@ -163,13 +127,5 @@ public class Inventory {
 
     public Armor getEquipedShield() {
         return equipedShield;
-    }
-
-    public void setEquipedArmor(Armor armor) {
-        this.equipedArmor = armor;
-    }
-
-    public void setEquipedWeapon(Weapon weapon) {
-        this.equipedWeapon = weapon;
     }
 }

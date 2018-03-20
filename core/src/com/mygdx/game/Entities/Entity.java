@@ -27,6 +27,11 @@ public abstract class Entity extends Rectangle implements Updateable {
         World.removeEntity(this);
     }
 
+    public void warp(float x, float y) {
+        this.setX(x);
+        this.setY(y);
+    }
+
     public Texture getTexture() {
         return texture;
     }

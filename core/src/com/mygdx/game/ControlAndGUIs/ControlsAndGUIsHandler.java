@@ -31,14 +31,13 @@ public class ControlsAndGUIsHandler {
     private Assets assets;
     private List<AbstractGUI> guiList;
 
-    public ControlsAndGUIsHandler(Player player,Assets assets) {
+    public ControlsAndGUIsHandler(Assets assets) {
         this.assets = assets;
-        this.player = player;
-        initGUIs();
         this.state = DEFAULT_STATE;
     }
 
-    private void initGUIs() {
+    public void initGUIs(Player player) {
+        this.player = player;
         this.characterPanelGUI = new CharacterPanelGUI(player,assets);
         this.menuGUI = new MenuGUI(player,assets);
         this.quickInfoGUI = new QuickInfoGUI(player,assets);

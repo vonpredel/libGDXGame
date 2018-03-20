@@ -15,25 +15,6 @@ public class Player extends NonStatic {
 
     private boolean isDead = false;
 
-    public Player(Assets assets, int x, int y) {
-        this.setX(x);
-        this.setY(y);
-        setTexture(assets.manager.get(AssetsConstants.PLAYER_SHEET, Texture.class));
-        this.setMovementSpeed(Constants.DEFAULT_MOVEMENT_SPEED);
-
-        this.setMaxManaPoints(10);
-        this.setMaxHealthPoints(10);
-        this.setMaxStaminaPoints(100);
-
-    }
-
-    @Override
-    public void initializeInventory() {
-        super.initializeInventory();
-        // TEMP EQUIP
-        this.getInventory().startingEquipment();
-    }
-
     @Override
     protected void ai() {
         // Do Nothing.

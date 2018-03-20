@@ -12,10 +12,9 @@ public class CameraHandler {
     private SpriteBatch batch;
     private Entity entity;
 
-    public CameraHandler(SpriteBatch batch, NonStatic initialEntity) {
+    public CameraHandler(SpriteBatch batch) {
         this.camera = new OrthographicCamera(Constants.DEFAULT_RESOLUTION_WIDTH,Constants.DEFAULT_RESOLUTION_HEIGHT);
         this.batch = batch;
-        this.entity = initialEntity;
     }
 
     public void update() {

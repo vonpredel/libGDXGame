@@ -66,10 +66,6 @@ public abstract class NonStatic extends Entity {
 
     //<editor-fold desc="Inventory" defaultstate="collapsed">
 
-    public void initializeInventory() {
-
-    }
-
     protected void dropEquipment() {
         Tile tile = getCurrentTile();
         if (inventory.getEquipedWeapon() != null) inventory.getEquipedWeapon().generateOnMap(tile.x, tile.y);
@@ -428,15 +424,6 @@ public abstract class NonStatic extends Entity {
     public void setMaxStaminaPoints(int maxStaminaPoints) {
         this.maxStaminaPoints = maxStaminaPoints;
         this.currentStaminaPoints = maxStaminaPoints;
-    }
-
-    public void warp(float x, float y) {
-        this.setX(x);
-        this.setY(y);
-
-        final Tile currentTile = this.getCurrentTile();
-        this.lastX = currentTile.getX();
-        this.lastY = currentTile.getY();
     }
 
 

@@ -3,6 +3,8 @@ package com.mygdx.game.Entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Entities.NonStatics.Enemy;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
+import com.mygdx.game.Entities.NonStatics.Player;
+import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemType;
 import com.mygdx.game.Items.ItemsManager;
@@ -47,6 +49,22 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
         }
     }
 
+    private void loadNameAndTexture(final String name,final String texture, final Entity entity) {
+        entity.setName(name);
+        entity.setTexture(this.assets.manager.get(texture, Texture.class));
+    }
+
+    private void loadStatistics(final String[] values, final NonStatic nonStatic) {
+        nonStatic.setStrength(Integer.parseInt(values[2]));
+        nonStatic.setDexterity(Integer.parseInt(values[3]));
+        nonStatic.setVitality(Integer.parseInt(values[4]));
+        nonStatic.setEnergy(Integer.parseInt(values[5]));
+        nonStatic.setMaxHealthPoints(Integer.parseInt(values[6]));
+        nonStatic.setMaxStaminaPoints(Integer.parseInt(values[7]));
+        nonStatic.setMaxManaPoints(Integer.parseInt(values[8]));
+        nonStatic.setMovementSpeed(Float.parseFloat(values[9]));
+    }
+
     private void loadInventory(final String value, final NonStatic nonStatic) {
         final String[] splitInvValue = value.split("\\|");
         if (splitInvValue.length < 4) {
@@ -63,24 +81,34 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
 
     @Override
     public void loadDefinitions() {
+        this.creators.put(Player.class, values -> {
+            final Player player = new Player();
+
+            this.loadNameAndTexture(values[0],values[1],player);
+            this.loadStatistics(values,player);
+            this.loadInventory(values[10], player);
+            return player;
+        });
+
         this.creators.put(Enemy.class, values -> {
             final Enemy enemy = new Enemy();
 
-            enemy.setName(values[0]);
-            enemy.setTexture(this.assets.manager.get(values[1], Texture.class));
-            enemy.setStrength(Integer.parseInt(values[2]));
-            enemy.setDexterity(Integer.parseInt(values[3]));
-            enemy.setVitality(Integer.parseInt(values[4]));
-            enemy.setEnergy(Integer.parseInt(values[5]));
-            enemy.setMaxHealthPoints(Integer.parseInt(values[6]));
-            enemy.setMaxStaminaPoints(Integer.parseInt(values[7]));
-            enemy.setMaxManaPoints(Integer.parseInt(values[8]));
-            enemy.setMovementSpeed(Float.parseFloat(values[9]));
+            this.loadNameAndTexture(values[0],values[1],enemy);
+            this.loadStatistics(values,enemy);
             this.loadInventory(values[10], enemy);
             enemy.setAiType(AILogic.AIType.valueOf(values[11]));
             return enemy;
         });
 
+        this.creators.put(Static.class, values -> {
+            final Static aStatic = new Static();
+
+            loadNameAndTexture(values[0],values[1],aStatic);
+            return aStatic;
+        });
+
         this.loadFile("dataEntities/enemies.csv", values -> values[0]);
+        this.loadFile("dataEntities/player.csv", values -> values[0]);
+        this.loadFile("dataEntities/statics.csv", values -> values[0]);
     }
 }

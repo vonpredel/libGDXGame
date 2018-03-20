@@ -9,7 +9,6 @@ import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
 import com.mygdx.game.Entities.EntitiesContainer;
 import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.EntityType;
-import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Items.ItemsManager;
@@ -42,15 +41,12 @@ public class Game extends ApplicationAdapter {
 		assets.load();
 		assets.manager.finishLoading();
 		if(assets.manager.update()) {
-			loadEntities();
 			loadData();
 			worldInit();
+			loadEntities();
+			configure();
 		}
 	}
-
-    private void loadEntities() {
-		player = new Player(assets,100,100);
-    }
 
 	private void loadData()  {
 		batch = new SpriteBatch();
@@ -61,8 +57,8 @@ public class Game extends ApplicationAdapter {
 		entitiesManager = new EntitiesManager(assets, entitiesContainer, itemsManager);
 		itemsManager.loadDefinitions();
 		entitiesManager.loadDefinitions();
-		controlsAndGUIsHandler = new ControlsAndGUIsHandler(player,assets);
-		cameraHandler = new CameraHandler(batch,player);
+		controlsAndGUIsHandler = new ControlsAndGUIsHandler(assets);
+		cameraHandler = new CameraHandler(batch);
         zoneContainer = new ZoneContainer(assets);
 		zoneRenderer = new ZoneRenderer(batch);
 		zoneRenderer.setZone(zoneContainer.getZoneList().get(0));
@@ -73,10 +69,18 @@ public class Game extends ApplicationAdapter {
 
 	private void worldInit() {
 		World.init(zoneRenderer,zoneContainer,batch,font,assets,itemsManager, cameraHandler, entitiesManager, player);
-		entitiesContainer.addItem(player);
-		entitiesManager.create(EntityType.NIGGA,(entity, objects) -> {
-			((NonStatic) entity).warp((Float) objects[0], (Float) objects[1]);
-		},600.0f,600.0f);
+
+	}
+
+	private void loadEntities() {
+		entitiesManager.create(EntityType.PLAYER,(entity, objects) -> entity.warp((Float) objects[0], (Float) objects[1]),100.0f,100.0f);
+		entitiesManager.create(EntityType.NIGGA,(entity, objects) -> entity.warp((Float) objects[0], (Float) objects[1]),600.0f,600.0f);
+	}
+
+	private void configure() {
+		player = (Player) entitiesContainer.getAllItems().get(0);
+		cameraHandler.focusOn(player);
+		controlsAndGUIsHandler.initGUIs(player);
 	}
 
 	@Override
