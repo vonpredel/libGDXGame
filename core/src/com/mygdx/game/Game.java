@@ -35,15 +35,17 @@ public class Game extends ApplicationAdapter {
         SpriteBatch batch = new SpriteBatch();
         ItemsManager itemsManager = new ItemsManager(assets, new ItemsContainer());
         World.init(batch, assets, itemsManager, new EntitiesManager(assets, new EntitiesContainer(), itemsManager));
+
         new WorldGenerator().generate(10, 10);
+        World.setWorldDimensions(10, 10);
         World.setCurrentZone(World.getZoneContainer().getZoneList().get(0));
     }
 
     private void loadEntities() {
         World.getEntitiesManager().create(EntityType.PLAYER, (entity, objects)
                 -> entity.warp(128, 128));
-        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
-                -> entity.warp(600, 600));
+//        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
+//                -> entity.warp(600, 600));
         World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
                 -> entity.warp(256, 64));
 

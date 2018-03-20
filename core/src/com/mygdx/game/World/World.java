@@ -35,6 +35,8 @@ public class World {
     private static List<Tile> tileList;
     private static ZoneRenderer zoneRenderer;
     private static ZoneContainer zoneContainer;
+    private static int currentZoneWidth;
+    private static int currentZoneHeight;
     private static int worldWidth;
     private static int worldHeight;
     private static SpriteBatch batch;
@@ -56,7 +58,7 @@ public class World {
                             EntitiesManager entitiesManager) {
         World.batch = batch;
         World.zoneRenderer = new ZoneRenderer(batch);
-        World.zoneContainer = new ZoneContainer(assets);
+        World.zoneContainer = new ZoneContainer();
         World.assets = assets;
         World.cameraHandler = new CameraHandler(batch);
         World.itemsManager = itemsManager;
@@ -84,13 +86,13 @@ public class World {
     }
 
     public static Tile getTileByPosition(int position) {
-        return tileList.get(position);
+        return tileList.get(position % tileList.size());
     }
 
     public static int getCurrentEntityPosition(Entity entity) {
         float xPosition = Math.round(entity.x / Constants.DEFAULT_TILE_WIDTH);
         float yPosition = Math.round(entity.y / Constants.DEFAULT_TILE_HEIGHT);
-        float position = yPosition + (xPosition * worldHeight);
+        float position = yPosition + (xPosition * currentZoneHeight);
         return (int) position;
     }
 
@@ -105,10 +107,10 @@ public class World {
                 tile = getTileByPosition(currentEntityPosition - 1);
                 break;
             case LEFT:
-                tile = getTileByPosition(currentEntityPosition - worldWidth);
+                tile = getTileByPosition(currentEntityPosition - currentZoneWidth);
                 break;
             case RIGHT:
-                tile = getTileByPosition(currentEntityPosition + worldHeight);
+                tile = getTileByPosition(currentEntityPosition + currentZoneHeight);
                 break;
             default:
                 return null;
@@ -200,11 +202,32 @@ public class World {
         return controlsAndGUIsHandler;
     }
 
+    public static int getCurrentZoneWidth() {
+        return currentZoneWidth;
+    }
+
+    public static int getCurrentZoneHeight() {
+        return currentZoneHeight;
+    }
+
+    public static int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public static int getWorldHeight() {
+        return worldHeight;
+    }
+
     public static void setCurrentZone(Zone currentZone) {
         World.zoneRenderer.setZone(currentZone);
         World.currentZone = currentZone;
         World.tileList = currentZone.getTileList();
-        World.worldWidth = currentZone.getWidth();
-        World.worldHeight = currentZone.getHeight();
+        World.currentZoneWidth = currentZone.getWidth();
+        World.currentZoneHeight = currentZone.getHeight();
+    }
+
+    public static void setWorldDimensions(int w, int h) {
+        World.worldWidth = w;
+        World.worldHeight = h;
     }
 }

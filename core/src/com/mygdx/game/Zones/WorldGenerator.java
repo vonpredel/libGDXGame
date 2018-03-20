@@ -36,6 +36,9 @@ public class WorldGenerator {
                 try {
                     final Zone zone = zoneGenerator.generateZone(textureName);
                     World.getZoneContainer().getZoneList().add(zone);
+                    zone.setIndex(World.getZoneContainer().getZoneList().size() -1);
+                    zone.setCoordinates(i, j);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

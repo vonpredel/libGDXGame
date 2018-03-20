@@ -6,12 +6,16 @@ import java.util.List;
 public class Zone {
 
     private List<Tile> tileList;
-    private int width,height;
+    private int width, height;
+    private int index;
+    private int x;
+    private int y;
 
     public Zone(List<Tile> tileList, int width, int height) {
         this.tileList = tileList;
         this.width = width;
         this.height = height;
+        this.index = -1;
     }
 
     public List<Tile> getTileList() {
@@ -36,5 +40,26 @@ public class Zone {
 
     public void setHeight(int height) {
         this.height = height;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setCoordinates(int x,int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
     }
 }
