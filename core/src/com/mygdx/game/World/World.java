@@ -17,6 +17,8 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class World {
@@ -67,6 +69,8 @@ public class World {
         World.entitiesContainer = entitiesManager.getContainer();
         World.controlsAndGUIsHandler = new ControlsAndGUIsHandler(assets);
 
+        tileList = new ArrayList<>();
+
         World.loadExternals();
     }
 
@@ -81,18 +85,23 @@ public class World {
         World.getControlsAndGUIsHandler().initGUIs(World.getPlayer());
     }
 
+    public static void sortTilesList() {
+        World.getTileList().sort(Comparator.comparing(Tile::getX).thenComparing(Tile::getY));
+    }
+
     public static void setPlayer(Player player) {
         World.player = player;
     }
 
     public static Tile getTileByPosition(int position) {
-        return tileList.get(position % tileList.size());
+        return tileList.get(position);
     }
 
     public static int getCurrentEntityPosition(Entity entity) {
         float xPosition = Math.round(entity.x / Constants.DEFAULT_TILE_WIDTH);
         float yPosition = Math.round(entity.y / Constants.DEFAULT_TILE_HEIGHT);
-        float position = yPosition + (xPosition * currentZoneHeight);
+        // TODO TESTING
+        float position = yPosition + (xPosition * currentZoneHeight*worldHeight);
         return (int) position;
     }
 
@@ -107,10 +116,12 @@ public class World {
                 tile = getTileByPosition(currentEntityPosition - 1);
                 break;
             case LEFT:
-                tile = getTileByPosition(currentEntityPosition - currentZoneWidth);
+                // TODO
+                tile = getTileByPosition(currentEntityPosition - currentZoneWidth*worldWidth);
                 break;
             case RIGHT:
-                tile = getTileByPosition(currentEntityPosition + currentZoneHeight);
+                // TODO
+                tile = getTileByPosition(currentEntityPosition + currentZoneWidth*worldWidth);
                 break;
             default:
                 return null;
@@ -221,7 +232,6 @@ public class World {
     public static void setCurrentZone(Zone currentZone) {
         World.zoneRenderer.setZone(currentZone);
         World.currentZone = currentZone;
-        World.tileList = currentZone.getTileList();
         World.currentZoneWidth = currentZone.getWidth();
         World.currentZoneHeight = currentZone.getHeight();
     }
@@ -229,5 +239,9 @@ public class World {
     public static void setWorldDimensions(int w, int h) {
         World.worldWidth = w;
         World.worldHeight = h;
+    }
+
+    public static List<Tile> getTileList() {
+        return tileList;
     }
 }

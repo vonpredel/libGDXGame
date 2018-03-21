@@ -9,6 +9,7 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
+import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.inventory.Inventory;
 
 public class Player extends NonStatic {

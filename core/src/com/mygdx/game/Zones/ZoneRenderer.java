@@ -21,7 +21,7 @@ public class ZoneRenderer {
     private void prepareZoneTiles(final Zone zone) {
         List<Tile> tileList = zone.getTileList();
         int height = zone.getHeight();
-        final int zonePixelHeight = -zone.getY() * (zone.getHeight() * Constants.DEFAULT_TILE_HEIGHT);
+        final int zonePixelHeight = zone.getY() * (zone.getHeight() * Constants.DEFAULT_TILE_HEIGHT);
 
         int xpositionToRender = zone.getX() * (zone.getWidth() * Constants.DEFAULT_TILE_WIDTH);
         int ypositionToRender = zonePixelHeight;
@@ -62,6 +62,10 @@ public class ZoneRenderer {
         return y + (x * World.getWorldHeight());
     }
 
+    public void prepareAllTiles() {
+        World.getZoneContainer().getZoneList().forEach(this::prepareZoneTiles);
+    }
+
     public void setZone(Zone zone) {
         this.zone = zone;
 
@@ -80,10 +84,6 @@ public class ZoneRenderer {
         this.addNeighbour(flattenCoords(x + 1, y - 1));
         this.addNeighbour(flattenCoords(x + 1, y));
         this.addNeighbour(flattenCoords(x + 1, y + 1));
-
-
-        this.prepareZoneTiles(zone);
-        this.neighbours.forEach(this::prepareZoneTiles);
     }
 
     public Zone getZone() {

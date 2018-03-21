@@ -7,7 +7,6 @@ import com.mygdx.game.World.World;
 public final class Debugger {
 
     private static boolean isDebug = false;
-    static int i = 0;
 
     private Debugger() {
 
@@ -37,26 +36,38 @@ public final class Debugger {
                 World.setCurrentZone(World.getZoneContainer().getZoneList().get(0));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(1));
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(10));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(2));
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(20));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(3));
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(30));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(4));
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(40));
             }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(1));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(11));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(21));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(31));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+                World.setCurrentZone(World.getZoneContainer().getZoneList().get(41));
+            }
+
             //TEMP TEMP TEMP
             if(Gdx.input.isKeyJustPressed(Input.Keys.V)) {
                 if(!World.getPlayer().getInventory().getItems().isEmpty()) {
                     World.getPlayer().dropItem(World.getPlayer().getInventory().getItems().get(0));
                 }
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(i));
-                i++;
             }
         }
     }
