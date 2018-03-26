@@ -1,9 +1,14 @@
 package com.mygdx.game.Zones;
 
+import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Items.Item;
 import com.mygdx.game.Tiles.Tile;
 import java.util.List;
 
 public class Zone {
+
+    private List<Entity> zoneEntitiesList;
+    private List<Item> zoneItemsList;
 
     private List<Tile> tileList;
     private int width, height;
@@ -61,5 +66,21 @@ public class Zone {
 
     public int getY() {
         return y;
+    }
+
+    public List<Entity> getZoneEntitiesList() {
+        return zoneEntitiesList;
+    }
+
+    public void addZoneEntity(Entity entity) {
+        zoneEntitiesList.add(entity);
+    }
+
+    public List<Item> getZoneItemsList() {
+        return zoneItemsList;
+    }
+
+    public void addZoneItem(Item item) {
+        zoneItemsList.add(item);
     }
 }

@@ -41,8 +41,6 @@ public class QuickInfoGUI extends AbstractGUI {
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-//        batch.draw(weaponTexture,x+11,y+11,64,64);
-//        batch.draw(armorTexture,x+83,y+11,64,64);
         drawBars(batch);
         font.setColor(Color.WHITE);
         font.draw(batch,String.valueOf(player.getCurrentHealthPoints() + "/" + String.valueOf(player.getMaxHealthPoints())),x+150,y+110);
@@ -56,13 +54,6 @@ public class QuickInfoGUI extends AbstractGUI {
     public void update() {
         this.x = player.x - Constants.DEFAULT_RESOLUTION_WIDTH/2 + 45;
         this.y = player.y + Constants.DEFAULT_RESOLUTION_HEIGHT/2 - 110;
-
-//        weaponTexture = player.getInventory().getEquipedWeapon()==null
-//                ? assets.manager.get("items/noWeapon.png")
-//                : player.getInventory().getEquipedWeapon().getTexture();
-//        armorTexture = player.getInventory().getEquipedArmor()==null
-//                ? assets.manager.get("items/noArmor.png")
-//                : player.getInventory().getEquipedArmor().getTexture();
 
         healthPointsToDraw = player.getCurrentHealthPoints()<=0 ? 0
                 : (float) player.getCurrentHealthPoints() * 100 / (float) player.getMaxHealthPoints() / 100;

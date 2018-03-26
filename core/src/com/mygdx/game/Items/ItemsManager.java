@@ -8,12 +8,6 @@ import com.mygdx.game.Items.types.UsableItem;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Utils.BaseManager;
 import com.mygdx.game.Utils.assets.Assets;
-import com.mygdx.game.Utils.textFile.TextFile;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
 
@@ -31,7 +25,7 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
         this.creators.put(Weapon.class, values -> {
             final Weapon weapon = new Weapon(values[0], Boolean.parseBoolean(values[2]), Integer.parseInt(values[3]),
                     Integer.parseInt(values[4]), Integer.parseInt(values[5]), Float.parseFloat(values[6]),
-                    Integer.parseInt(values[7]));
+                    Integer.parseInt(values[7]), Integer.parseInt(values[9]));
             weapon.texture = this.assets.manager.get(values[1], Texture.class);
             return weapon;
         });

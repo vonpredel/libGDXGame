@@ -44,6 +44,12 @@ public class ZoneRenderer {
         neighbours.forEach(neighbour -> neighbour.getTileList().forEach(tile -> {
             tile.draw(this.batch);
         }));
+
+//        World.getZoneContainer().getZoneList().forEach(zone -> {
+//            zone.getTileList().forEach(tile -> {
+//                tile.draw(batch);
+//            });
+//        });
     }
 
     private void addNeighbour(int index) {

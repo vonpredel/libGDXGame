@@ -18,6 +18,7 @@ import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -100,33 +101,36 @@ public class World {
     public static int getCurrentEntityPosition(Entity entity) {
         float xPosition = Math.round(entity.x / Constants.DEFAULT_TILE_WIDTH);
         float yPosition = Math.round(entity.y / Constants.DEFAULT_TILE_HEIGHT);
-        // TODO TESTING
         float position = yPosition + (xPosition * currentZoneHeight*worldHeight);
         return (int) position;
     }
 
-    public static Tile getTargetDirectionTile(Entity entity, int direction) {
-        Tile tile;
+    public static Tile getSingleTargetDirectionTile(Entity entity, int direction) {
+        return getTargetDirectionTiles(entity,direction,1).get(0);
+    }
+
+    public static List<Tile> getTargetDirectionTiles(Entity entity, int direction, int range) {
+        List<Tile> tiles = new ArrayList<>(range);
         int currentEntityPosition = getCurrentEntityPosition(entity);
         switch (direction) {
             case UP:
-                tile = getTileByPosition(currentEntityPosition + 1);
+                for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition + i));
                 break;
             case DOWN:
-                tile = getTileByPosition(currentEntityPosition - 1);
+                for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition - i));
                 break;
             case LEFT:
-                // TODO
-                tile = getTileByPosition(currentEntityPosition - currentZoneWidth*worldWidth);
+                for (int i = 1; i <= range; i++)
+                    tiles.add(getTileByPosition(currentEntityPosition - (i * currentZoneWidth * worldWidth)));
                 break;
             case RIGHT:
-                // TODO
-                tile = getTileByPosition(currentEntityPosition + currentZoneWidth*worldWidth);
+                for (int i = 1; i <= range; i++)
+                    tiles.add(getTileByPosition(currentEntityPosition + (i * currentZoneWidth * worldWidth)));
                 break;
             default:
                 return null;
         }
-        return tile;
+        return tiles;
     }
 
     public static boolean isTileOccupied(Tile tile) {
@@ -161,8 +165,15 @@ public class World {
     }
 
     public static boolean isAbleToGo(Entity entity, int direction) {
-        Tile tile = World.getTargetDirectionTile(entity, direction);
+        Tile tile = World.getSingleTargetDirectionTile(entity, direction);
         return tile != null && !tile.isSolid() && !isTileOccupied(tile);
+    }
+
+    public static void updateCurrentZone() {
+        final Zone currentZone = zoneContainer.getCurrentZone();
+        if (!currentZone.equals(World.currentZone)) {
+            setCurrentZone(currentZone);
+        }
     }
 
     public static SpriteBatch getBatch() {

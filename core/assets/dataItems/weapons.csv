@@ -1,19 +1,19 @@
-Sword,weapons/sword.png,false,4,5,85,1,25
-Golden Sword,weapons/sword2.png,false,8,10,90,1,40
-Wooden Sword,weapons/swordWood.png,false,2,3,80,1,10
-Big Wooden Sword,weapons/woodSwordBig.png,false,3,4,70,1.2,15
-Axe,weapons/axe.png,false,3,6,70,1.3,10
-Golden Axe,weapons/axe2.png,false,5,9,70,1.3,20
-Legendary Axe,weapons/axe3.png,false,11,15,70,1.3,30
-Double Axe,weapons/axeDouble.png,false,2,7,70,1.5,10
-Golden Double Axe,weapons/axeDouble2.png,false,4,10,70,1.5,20
-Legendary Double Axe,weapons/axeDouble3.png,false,10,16,70,1.5,30
-Dagger,weapons/dagger.png,false,2,3,90,0.7,50
-Golden Dagger,weapons/dagger2.png,false,3,4,95,0.5,70
-Spear,weapons/spear.png,false,1,9,40,2,10
-Hammer,weapons/hammer.png,false,2,7,60,1.7,30
-Golden Hammer,weapons/hammer2.png,false,4,12,60,1.7,40
-Wand,weapons/wand.png,false,8,9,100,3,0
-Golden Wand,weapons/wand2.png,false,15,16,100,3,0
-Bow,weapons/bow.png,false,3,6,50,2,30
-Golden Bow,weapons/bow2.png,false,6,9,70,2,40
+Sword,weapons/sword.png,false,4,5,85,1,25,false,1
+Golden Sword,weapons/sword2.png,false,8,10,90,1,40,false,1
+Wooden Sword,weapons/swordWood.png,false,2,3,80,1,10,false,1
+Big Wooden Sword,weapons/woodSwordBig.png,false,3,4,70,1.2,15,false,1
+Axe,weapons/axe.png,false,3,6,70,1.3,10,false,1
+Golden Axe,weapons/axe2.png,false,5,9,70,1.3,20,false,1
+Legendary Axe,weapons/axe3.png,false,11,15,70,1.3,30,false,1
+Double Axe,weapons/axeDouble.png,false,2,7,70,1.5,10,false,1
+Golden Double Axe,weapons/axeDouble2.png,false,4,10,70,1.5,20,false,1
+Legendary Double Axe,weapons/axeDouble3.png,false,10,16,70,1.5,30,false,1
+Dagger,weapons/dagger.png,false,2,3,90,0.7,50,false,1
+Golden Dagger,weapons/dagger2.png,false,3,4,95,0.5,70,false,1
+Spear,weapons/spear.png,false,1,9,40,2,10,false,1
+Hammer,weapons/hammer.png,false,2,7,60,1.7,30,false,1
+Golden Hammer,weapons/hammer2.png,false,4,12,60,1.7,40,false,1
+Wand,weapons/wand.png,false,8,9,100,3,0,true,3
+Golden Wand,weapons/wand2.png,false,15,16,100,3,0,true,4
+Bow,weapons/bow.png,false,3,6,50,2,30,true,3
+Golden Bow,weapons/bow2.png,false,6,9,70,2,40,true,4

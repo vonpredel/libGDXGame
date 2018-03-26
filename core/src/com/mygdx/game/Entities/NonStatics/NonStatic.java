@@ -167,7 +167,7 @@ public abstract class NonStatic extends Entity {
         this.movementDirection = direction;
         this.lastX = this.getCurrentTile().x;
         this.lastY = this.getCurrentTile().y;
-        this.destination = World.getTargetDirectionTile(this, direction);
+        this.destination = World.getSingleTargetDirectionTile(this, direction);
     }
 
     private void moveUpdate() {
@@ -191,22 +191,27 @@ public abstract class NonStatic extends Entity {
     //<editor-fold desc="Attacking" defaultstate="collapsed">
 
     public void attackUp() {
-        attack(World.getTargetDirectionTile(this, World.UP));
+        performAttack(World.UP);
     }
 
     public void attackDown() {
-        attack(World.getTargetDirectionTile(this, World.DOWN));
+        performAttack(World.DOWN);
     }
 
     public void attackLeft() {
-        attack(World.getTargetDirectionTile(this, World.LEFT));
+        performAttack(World.LEFT);
     }
 
     public void attackRight() {
-        attack(World.getTargetDirectionTile(this, World.RIGHT));
+        performAttack(World.RIGHT);
     }
 
-    public void attack(Tile tile) {
+    private void performAttack(int direction) {
+        int range = inventory.getEquipedWeapon() == null ? 1 : inventory.getEquipedWeapon().getRange();
+        World.getTargetDirectionTiles(this, direction, range).forEach(this::attack);
+    }
+
+    private void attack(Tile tile) {
         if (!isAttacking && World.isTileOccupied(tile)) {
             NonStatic targetNonStatic = World.getNonStaticFromTile(tile);
             if (!(targetNonStatic instanceof NonStatic)) return;

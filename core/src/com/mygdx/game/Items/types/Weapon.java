@@ -9,14 +9,16 @@ public class Weapon extends Item {
     protected int accuracy;
     protected float speed;
     protected int critChance;
+    protected int range;
 
-    public Weapon(String name, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance) {
+    public Weapon(String name, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance, int range) {
         super(name, stackable);
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
         this.accuracy = accuracy;
         this.speed = speed;
         this.critChance = critChance;
+        this.range = range;
     }
 
     public int getMinDamage() {
@@ -57,5 +59,13 @@ public class Weapon extends Item {
 
     public void setCritChance(int critChance) {
         this.critChance = critChance;
+    }
+
+    public int getRange() {
+        return range;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
     }
 }
