@@ -46,8 +46,8 @@ public class Game extends ApplicationAdapter {
     private void loadEntities() {
         World.getEntitiesManager().create(EntityType.PLAYER, (entity, objects)
                 -> entity.warp(256, 256));
-        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
-                -> entity.warp(600, 600));
+//        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
+//                -> entity.warp(600, 600));
         World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
                 -> entity.warp(256, 64));
 

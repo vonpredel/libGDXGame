@@ -18,7 +18,6 @@ import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -112,23 +111,27 @@ public class World {
     public static List<Tile> getTargetDirectionTiles(Entity entity, int direction, int range) {
         List<Tile> tiles = new ArrayList<>(range);
         int currentEntityPosition = getCurrentEntityPosition(entity);
-        switch (direction) {
-            case UP:
-                for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition + i));
-                break;
-            case DOWN:
-                for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition - i));
-                break;
-            case LEFT:
-                for (int i = 1; i <= range; i++)
-                    tiles.add(getTileByPosition(currentEntityPosition - (i * currentZoneWidth * worldWidth)));
-                break;
-            case RIGHT:
-                for (int i = 1; i <= range; i++)
-                    tiles.add(getTileByPosition(currentEntityPosition + (i * currentZoneWidth * worldWidth)));
-                break;
-            default:
-                return null;
+        try {
+            switch (direction) {
+                case UP:
+                    for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition + i));
+                    break;
+                case DOWN:
+                    for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition - i));
+                    break;
+                case LEFT:
+                    for (int i = 1; i <= range; i++)
+                        tiles.add(getTileByPosition(currentEntityPosition - (i * currentZoneWidth * worldWidth)));
+                    break;
+                case RIGHT:
+                    for (int i = 1; i <= range; i++)
+                        tiles.add(getTileByPosition(currentEntityPosition + (i * currentZoneWidth * worldWidth)));
+                    break;
+                default:
+                    return null;
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Out of bounds !! Skipped adding tile to tileList");
         }
         return tiles;
     }
@@ -170,7 +173,7 @@ public class World {
     }
 
     public static void updateCurrentZone() {
-        final Zone currentZone = zoneContainer.getCurrentZone();
+        final Zone currentZone = zoneContainer.getCurrentPlayerZone();
         if (!currentZone.equals(World.currentZone)) {
             setCurrentZone(currentZone);
         }

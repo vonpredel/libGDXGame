@@ -1,5 +1,6 @@
 package com.mygdx.game.Zones;
 
+import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.World.World;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +17,8 @@ public class ZoneContainer {
         return zoneList;
     }
 
-    public Zone getCurrentZone() {
-        final int currentEntityPosition = World.getCurrentEntityPosition(World.getPlayer());
+    public Zone getZoneByEntity(Entity entity) {
+        final int currentEntityPosition = World.getCurrentEntityPosition(entity);
         final int zoneHeight = World.getCurrentZoneHeight();
         final int zoneWidth = World.getCurrentZoneWidth();
         final int worldWidth = World.getWorldWidth();
@@ -35,5 +36,9 @@ public class ZoneContainer {
             }
         }
         return zone;
+    }
+
+    public Zone getCurrentPlayerZone() {
+        return getZoneByEntity(World.getPlayer());
     }
 }

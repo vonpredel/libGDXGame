@@ -10,10 +10,10 @@ Golden Double Axe,weapons/axeDouble2.png,false,4,10,70,1.5,20,false,1
 Legendary Double Axe,weapons/axeDouble3.png,false,10,16,70,1.5,30,false,1
 Dagger,weapons/dagger.png,false,2,3,90,0.7,50,false,1
 Golden Dagger,weapons/dagger2.png,false,3,4,95,0.5,70,false,1
-Spear,weapons/spear.png,false,1,9,40,2,10,false,1
+Spear,weapons/spear.png,false,1,9,40,2,10,false,2
 Hammer,weapons/hammer.png,false,2,7,60,1.7,30,false,1
 Golden Hammer,weapons/hammer2.png,false,4,12,60,1.7,40,false,1
 Wand,weapons/wand.png,false,8,9,100,3,0,true,3
-Golden Wand,weapons/wand2.png,false,15,16,100,3,0,true,4
-Bow,weapons/bow.png,false,3,6,50,2,30,true,3
-Golden Bow,weapons/bow2.png,false,6,9,70,2,40,true,4
+Golden Wand,weapons/wand2.png,false,15,16,100,3,0,true,3
+Bow,weapons/bow.png,false,3,6,50,2,30,true,5
+Golden Bow,weapons/bow2.png,false,6,9,70,2,40,true,5

@@ -120,7 +120,8 @@ public class InventoryGUI extends AbstractGUI {
             font.draw(batch,describedItem.getName(),x+45,y+280);
             if(selectedMenuIndex == WEAPON_CLASS_ENUM) {
                 font.draw(batch,"Damage = " + ((Weapon) describedItem).getMinDamage() + " - " + ((Weapon) describedItem).getMaxDamage(),x+45,y+260);
-                font.draw(batch,"Accuracy = " + ((Weapon) describedItem).getAccuracy(),x+45,y+240);
+                font.draw(batch,"Accuracy = " + ((Weapon) describedItem).getAccuracy()
+                        + " | Range = " + ((Weapon) describedItem).getRange(),x+45,y+240);
                 font.draw(batch,"Attack Speed = " + ((Weapon) describedItem).getSpeed(),x+45,y+220);
                 font.draw(batch,"Critical Chance = " + ((Weapon) describedItem).getCritChance(),x+45,y+200);
             } else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
