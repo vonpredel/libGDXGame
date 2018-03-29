@@ -131,6 +131,10 @@ public abstract class NonStatic extends Entity {
                 + (dexterity/5);
     }
 
+    public int getRange() {
+        return this.getWeapon().map(Weapon::getRange).orElse(1);
+    }
+
 //    </editor-fold>
 
     //<editor-fold desc="Moving" defaultstate="collapsed">
@@ -207,15 +211,15 @@ public abstract class NonStatic extends Entity {
     }
 
     private void performAttack(int direction) {
-        int range = inventory.getEquipedWeapon() == null ? 1 : inventory.getEquipedWeapon().getRange();
-        World.getTargetDirectionTiles(this, direction, range).forEach(this::attack);
+        World.getTargetDirectionTiles(this, direction, this.getRange()).forEach(this::attack);
+        isAttacking = true;
     }
 
     private void attack(Tile tile) {
         if (!isAttacking && World.isTileOccupied(tile)) {
+            tile.setHitted(true);
             NonStatic targetNonStatic = World.getNonStaticFromTile(tile);
-            if (!(targetNonStatic instanceof NonStatic)) return;
-            isAttacking = true;
+            if (targetNonStatic == null) return;
             int damage;
             if (!(MathUtils.random(1, 100) <= getAccuracy())) damage = 0;
             else {
@@ -228,6 +232,8 @@ public abstract class NonStatic extends Entity {
             }
             targetNonStatic.hurt(damage);
             attackTimeHelper = 0;
+        } else if (!isAttacking && !tile.isHitted) {
+            tile.setHitted(true);
         }
     }
 
@@ -438,5 +444,7 @@ public abstract class NonStatic extends Entity {
         this.currentStaminaPoints = maxStaminaPoints;
     }
 
-
+    public void setAttacking(boolean attacking) {
+        isAttacking = attacking;
+    }
 }
