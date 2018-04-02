@@ -194,54 +194,51 @@ public abstract class NonStatic extends Entity {
 
     //<editor-fold desc="Attacking" defaultstate="collapsed">
 
-    public void attackUp() {
-        performAttack(World.UP);
-    }
-
-    public void attackDown() {
-        performAttack(World.DOWN);
-    }
-
-    public void attackLeft() {
-        performAttack(World.LEFT);
-    }
-
-    public void attackRight() {
-        performAttack(World.RIGHT);
-    }
-
-    private void performAttack(int direction) {
-        World.getTargetDirectionTiles(this, direction, this.getRange()).forEach(this::attack);
-        isAttacking = true;
-    }
-
-    private void attack(Tile tile) {
-        if (!isAttacking && World.isTileOccupied(tile)) {
-            tile.setHitted(true);
-            NonStatic targetNonStatic = World.getNonStaticFromTile(tile);
-            if (targetNonStatic == null) return;
-            int damage;
-            if (!(MathUtils.random(1, 100) <= getAccuracy())) damage = 0;
-            else {
-                int reducedDamage = targetNonStatic.getDefence();
-
-                damage = MathUtils.random(getMinDamage(), getMaxDamage());
-                damage = (MathUtils.random(1, 100) <= getCritChance() ? damage * 2 : damage)
-                        - reducedDamage;
-                damage = Math.max(0, damage);
+    public void performAttack(int direction) {
+        if(!isAttacking) {
+            for (Tile tile : World.getTargetDirectionTiles(this, direction, this.getRange())) {
+                tile.setHitted();
+//                if(World.isTileOccupied(tile)) break;
+                if(tile.isSolid()) break;
+                final NonStatic nonStaticFromTile = World.getNonStaticFromTile(tile);
+                if (nonStaticFromTile != null) {
+                    attack(nonStaticFromTile);
+                    break;
+                }
+                // TODO implement pierce
+                // TODO HMMM
             }
-            targetNonStatic.hurt(damage);
-            attackTimeHelper = 0;
-        } else if (!isAttacking && !tile.isHitted) {
-            tile.setHitted(true);
+//            for (NonStatic nonStatic : World.getTargetsFromDirection(this, direction)) {
+//                attack(nonStatic);
+//                 TODO implement pierce
+//                 TODO HMMM
+//                final Tile tileByPosition = World.getTileByPosition(World.getCurrentEntityPosition(nonStatic));
+//                break;
+//            }
+            isAttacking = true;
         }
     }
 
-    public void attackUpdate() {
-        attackTimeHelper += Gdx.graphics.getDeltaTime();
-        if (attackTimeHelper > getAttackSpeed()) {
-            this.isAttacking = false;
-            attackTimeHelper = 0;
+    private void attack(NonStatic nonStatic) {
+        int damage;
+        if (!(MathUtils.random(1, 100) <= getAccuracy())) damage = 0;
+        else {
+            damage = MathUtils.random(getMinDamage(), getMaxDamage());
+            damage = (MathUtils.random(1, 100) <= getCritChance() ? damage * 2 : damage)
+                    - nonStatic.getDefence();
+            damage = Math.max(0, damage);
+        }
+        nonStatic.hurt(damage);
+        attackTimeHelper = 0;
+    }
+
+    private void attackUpdate() {
+        if(isAttacking()) {
+            attackTimeHelper += Gdx.graphics.getDeltaTime();
+            if (attackTimeHelper > getAttackSpeed()) {
+                this.isAttacking = false;
+                attackTimeHelper = 0;
+            }
         }
     }
 

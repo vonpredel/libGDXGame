@@ -20,6 +20,8 @@ import com.mygdx.game.Zones.ZoneRenderer;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class World {
 
@@ -165,6 +167,12 @@ public class World {
             }
         }
         return null;
+    }
+
+    public static List<NonStatic> getTargetsFromDirection(NonStatic nonStatic, int direction) {
+        return World.getTargetDirectionTiles(nonStatic, direction, nonStatic.getRange())
+                .stream().filter(World::isTileOccupied).map(World::getNonStaticFromTile)
+                .filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     public static boolean isAbleToGo(Entity entity, int direction) {

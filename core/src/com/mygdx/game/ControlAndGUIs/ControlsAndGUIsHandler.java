@@ -10,6 +10,7 @@ import com.mygdx.game.Graphics.InventoryGUI;
 import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
 import com.mygdx.game.Utils.assets.Assets;
+import com.mygdx.game.World.World;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,16 +93,16 @@ public class ControlsAndGUIsHandler {
 
     private void defaultControls() {
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            player.attackUp();
+            player.performAttack(World.UP);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            player.attackDown();
+            player.performAttack(World.DOWN);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            player.attackLeft();
+            player.performAttack(World.LEFT);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            player.attackRight();
+            player.performAttack(World.RIGHT);
         }
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             player.pickUpItems();

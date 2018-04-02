@@ -1,15 +1,9 @@
 package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
-import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 public final class AILogic {
 
@@ -17,6 +11,10 @@ public final class AILogic {
 
     }
 
+    /**
+     * Random moving and attack any if able;
+     * @param nonStatic
+     */
     private static void defaultAi(NonStatic nonStatic) {
         if(!nonStatic.isAttacking()) spamAttack(nonStatic);
         if(!nonStatic.isMoving()) {
@@ -43,34 +41,21 @@ public final class AILogic {
     }
 
     private static void spamAttack(NonStatic nonStatic) {
-        if (!getTargetsFromDirection(nonStatic, World.UP).isEmpty()) {
-            nonStatic.attackUp();
+        if (!World.getTargetsFromDirection(nonStatic, World.UP).isEmpty()) {
+            nonStatic.performAttack(World.UP);
             return;
         }
-        if (!getTargetsFromDirection(nonStatic, World.DOWN).isEmpty()) {
-            nonStatic.attackDown();
+        if (!World.getTargetsFromDirection(nonStatic, World.DOWN).isEmpty()) {
+            nonStatic.performAttack(World.DOWN);
             return;
         }
-        if (!getTargetsFromDirection(nonStatic, World.LEFT).isEmpty()) {
-            nonStatic.attackLeft();
+        if (!World.getTargetsFromDirection(nonStatic, World.LEFT).isEmpty()) {
+            nonStatic.performAttack(World.LEFT);
             return;
         }
-        if (!getTargetsFromDirection(nonStatic, World.RIGHT).isEmpty()) {
-            nonStatic.attackRight();
+        if (!World.getTargetsFromDirection(nonStatic, World.RIGHT).isEmpty()) {
+            nonStatic.performAttack(World.RIGHT);
         }
-    }
-
-    private static List<NonStatic> getTargetsFromDirection(NonStatic nonStatic, int direction) {
-        return World.getTargetDirectionTiles(nonStatic, direction, nonStatic.getRange())
-                .stream().filter(World::isTileOccupied).collect(Collectors.toList())
-                .stream().map(World::getNonStaticFromTile)
-                .filter(Objects::nonNull).collect(Collectors.toList());
-
-
-//        return World.getTargetDirectionTiles(nonStatic, direction, nonStatic.getRange())
-//                .stream().filter(World::isTileOccupied).collect(Collectors.toList())
-//                .stream().map(World::getNonStaticFromTile)
-//                .filter(Objects::nonNull).collect(Collectors.toList());
     }
 
     public enum AIType {

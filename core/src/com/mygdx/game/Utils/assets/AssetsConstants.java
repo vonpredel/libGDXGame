@@ -12,6 +12,7 @@ public final class AssetsConstants {
     public static final String GRASS_DIR = "grass/grass";
     public static final String WALL_DIR = "misc/sciana";
     public static final String DAMAGE = "misc/damage.png";
+    public static final String HITTED = "misc/hitted.png";
     public static final String INVENTORY = "misc/eq.png";
     public static final String INVENTORY_V2 = "inv/eq2.png";
     public static final String INVENTORY_ARMOR_TAB = "inv/armorTab.png";
