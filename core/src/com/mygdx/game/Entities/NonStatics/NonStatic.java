@@ -198,23 +198,13 @@ public abstract class NonStatic extends Entity {
         if(!isAttacking) {
             for (Tile tile : World.getTargetDirectionTiles(this, direction, this.getRange())) {
                 tile.setHitted();
-//                if(World.isTileOccupied(tile)) break;
                 if(tile.isSolid()) break;
                 final NonStatic nonStaticFromTile = World.getNonStaticFromTile(tile);
                 if (nonStaticFromTile != null) {
                     attack(nonStaticFromTile);
-                    break;
+                    if (!getInventory().getEquipedWeapon().isPiercing()) break;
                 }
-                // TODO implement pierce
-                // TODO HMMM
             }
-//            for (NonStatic nonStatic : World.getTargetsFromDirection(this, direction)) {
-//                attack(nonStatic);
-//                 TODO implement pierce
-//                 TODO HMMM
-//                final Tile tileByPosition = World.getTileByPosition(World.getCurrentEntityPosition(nonStatic));
-//                break;
-//            }
             isAttacking = true;
         }
     }

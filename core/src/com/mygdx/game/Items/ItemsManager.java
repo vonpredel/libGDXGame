@@ -25,7 +25,7 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
         this.creators.put(Weapon.class, values -> {
             final Weapon weapon = new Weapon(values[0], Boolean.parseBoolean(values[2]), Integer.parseInt(values[3]),
                     Integer.parseInt(values[4]), Integer.parseInt(values[5]), Float.parseFloat(values[6]),
-                    Integer.parseInt(values[7]), Integer.parseInt(values[9]));
+                    Integer.parseInt(values[7]), Integer.parseInt(values[9]), Boolean.parseBoolean(values[10]));
             weapon.texture = this.assets.manager.get(values[1], Texture.class);
             return weapon;
         });

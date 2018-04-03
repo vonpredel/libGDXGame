@@ -10,8 +10,9 @@ public class Weapon extends Item {
     protected float speed;
     protected int critChance;
     protected int range;
+    protected boolean piercing;
 
-    public Weapon(String name, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance, int range) {
+    public Weapon(String name, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance, int range, boolean piercing) {
         super(name, stackable);
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
@@ -19,6 +20,7 @@ public class Weapon extends Item {
         this.speed = speed;
         this.critChance = critChance;
         this.range = range;
+        this.piercing = piercing;
     }
 
     public int getMinDamage() {
@@ -67,5 +69,13 @@ public class Weapon extends Item {
 
     public void setRange(int range) {
         this.range = range;
+    }
+
+    public boolean isPiercing() {
+        return piercing;
+    }
+
+    public void setPiercing(boolean piercing) {
+        this.piercing = piercing;
     }
 }
