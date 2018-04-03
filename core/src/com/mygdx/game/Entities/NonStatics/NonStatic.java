@@ -210,12 +210,11 @@ public abstract class NonStatic extends Entity {
     }
 
     private void attack(NonStatic nonStatic) {
-        int damage;
-        if (!(MathUtils.random(1, 100) <= getAccuracy())) damage = 0;
-        else {
+        int damage = 0;
+        if(MathUtils.random(1,100) <= getAccuracy()) {
             damage = MathUtils.random(getMinDamage(), getMaxDamage());
-            damage = (MathUtils.random(1, 100) <= getCritChance() ? damage * 2 : damage)
-                    - nonStatic.getDefence();
+            damage = (MathUtils.random(1, 100) <= getCritChance() ? damage * 2 : damage);
+            damage -= nonStatic.getDefence();
             damage = Math.max(0, damage);
         }
         nonStatic.hurt(damage);
