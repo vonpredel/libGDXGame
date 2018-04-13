@@ -62,6 +62,14 @@ public class Inventory {
         items.remove(weapon);
     }
 
+    public void removeWholeInventory() {
+        equipedWeapon = null;
+        equipedShield = null;
+        equipedArmor = null;
+        equipedHelmet = null;
+        items.clear();
+    }
+
     public void equipArmor(Armor armor) {
         switch (armor.getArmorSlot()) {
             case ARMOR:
@@ -80,38 +88,38 @@ public class Inventory {
         items.remove(armor);
     }
 
-    public void useItem(UsableItem usableItem, Player player) {
-        switch (usableItem.function) {
-            case 0:
-                player.setCurrentHealthPoints(player.getCurrentHealthPoints() + 20);
-                break;
-            case 1:
-                player.setCurrentHealthPoints(player.getMaxHealthPoints());
-                break;
-            case 2:
-                player.setCurrentStaminaPoints(player.getCurrentStaminaPoints() + 20);
-                break;
-            case 3:
-                player.setCurrentStaminaPoints(player.getMaxStaminaPoints());
-                break;
-            case 4:
-                player.setCurrentManaPoints(player.getCurrentManaPoints() + 20);
-                break;
-            case 5:
-                player.setCurrentManaPoints(player.getMaxManaPoints());
-                break;
-            case 6:
-                System.out.println("SOMETHING");
-                break;
-        }
-        if(player.getCurrentHealthPoints() > player.getMaxHealthPoints())
-            player.setCurrentHealthPoints(player.getMaxHealthPoints());
-        if(player.getCurrentStaminaPoints() > player.getMaxStaminaPoints())
-            player.setCurrentStaminaPoints(player.getMaxStaminaPoints());
-        if(player.getCurrentManaPoints() > player.getMaxManaPoints())
-            player.setCurrentManaPoints(player.getMaxManaPoints());
-        items.remove(usableItem);
-    }
+//    public void useItem(UsableItem usableItem, Player player) {
+//        switch (usableItem.function) {
+//            case 0:
+//                player.setCurrentHealthPoints(player.getCurrentHealthPoints() + 20);
+//                break;
+//            case 1:
+//                player.setCurrentHealthPoints(player.getMaxHealthPoints());
+//                break;
+//            case 2:
+//                player.setCurrentStaminaPoints(player.getCurrentStaminaPoints() + 20);
+//                break;
+//            case 3:
+//                player.setCurrentStaminaPoints(player.getMaxStaminaPoints());
+//                break;
+//            case 4:
+//                player.setCurrentManaPoints(player.getCurrentManaPoints() + 20);
+//                break;
+//            case 5:
+//                player.setCurrentManaPoints(player.getMaxManaPoints());
+//                break;
+//            case 6:
+//                System.out.println("SOMETHING");
+//                break;
+//        }
+//        if(player.getCurrentHealthPoints() > player.getMaxHealthPoints())
+//            player.setCurrentHealthPoints(player.getMaxHealthPoints());
+//        if(player.getCurrentStaminaPoints() > player.getMaxStaminaPoints())
+//            player.setCurrentStaminaPoints(player.getMaxStaminaPoints());
+//        if(player.getCurrentManaPoints() > player.getMaxManaPoints())
+//            player.setCurrentManaPoints(player.getMaxManaPoints());
+//        items.remove(usableItem);
+//    }
 
     public Armor getEquipedArmor() {
         return equipedArmor;

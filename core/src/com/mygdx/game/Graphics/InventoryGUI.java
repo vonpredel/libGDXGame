@@ -11,6 +11,7 @@ import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.inventory.InventoryAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +31,8 @@ public class InventoryGUI extends AbstractGUI {
     private List<? extends Item> list;
     private BitmapFont font;
     private Inventory inventory;
+
+    private InventoryAction inventoryAction;
 
     private Item describedItem;
 
@@ -62,6 +65,7 @@ public class InventoryGUI extends AbstractGUI {
         this.width = texture.getWidth()*4;
         this.height = texture.getHeight()*4;
         this.player = player;
+        this.inventoryAction = new InventoryAction(player);
         font = new BitmapFont();
         list = new ArrayList<>();
         this.assets = assets;
@@ -252,7 +256,7 @@ public class InventoryGUI extends AbstractGUI {
                 } else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
                     inventory.equipArmor((Armor) list.get(selectedItemIndex));
                 } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
-                    inventory.useItem((UsableItem) list.get(selectedItemIndex),player);
+                    inventoryAction.useItem((UsableItem) list.get(selectedItemIndex));
                 } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
 //                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
                 } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {

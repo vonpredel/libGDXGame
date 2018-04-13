@@ -73,7 +73,7 @@ public abstract class NonStatic extends Entity {
         if (inventory.getEquipedShield() != null) inventory.getEquipedShield().generateOnMap(tile.x, tile.y);
         if (inventory.getEquipedHelmet() != null) inventory.getEquipedHelmet().generateOnMap(tile.x, tile.y);
         inventory.getItems().forEach(i -> i.generateOnMap(tile.x, tile.y));
-        inventory.getItems().clear();
+        inventory.removeWholeInventory();
     }
 
     public void dropItem(Item item) {

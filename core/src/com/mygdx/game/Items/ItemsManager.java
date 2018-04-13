@@ -42,7 +42,8 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
             return usableItem;
         });
         this.creators.put(QuestItem.class, values -> {
-            final QuestItem questItem = new QuestItem(values[0], Boolean.parseBoolean(values[2]));
+            final QuestItem questItem = new QuestItem(values[0], Boolean.parseBoolean(values[2]),
+                    Integer.parseInt(values[3]));
             questItem.texture = this.assets.manager.get(values[1], Texture.class);
             return questItem;
         });
