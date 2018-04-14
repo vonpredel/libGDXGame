@@ -7,6 +7,7 @@ import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Graphics.AbstractGUI;
 import com.mygdx.game.Graphics.CharacterPanelGUI;
 import com.mygdx.game.Graphics.InventoryGUI;
+import com.mygdx.game.Graphics.MapGUI;
 import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
 import com.mygdx.game.Utils.assets.Assets;
@@ -17,17 +18,18 @@ import java.util.List;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.CHARACTER_PANEL_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.DEFAULT_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.INVENTORY_STATE_V2;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MAP_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MENU_STATE;
 
 public class ControlsAndGUIsHandler {
 
     Player player;
-    private GUIState state;
-    private CharacterPanelGUI characterPanelGUI;
-    private QuickInfoGUI quickInfoGUI;
-    private MenuGUI menuGUI;
-
-    private InventoryGUI inventoryGUI;
+    public GUIState state;
+    public CharacterPanelGUI characterPanelGUI;
+    public QuickInfoGUI quickInfoGUI;
+    public MenuGUI menuGUI;
+    public MapGUI mapGUI;
+    public InventoryGUI inventoryGUI;
 
     private Assets assets;
     private List<AbstractGUI> guiList;
@@ -43,12 +45,14 @@ public class ControlsAndGUIsHandler {
         this.menuGUI = new MenuGUI(player,assets);
         this.quickInfoGUI = new QuickInfoGUI(player,assets);
         this.inventoryGUI = new InventoryGUI(player,assets);
+        this.mapGUI = new MapGUI(player,assets);
         quickInfoGUI.isEnabled = true;
         guiList = new ArrayList<>();
         guiList.add(characterPanelGUI);
         guiList.add(menuGUI);
         guiList.add(quickInfoGUI);
         guiList.add(inventoryGUI);
+        guiList.add(mapGUI);
     }
 
     public void update() {
@@ -65,6 +69,9 @@ public class ControlsAndGUIsHandler {
                 break;
             case INVENTORY_STATE_V2:
                 inventoryControlsV2();
+                break;
+            case MAP_STATE:
+                mapControls();
                 break;
             default:
                 defaultControls();
@@ -152,7 +159,8 @@ public class ControlsAndGUIsHandler {
     }
 
     private void characterPanelControls() {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.C) || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.C)
+                || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
             characterPanelGUI.isEnabled = false;
             state = DEFAULT_STATE;
         }
@@ -165,10 +173,24 @@ public class ControlsAndGUIsHandler {
         }
     }
 
+    private void mapControls() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)
+                || Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+            mapGUI.isEnabled = false;
+            inventoryGUI.isEnabled = true;
+            state = INVENTORY_STATE_V2;
+        }
+    }
+
+    public void setMapState() {
+        this.state = MAP_STATE;
+    }
+
     enum GUIState {
         DEFAULT_STATE,
         MENU_STATE,
         CHARACTER_PANEL_STATE,
-        INVENTORY_STATE_V2;
+        INVENTORY_STATE_V2,
+        MAP_STATE;
     }
 }

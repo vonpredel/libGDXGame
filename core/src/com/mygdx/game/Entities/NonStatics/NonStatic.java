@@ -202,7 +202,8 @@ public abstract class NonStatic extends Entity {
                 final NonStatic nonStaticFromTile = World.getNonStaticFromTile(tile);
                 if (nonStaticFromTile != null) {
                     attack(nonStaticFromTile);
-                    if (!getInventory().getEquipedWeapon().isPiercing()) break;
+                        if (getInventory().getEquipedWeapon() != null
+                                && !getInventory().getEquipedWeapon().isPiercing()) break;
                 }
             }
             isAttacking = true;

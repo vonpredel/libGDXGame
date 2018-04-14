@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.types.Armor;
+import com.mygdx.game.Items.types.QuestItem;
 import com.mygdx.game.Items.types.UsableItem;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Utils.assets.Assets;
@@ -61,14 +62,13 @@ public class InventoryGUI extends AbstractGUI {
     private Texture trinketTexture;
 
     public InventoryGUI(Player player, Assets assets) {
+        super(player, assets);
         this.texture = assets.manager.get(AssetsConstants.INVENTORY_V2);
         this.width = texture.getWidth()*4;
         this.height = texture.getHeight()*4;
-        this.player = player;
         this.inventoryAction = new InventoryAction(player);
         font = new BitmapFont();
         list = new ArrayList<>();
-        this.assets = assets;
         initAssets();
     }
 
@@ -258,7 +258,7 @@ public class InventoryGUI extends AbstractGUI {
                 } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
                     inventoryAction.useItem((UsableItem) list.get(selectedItemIndex));
                 } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
-//                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
+                    inventoryAction.useQuestItem((QuestItem) list.get(selectedItemIndex));
                 } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {
 //                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
                 }

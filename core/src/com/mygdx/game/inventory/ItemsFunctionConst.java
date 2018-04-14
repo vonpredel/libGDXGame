@@ -16,12 +16,12 @@ public final class ItemsFunctionConst {
     /**
      *  Quest Items
      */
-    private static final int TEMP = 100;
+    public static final int MAP = 100;
 
     /**
      *  Misc Items
      */
-    private static final int TEMP2 = 200;
+    public static final int TEMP2 = 200;
 
     private ItemsFunctionConst() {
     }

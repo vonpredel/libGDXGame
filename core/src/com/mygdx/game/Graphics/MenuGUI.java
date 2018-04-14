@@ -10,12 +10,11 @@ public class MenuGUI extends AbstractGUI {
     private BitmapFont font;
 
     public MenuGUI(Player player, Assets assets) {
+        super(player, assets);
         this.texture = assets.manager.get(AssetsConstants.DAMAGE);
         this.width = texture.getWidth();
         this.height = texture.getHeight();
-        this.player = player;
         font = new BitmapFont();
-        this.assets = assets;
     }
 
 }

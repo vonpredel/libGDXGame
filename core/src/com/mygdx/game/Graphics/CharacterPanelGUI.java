@@ -17,12 +17,11 @@ public class CharacterPanelGUI extends AbstractGUI {
     private float textScopeY;
 
     public CharacterPanelGUI(Player player, Assets assets) {
+        super(player, assets);
         this.texture = assets.manager.get(AssetsConstants.CHARACTER_INFO);
         this.width = texture.getWidth() * 4;
         this.height = texture.getHeight() * 4;
-        this.player = player;
         font = new BitmapFont();
-        this.assets = assets;
     }
 
     @Override

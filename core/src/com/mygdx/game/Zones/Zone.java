@@ -1,5 +1,6 @@
 package com.mygdx.game.Zones;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Tiles.Tile;
@@ -10,6 +11,8 @@ public class Zone {
     private List<Entity> zoneEntitiesList;
     private List<Item> zoneItemsList;
 
+    private boolean visited;
+    private Texture texture;
     private List<Tile> tileList;
     private int width, height;
     private int index;
@@ -82,5 +85,21 @@ public class Zone {
 
     public void addZoneItem(Item item) {
         zoneItemsList.add(item);
+    }
+
+    public Texture getTexture() {
+        return texture;
+    }
+
+    public void setTexture(Texture texture) {
+        this.texture = texture;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 }

@@ -25,11 +25,10 @@ public class QuickInfoGUI extends AbstractGUI {
     float manaPointsToDraw;
 
     public QuickInfoGUI(Player player, Assets assets) {
+        super(player, assets);
         this.texture = assets.manager.get(AssetsConstants.QUICK_INFO);
         this.width = texture.getWidth()*2;
         this.height = texture.getHeight()*2;
-        this.player = player;
-        this.assets = assets;
         font = new BitmapFont();
         shapeRenderer = new ShapeRenderer();
         healthBar = assets.manager.get(AssetsConstants.HEALTH_BAR);

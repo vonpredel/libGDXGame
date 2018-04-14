@@ -44,7 +44,7 @@ public enum ItemType {
 	LESSER_POTION_OF_MANA(UsableItem.class),
 	POTION_OF_MANA(UsableItem.class),
 	POTION_OF_SOMETHING(UsableItem.class),
-	QUEST_QUEST(QuestItem.class),
+	MAP(QuestItem.class),
 	MISCE_MISCE(MiscellaneousItem.class);
 
     private final Class<? extends Item> cls;

@@ -34,6 +34,7 @@ public final class AssetsConstants {
     public static final String GOBLIN_SHEET = "characters/goblin.png";
     public static final String CHARACTER_INFO = "characInfo/characInfo.png";
     public static final String DEAD_PLAYER = "characters/dead.png";
+    public static final String MAP_BACK = "misc/mapBack.png";
 
     private AssetsConstants() {
 

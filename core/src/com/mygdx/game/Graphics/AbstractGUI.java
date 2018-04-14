@@ -10,12 +10,17 @@ public abstract class AbstractGUI {
     protected Texture texture;
 
     protected float x,y;
+
     protected int width,height;
     public boolean isEnabled;
-
     protected Player player;
 
     protected Assets assets;
+
+    public AbstractGUI(Player player, Assets assets) {
+        this.player = player;
+        this.assets = assets;
+    }
 
     public void draw(SpriteBatch batch) {
         if(isEnabled) {
