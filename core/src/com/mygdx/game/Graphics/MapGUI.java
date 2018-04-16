@@ -37,10 +37,10 @@ public class MapGUI extends AbstractGUI {
             for (int i = 0; i < worldWidth; i++) {
                 for (int j = 0; j < worldHeight; j++) {
                     Zone zone = zoneList.get(j + (i * worldHeight));
-//                    if (zone.isVisited()) {
-                    batch.draw(zone.getTexture(), (x+150) + (i * zoneWidth*1.8f), (y+150) + (j * zoneHeight*1.8f),
-                            zone.getTexture().getWidth()*1.6f,zone.getTexture().getHeight()*1.6f);
-//                    }
+                    if (zone.isVisited()) {
+                        batch.draw(zone.getTexture(), (x + 150) + (i * zoneWidth * 1.8f), (y + 150) + (j * zoneHeight * 1.8f),
+                                zone.getTexture().getWidth() * 1.6f, zone.getTexture().getHeight() * 1.6f);
+                    }
                 }
             }
         }

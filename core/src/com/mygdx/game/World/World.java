@@ -183,6 +183,7 @@ public class World {
     public static void updateCurrentZone() {
         final Zone currentZone = zoneContainer.getCurrentPlayerZone();
         if (!currentZone.equals(World.currentZone)) {
+            currentZone.setVisited(true);
             setCurrentZone(currentZone);
         }
     }
