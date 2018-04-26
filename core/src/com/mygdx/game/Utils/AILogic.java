@@ -2,8 +2,10 @@ package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.World.World;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public final class AILogic {
 
@@ -41,19 +43,23 @@ public final class AILogic {
     }
 
     private static void spamAttack(NonStatic nonStatic) {
-        if (!World.getTargetsFromDirection(nonStatic, World.UP).isEmpty()) {
+        if (!World.getTargetsFromDirection(nonStatic, World.UP)
+                .stream().filter(e -> e instanceof Player).collect(Collectors.toList()).isEmpty()) {
             nonStatic.performAttack(World.UP);
             return;
         }
-        if (!World.getTargetsFromDirection(nonStatic, World.DOWN).isEmpty()) {
+        if (!World.getTargetsFromDirection(nonStatic, World.DOWN)
+                .stream().filter(e -> e instanceof Player).collect(Collectors.toList()).isEmpty()) {
             nonStatic.performAttack(World.DOWN);
             return;
         }
-        if (!World.getTargetsFromDirection(nonStatic, World.LEFT).isEmpty()) {
+        if (!World.getTargetsFromDirection(nonStatic, World.LEFT)
+                .stream().filter(e -> e instanceof Player).collect(Collectors.toList()).isEmpty()) {
             nonStatic.performAttack(World.LEFT);
             return;
         }
-        if (!World.getTargetsFromDirection(nonStatic, World.RIGHT).isEmpty()) {
+        if (!World.getTargetsFromDirection(nonStatic, World.RIGHT)
+                .stream().filter(e -> e instanceof Player).collect(Collectors.toList()).isEmpty()) {
             nonStatic.performAttack(World.RIGHT);
         }
     }

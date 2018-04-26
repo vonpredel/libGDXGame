@@ -12,7 +12,7 @@ public class Zone {
     private List<Item> zoneItemsList;
 
     private boolean visited;
-    private Texture texture;
+    private Texture mapTexture;
     private List<Tile> tileList;
     private int width, height;
     private int index;
@@ -87,12 +87,12 @@ public class Zone {
         zoneItemsList.add(item);
     }
 
-    public Texture getTexture() {
-        return texture;
+    public Texture getMapTexture() {
+        return mapTexture;
     }
 
-    public void setTexture(Texture texture) {
-        this.texture = texture;
+    public void setMapTexture(Texture mapTexture) {
+        this.mapTexture = mapTexture;
     }
 
     public boolean isVisited() {

@@ -164,6 +164,16 @@ public class ControlsAndGUIsHandler {
             characterPanelGUI.isEnabled = false;
             state = DEFAULT_STATE;
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            characterPanelGUI.listDown();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            characterPanelGUI.listUp();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            characterPanelGUI.addStat();
+        }
+
     }
 
     private void menuControls() {

@@ -1,11 +1,7 @@
 package com.mygdx.game.Zones;
 
-import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 public class WorldGenerator {
 
@@ -39,7 +35,7 @@ public class WorldGenerator {
 
                 try {
                     final Zone zone = zoneGenerator.generateZone(textureName);
-                    zone.setTexture(World.getAssets().manager.get(textureName));
+                    zone.setMapTexture(World.getAssets().manager.get(textureName));
                     World.getZoneContainer().getZoneList().add(zone);
                     World.getTileList().addAll(zone.getTileList());
                     zone.setIndex(World.getZoneContainer().getZoneList().size() -1);

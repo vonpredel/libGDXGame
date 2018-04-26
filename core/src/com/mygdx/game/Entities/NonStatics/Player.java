@@ -3,18 +3,19 @@ package com.mygdx.game.Entities.NonStatics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Items.Item;
-import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
-import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.World.World;
-import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.inventory.Inventory;
 
 public class Player extends NonStatic {
 
     private boolean isDead = false;
+
+    private int experience;
+    private int experienceToNextLevel = 10;
+    private int level = 1;
+    private int pointsToSpend;
 
     @Override
     protected void ai() {
@@ -50,7 +51,60 @@ public class Player extends NonStatic {
 
     @Override
     public void update() {
-        if (!isDead) super.update();
+        if (!isDead) {
+            super.update();
+            levelUpdate();
+        }
         else World.getCameraHandler().rotateCameraRight();
+    }
+
+    private void levelUpdate() {
+        if (experience >= experienceToNextLevel) {
+            experience -= experienceToNextLevel;
+            experienceToNextLevel += 10f;
+            experienceToNextLevel *= 1.1f;
+            level++;
+            pointsToSpend+=5;
+        }
+    }
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getPointsToSpend() {
+        return pointsToSpend;
+    }
+
+    public void setPointsToSpend(int pointsToSpend) {
+        this.pointsToSpend = pointsToSpend;
+    }
+
+    public int getExperienceToNextLevel() {
+        return experienceToNextLevel;
+    }
+
+    public void setExperienceToNextLevel(int experienceToNextLevel) {
+        this.experienceToNextLevel = experienceToNextLevel;
     }
 }

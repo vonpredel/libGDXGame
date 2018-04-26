@@ -1,5 +1,6 @@
 package com.mygdx.game.inventory;
 
+import com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Items.types.QuestItem;
 import com.mygdx.game.Items.types.UsableItem;
@@ -50,9 +51,10 @@ public class InventoryAction {
         switch (questItem.function) {
             case ItemsFunctionConst.MAP:
                 // TODO MAP
-                World.getControlsAndGUIsHandler().setMapState();
-                World.getControlsAndGUIsHandler().inventoryGUI.isEnabled = false;
-                World.getControlsAndGUIsHandler().mapGUI.isEnabled = true;
+                final ControlsAndGUIsHandler controlsAndGUIsHandler = World.getControlsAndGUIsHandler();
+                controlsAndGUIsHandler.setMapState();
+                controlsAndGUIsHandler.inventoryGUI.isEnabled = false;
+                controlsAndGUIsHandler.mapGUI.isEnabled = true;
                 break;
         }
     }

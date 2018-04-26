@@ -97,6 +97,7 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
             this.loadStatistics(values,enemy);
             this.loadInventory(values[10], enemy);
             enemy.setAiType(AILogic.AIType.valueOf(values[11]));
+            enemy.setExperience(Integer.parseInt(values[12]));
             return enemy;
         });
 
