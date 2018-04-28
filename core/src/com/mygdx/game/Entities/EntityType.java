@@ -5,6 +5,7 @@ import com.mygdx.game.Entities.Statics.Static;
 
 public enum EntityType {
 	NIGGA(Enemy.class),
+	GOBLIN(Enemy.class),
 	PLAYER(Player.class),
 	CHEST(Static.class);
 

@@ -3,7 +3,10 @@ package com.mygdx.game.Utils;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
+import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -39,7 +42,31 @@ public final class AILogic {
     }
 
     private static void aggressiveAI(final NonStatic nonStatic) {
-
+        if (!nonStatic.isAttacking()) spamAttack(nonStatic);
+        if (!nonStatic.isMoving()) {
+            final List<Tile> nearbyTiles = World.getNearbyTiles(5, nonStatic);
+            final Map<Integer, NonStatic> entitiesFromTiles = World.getEntitiesFromTiles(nearbyTiles);
+            final int[] ints = World.checkIsPlayerOnEntitiesList(entitiesFromTiles);
+            if(ints[0] == 1) {
+                final int path = PathFinding.findPath(World.getCurrentEntityPosition(nonStatic), ints[1]);
+                switch (path) {
+                    case PathFinding.UP:
+                        nonStatic.moveUp();
+                        break;
+                    case PathFinding.DOWN:
+                        nonStatic.moveDown();
+                        break;
+                    case PathFinding.LEFT:
+                        nonStatic.moveLeft();
+                        break;
+                    case PathFinding.RIGHT:
+                        nonStatic.moveRight();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 
     private static void spamAttack(NonStatic nonStatic) {

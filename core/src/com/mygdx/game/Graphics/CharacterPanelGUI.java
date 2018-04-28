@@ -11,6 +11,11 @@ import java.awt.TextArea;
 
 public class CharacterPanelGUI extends AbstractGUI {
 
+    private static final int STRENGHT_INDEX = 0;
+    private static final int DEXTERITY_INDEX = 1;
+    private static final int VITALITY_INDEX = 2;
+    private static final int ENERGY_INDEX = 3;
+
     private static final int SPACE = 50;
 
     private BitmapFont font;
@@ -79,17 +84,20 @@ public class CharacterPanelGUI extends AbstractGUI {
         if (player.getPointsToSpend()!=0) {
             player.setPointsToSpend(player.getPointsToSpend()-1);
             switch (index) {
-                case 0:
+                case STRENGHT_INDEX:
                     player.setStrength(player.getStrength()+1);
                     break;
-                case 1:
+                case DEXTERITY_INDEX:
                     player.setDexterity(player.getDexterity()+1);
                     break;
-                case 2:
+                case VITALITY_INDEX:
                     player.setVitality(player.getVitality()+1);
+                    player.setMaxHealthPoints(player.getMaxHealthPoints()+5);
                     break;
-                case 3:
+                case ENERGY_INDEX:
                     player.setEnergy(player.getEnergy()+1);
+                    player.setMaxStaminaPoints(player.getMaxStaminaPoints()+2);
+                    player.setMaxManaPoints(player.getMaxManaPoints()+1);
                     break;
             }
         }

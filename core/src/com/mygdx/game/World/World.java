@@ -19,7 +19,9 @@ import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -93,6 +95,52 @@ public class World {
 
     public static void setPlayer(Player player) {
         World.player = player;
+    }
+
+    public static List<Tile> getNearbyTiles(int range, NonStatic nonStatic) {
+        final int currentEntityPosition = World.getCurrentEntityPosition(nonStatic);
+        int dimension = range * 2 + 1;
+        List<Tile> nearbyTiles = new ArrayList<>(dimension-1);
+        int startingIndex = currentEntityPosition
+                - (range * World.getCurrentZoneWidth() * World.getWorldWidth()) - range;
+        int counter = 0;
+
+        for (int i = 0; i < dimension * dimension; i++) {
+            try {
+                if(!(i==dimension*dimension/2))
+                    nearbyTiles.add(World.getTileByPosition(startingIndex));
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Out of Bounds / skipped");
+            }
+            if (counter == dimension - 1) {
+                counter = 0;
+                startingIndex += World.getCurrentZoneWidth() * World.getWorldWidth();
+                startingIndex -= dimension - 1;
+            } else {
+                startingIndex += 1;
+                counter += 1;
+            }
+        }
+        return nearbyTiles;
+    }
+
+    public static Map<Integer,NonStatic> getEntitiesFromTiles(List<Tile> tiles) {
+        Map<Integer,NonStatic> map = new HashMap<>();
+        tiles.stream().filter(World::isTileOccupied)
+                .map(World::getNonStaticFromTile)
+                .forEach(nonStatic -> map.put(World.getCurrentEntityPosition(nonStatic),nonStatic));
+        return map;
+    }
+
+    public static int[] checkIsPlayerOnEntitiesList(Map<Integer,NonStatic> map) {
+        int[] tab = {0,0};
+        map.forEach((integer, nonStatic) -> {
+            if (nonStatic instanceof Player) {
+                tab[0] = 1;
+                tab[1] = World.getCurrentEntityPosition(nonStatic);
+            }
+        });
+        return tab;
     }
 
     public static Tile getTileByPosition(int position) {

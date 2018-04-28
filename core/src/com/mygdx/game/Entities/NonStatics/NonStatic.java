@@ -97,13 +97,13 @@ public abstract class NonStatic extends Entity {
     }
 
     public float getMovementSpeed() {
-        return movementSpeed - ((this.getInventory().getEquipedArmor() == null ? 0
+        return Math.min(movementSpeed - ((this.getInventory().getEquipedArmor() == null ? 0
                 : this.getInventory().getEquipedArmor().getMovementSpeedReduction())
                 + (this.getInventory().getEquipedShield() == null ? 0
                 : this.getInventory().getEquipedShield().getMovementSpeedReduction())
                 + (this.getInventory().getEquipedHelmet() == null ? 0
                 : this.getInventory().getEquipedHelmet().getMovementSpeedReduction()))
-                + (dexterity*0.02f);
+                + (dexterity*0.02f),10f);
     }
 
     public int getMinDamage() {
@@ -117,18 +117,18 @@ public abstract class NonStatic extends Entity {
     }
 
     public float getAttackSpeed() {
-        return this.getWeapon().map(Weapon::getSpeed).orElse(1.0f)
-                + (dexterity * 0.02f);
+        return Math.max(this.getWeapon().map(Weapon::getSpeed).orElse(1.0f)
+                - (dexterity * 0.02f),0.1f);
     }
 
     public int getCritChance() {
-        return this.getWeapon().map(Weapon::getCritChance).orElse(0)
-                + (dexterity/10);
+        return Math.min(this.getWeapon().map(Weapon::getCritChance).orElse(0)
+                + (dexterity/10),100);
     }
 
     public int getAccuracy() {
-        return this.getWeapon().map(Weapon::getAccuracy).orElse(50)
-                + (dexterity/5);
+        return Math.min(this.getWeapon().map(Weapon::getAccuracy).orElse(50)
+                + (dexterity/5),100);
     }
 
     public int getRange() {

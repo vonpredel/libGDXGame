@@ -33,10 +33,10 @@ public final class Debugger {
                 World.getCameraHandler().rotateCameraRight();
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(0));
+                World.getPlayer().setPointsToSpend(100);
             }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_2)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(10));
+            if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+                PathFinding.test(World.getPlayer());
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
                 World.setCurrentZone(World.getZoneContainer().getZoneList().get(20));

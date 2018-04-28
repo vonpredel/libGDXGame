@@ -51,7 +51,8 @@ public class Game extends ApplicationAdapter {
                 -> entity.warp(600, 600));
         World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
                 -> entity.warp(256, 64));
-
+        World.getEntitiesManager().create(EntityType.GOBLIN, ((entity, objects)
+                -> entity.warp(1200,600)));
         World.configureCameraAndGUI();
     }
 
