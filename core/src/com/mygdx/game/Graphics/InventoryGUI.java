@@ -27,7 +27,7 @@ public class InventoryGUI extends AbstractGUI {
     private static final int windowSize = 56;
     private static final int WindowGap = 68;
 
-    private boolean inside = false;
+    public boolean inside;
 
     private List<? extends Item> list;
     private BitmapFont font;

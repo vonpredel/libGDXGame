@@ -26,7 +26,7 @@ public final class PathFinding {
     }
 
     public static void test(NonStatic nonStatic) {
-        World.getNearbyTiles(4, nonStatic).forEach(Tile::setHitted);
+        World.getNearbyTilesSquare(4, nonStatic).forEach(Tile::setHitted);
     }
 
     private PathFinding() {

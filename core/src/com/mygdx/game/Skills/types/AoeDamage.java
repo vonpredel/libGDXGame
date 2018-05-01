@@ -5,21 +5,28 @@ import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Skills.Skill;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Active extends Skill {
+public class AoeDamage extends Skill {
+
+    private static final int SQUARE = 0;
+    private static final int CROSS = 1;
+    private static final int CIRCLE = 2;
 
     private boolean magic;
     private int damage;
     private int manaCost;
     private int range;
+    private int shape;
 
-    public Active(String name, boolean magic, int damage, int manaCost, int range) {
+    public AoeDamage(String name, boolean magic, int damage, int manaCost, int range, int shape) {
         super(name);
         this.magic = magic;
         this.damage = damage;
         this.manaCost = manaCost;
         this.range = range;
+        this.shape = shape;
     }
 
     @Override
@@ -27,10 +34,26 @@ public class Active extends Skill {
         final Player player = World.getPlayer();
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
-        if (!magic) damage = MathUtils.random(player.getMinDamage(), player.getMaxDamage());
-        final List<Tile> nearbyTiles = World.getNearbyTiles(range, player);
+        if (!magic) {
+            damage = MathUtils.random(player.getMinDamage(), player.getMaxDamage());
+            range = player.getRange();
+        }
+        final List<Tile> nearbyTiles = determinateTiles(shape);
         nearbyTiles.forEach(Tile::setHitted);
         World.getEntitiesFromTiles(nearbyTiles).forEach((integer, nonStatic) -> nonStatic.hurt(damage));
+    }
+
+    private List<Tile> determinateTiles(int shape) {
+        switch (shape) {
+            case SQUARE:
+                return World.getNearbyTilesSquare(range,World.getPlayer());
+            case CROSS:
+                return World.getNearbyTilesCross(range,World.getPlayer());
+            case CIRCLE:
+                return World.getNearbyTilesCircle(range,World.getPlayer());
+            default:
+                return new ArrayList<>();
+        }
     }
 
     public int getDamage() {

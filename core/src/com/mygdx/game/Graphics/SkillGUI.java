@@ -74,9 +74,10 @@ public class SkillGUI extends AbstractGUI {
             for (int i = 0; i < 3; i++) {
                 final Skill bindedSkill = spellBook.getBindedSkill(i);
                 if (bindedSkill != null) {
-                    batch.draw(bindedSkill.getTexture(),x + 445 + (i*100), y + 600, 64,64);
+                    batch.draw(bindedSkill.getTexture(),x + 440 + (i*100), y + 592, 64,64);
                 }
             }
+            font.draw(batch,"Skill points : " + player.getSkillPoints(), x + 100, y + 600);
         }
     }
 

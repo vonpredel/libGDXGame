@@ -32,6 +32,9 @@ public final class Debugger {
             if(Gdx.input.isKeyPressed(Input.Keys.M)) {
                 World.getCameraHandler().rotateCameraRight();
             }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
+                World.getZoneContainer().getZoneList().forEach(zone -> zone.setVisited(true));
+            }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 World.getPlayer().setPointsToSpend(100);
             }

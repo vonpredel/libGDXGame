@@ -437,4 +437,8 @@ public abstract class NonStatic extends Entity {
     public void setAttacking(boolean attacking) {
         isAttacking = attacking;
     }
+
+    public void setMoving(boolean moving) {
+        isMoving = moving;
+    }
 }

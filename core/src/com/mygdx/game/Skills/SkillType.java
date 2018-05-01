@@ -1,16 +1,16 @@
 package com.mygdx.game.Skills;
-import com.mygdx.game.Skills.types.Active;
+import com.mygdx.game.Skills.types.AoeDamage;
 import com.mygdx.game.Skills.types.Passive;
 
 public enum SkillType {
-	FIRE_NOVA(Active.class),
-	WHIRLIND(Active.class),
-	TEST_SPELL_ONE(Active.class),
-	TEST_SPELL_TWO(Active.class),
-	TEST_SPELL_THR(Active.class),
-	TEST_SPELL_FOR(Active.class),
-	TEST_SPELL_FIV(Active.class),
-	TEST_SPELL_SIX(Active.class),
+	FIRE_NOVA(AoeDamage.class),
+	WHIRLIND(AoeDamage.class),
+	TEST_SPELL_ONE(AoeDamage.class),
+	TEST_SPELL_TWO(AoeDamage.class),
+	TEST_SPELL_THR(AoeDamage.class),
+	TEST_SPELL_FOR(AoeDamage.class),
+	TEST_SPELL_FIV(AoeDamage.class),
+	TEST_SPELL_SIX(AoeDamage.class),
 	PASSIVE_SKILL(Passive.class);
 
     private final Class<? extends Skill> cls;

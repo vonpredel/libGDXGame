@@ -104,10 +104,36 @@ public class World {
         World.player = player;
     }
 
-    public static List<Tile> getNearbyTiles(int range, NonStatic nonStatic) {
+    public static List<Tile> getNearbyTilesCross(int range, NonStatic nonStatic) {
+        int directions[] = {UP,DOWN,LEFT,RIGHT};
+        List<Tile> tiles = new ArrayList<>(directions.length*range);
+        for (int i = 0; i < directions.length; i++) {
+            tiles.addAll(getTargetDirectionTiles(nonStatic,directions[i],range));
+        }
+        return tiles;
+    }
+
+    public static List<Tile> getNearbyTilesCircle(int range, NonStatic nonStatic) {
+        int fixedRange = range < 3 ? range : range - 1;
+        final List<Tile> nearbyTiles = getNearbyTilesCross(fixedRange, nonStatic);
+        // UP
+        for (int i = range - 1; i > 0; i--) {
+            int position = World.getCurrentEntityPosition(nonStatic);
+            int diff = range - i;
+            nearbyTiles.addAll(World.getTargetDirectionTiles(position + diff,LEFT,i));
+            nearbyTiles.addAll(World.getTargetDirectionTiles(position - diff,LEFT,i));
+            nearbyTiles.addAll(World.getTargetDirectionTiles(position + diff,RIGHT,i));
+            nearbyTiles.addAll(World.getTargetDirectionTiles(position - diff,RIGHT,i));
+        }
+
+        // DOWN
+        return nearbyTiles;
+    }
+
+    public static List<Tile> getNearbyTilesSquare(int range, NonStatic nonStatic) {
         final int currentEntityPosition = World.getCurrentEntityPosition(nonStatic);
         int dimension = range * 2 + 1;
-        List<Tile> nearbyTiles = new ArrayList<>(dimension-1);
+        List<Tile> nearbyTiles = new ArrayList<>(dimension*dimension-1);
         int startingIndex = currentEntityPosition
                 - (range * World.getCurrentZoneWidth() * World.getWorldWidth()) - range;
         int counter = 0;
@@ -135,6 +161,7 @@ public class World {
         Map<Integer,NonStatic> map = new HashMap<>();
         tiles.stream().filter(World::isTileOccupied)
                 .map(World::getNonStaticFromTile)
+                .filter(Objects::nonNull)
                 .forEach(nonStatic -> map.put(World.getCurrentEntityPosition(nonStatic),nonStatic));
         return map;
     }
@@ -165,24 +192,23 @@ public class World {
         return getTargetDirectionTiles(entity,direction,1).get(0);
     }
 
-    public static List<Tile> getTargetDirectionTiles(Entity entity, int direction, int range) {
+    public static List<Tile> getTargetDirectionTiles(int position, int direction, int range) {
         List<Tile> tiles = new ArrayList<>(range);
-        int currentEntityPosition = getCurrentEntityPosition(entity);
         try {
             switch (direction) {
                 case UP:
-                    for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition + i));
+                    for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(position + i));
                     break;
                 case DOWN:
-                    for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(currentEntityPosition - i));
+                    for (int i = 1; i <= range; i++) tiles.add(getTileByPosition(position - i));
                     break;
                 case LEFT:
                     for (int i = 1; i <= range; i++)
-                        tiles.add(getTileByPosition(currentEntityPosition - (i * currentZoneWidth * worldWidth)));
+                        tiles.add(getTileByPosition(position - (i * currentZoneWidth * worldWidth)));
                     break;
                 case RIGHT:
                     for (int i = 1; i <= range; i++)
-                        tiles.add(getTileByPosition(currentEntityPosition + (i * currentZoneWidth * worldWidth)));
+                        tiles.add(getTileByPosition(position + (i * currentZoneWidth * worldWidth)));
                     break;
                 default:
                     return null;
@@ -191,6 +217,11 @@ public class World {
             System.out.println("Out of bounds !! Skipped adding tile to tileList");
         }
         return tiles;
+    }
+
+    public static List<Tile> getTargetDirectionTiles(Entity entity, int direction, int range) {
+        int currentEntityPosition = getCurrentEntityPosition(entity);
+        return getTargetDirectionTiles(currentEntityPosition,direction,range);
     }
 
     public static boolean isTileOccupied(Tile tile) {
