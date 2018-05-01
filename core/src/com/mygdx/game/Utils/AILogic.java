@@ -44,7 +44,7 @@ public final class AILogic {
     private static void aggressiveAI(final NonStatic nonStatic) {
         if (!nonStatic.isAttacking()) spamAttack(nonStatic);
         if (!nonStatic.isMoving()) {
-            final List<Tile> nearbyTiles = World.getNearbyTiles(5, nonStatic);
+            final List<Tile> nearbyTiles = World.getNearbyTilesSquare(5, nonStatic);
             final Map<Integer, NonStatic> entitiesFromTiles = World.getEntitiesFromTiles(nearbyTiles);
             final int[] ints = World.checkIsPlayerOnEntitiesList(entitiesFromTiles);
             if(ints[0] == 1) {
