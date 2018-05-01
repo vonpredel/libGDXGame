@@ -69,6 +69,10 @@ public final class AILogic {
         }
     }
 
+    private static void defenderAI(NonStatic nonStatic) {
+        if (!nonStatic.isAttacking()) spamAttack(nonStatic);
+    }
+
     private static void spamAttack(NonStatic nonStatic) {
         if (!World.getTargetsFromDirection(nonStatic, World.UP)
                 .stream().filter(e -> e instanceof Player).collect(Collectors.toList()).isEmpty()) {
@@ -93,7 +97,8 @@ public final class AILogic {
 
     public enum AIType {
         DEFAULT(AILogic::defaultAi),
-        AGGRESSIVE(AILogic::aggressiveAI);
+        AGGRESSIVE(AILogic::aggressiveAI),
+        DEFENDER(AILogic::defenderAI);
 
         private Consumer<NonStatic> consumer;
 
