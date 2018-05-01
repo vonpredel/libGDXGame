@@ -71,6 +71,32 @@ task generateEntities(type: GenerateTask, dependsOn: generateItems) {
     }
     outputFile = 'core\\src\\com\\mygdx\\game\\Entities\\EntityType.java'
 }
+task generateSkills(type: GenerateTask, dependsOn: generateEntities) {
+    fileMap = [
+            'core/assets/dataSkills/active.csv':'Active.class',
+            'core/assets/dataSkills/passive.csv':'Passive.class'
+    ]
+    preamble = { classFile ->
+        classFile.append 'package com.mygdx.game.Skills;\n'
+        classFile.append 'import com.mygdx.game.Skills.types.Active;\n'
+        classFile.append 'import com.mygdx.game.Skills.types.Passive;\n'
+        classFile.append '\n'
+        classFile.append 'public enum SkillType {\n'
+    }
+    epilogue = { classFile ->
+        classFile.append '    private final Class<? extends Skill> cls;\n'
+        classFile.append '\n'
+        classFile.append '    private SkillType(Class<? extends Skill> cls) {\n'
+        classFile.append '        this.cls = cls;\n'
+        classFile.append '    }\n'
+        classFile.append '\n'
+        classFile.append '    public Class<? extends Skill> getCls() {\n'
+        classFile.append '        return cls;\n'
+        classFile.append '    }'
+        classFile.append '\n}'
+    }
+    outputFile = 'core\\src\\com\\mygdx\\game\\Skills\\SkillType.java'
+}
 
 class GenerateTask extends DefaultTask {
 

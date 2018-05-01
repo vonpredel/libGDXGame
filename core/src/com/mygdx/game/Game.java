@@ -9,6 +9,8 @@ import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.EntityType;
 import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Items.ItemsManager;
+import com.mygdx.game.Skills.SkillsContainer;
+import com.mygdx.game.Skills.SkillsManager;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Debugger;
 import com.mygdx.game.Utils.assets.Assets;
@@ -35,7 +37,8 @@ public class Game extends ApplicationAdapter {
 
         SpriteBatch batch = new SpriteBatch();
         ItemsManager itemsManager = new ItemsManager(assets, new ItemsContainer());
-        World.init(batch, assets, itemsManager, new EntitiesManager(assets, new EntitiesContainer(), itemsManager));
+        SkillsManager skillsManager = new SkillsManager(assets, new SkillsContainer());
+        World.init(batch, assets, itemsManager, skillsManager, new EntitiesManager(assets, new EntitiesContainer(), itemsManager));
 
         new WorldGenerator().generate(10, 10);
         World.setWorldDimensions(10, 10);
@@ -54,6 +57,9 @@ public class Game extends ApplicationAdapter {
         World.getEntitiesManager().create(EntityType.GOBLIN, ((entity, objects)
                 -> entity.warp(1200,600)));
         World.configureCameraAndGUI();
+
+        // Test
+        World.getPlayer().getSpellBook().temporaryInit();
     }
 
     @Override

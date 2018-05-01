@@ -10,6 +10,8 @@ import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Items.ItemsManager;
+import com.mygdx.game.Skills.SkillsContainer;
+import com.mygdx.game.Skills.SkillsManager;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.CameraHandler;
 import com.mygdx.game.Utils.Constants;
@@ -52,6 +54,8 @@ public class World {
     private static ItemsContainer itemsContainer;
     private static EntitiesManager entitiesManager;
     private static EntitiesContainer entitiesContainer;
+    private static SkillsManager skillsManager;
+    private static SkillsContainer skillsContainer;
     private static ControlsAndGUIsHandler controlsAndGUIsHandler;
     private static Player player;
 
@@ -61,7 +65,7 @@ public class World {
 
     public static void init(SpriteBatch batch,
                             Assets assets, ItemsManager itemsManager,
-                            EntitiesManager entitiesManager) {
+                            SkillsManager skillsManager, EntitiesManager entitiesManager) {
         World.batch = batch;
         World.zoneRenderer = new ZoneRenderer(batch);
         World.zoneContainer = new ZoneContainer();
@@ -69,6 +73,8 @@ public class World {
         World.cameraHandler = new CameraHandler(batch);
         World.itemsManager = itemsManager;
         World.itemsContainer = itemsManager.getContainer();
+        World.skillsManager = skillsManager;
+        World.skillsContainer = skillsManager.getContainer();
         World.entitiesManager = entitiesManager;
         World.entitiesContainer = entitiesManager.getContainer();
         World.controlsAndGUIsHandler = new ControlsAndGUIsHandler(assets);
@@ -81,6 +87,7 @@ public class World {
     private static void loadExternals() {
         World.itemsManager.loadDefinitions();
         World.entitiesManager.loadDefinitions();
+        World.skillsManager.loadDefinitions();
     }
 
     public static void configureCameraAndGUI() {
@@ -278,6 +285,14 @@ public class World {
 
     public static EntitiesContainer getEntitiesContainer() {
         return entitiesContainer;
+    }
+
+    public static SkillsManager getSkillsManager() {
+        return skillsManager;
+    }
+
+    public static SkillsContainer getSkillsContainer() {
+        return skillsContainer;
     }
 
     public static ControlsAndGUIsHandler getControlsAndGUIsHandler() {

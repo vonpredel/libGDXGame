@@ -6,6 +6,8 @@ import com.mygdx.game.World.World;
 
 public final class PathFinding {
 
+    private static final int TOTAL_WIDTH = World.getWorldWidth() * World.getCurrentZoneWidth();
+
     public static final int UP = 0;
     public static final int DOWN = 1;
     public static final int LEFT = 2;
@@ -14,13 +16,13 @@ public final class PathFinding {
     public static int findPath(int position, int target) {
         int odds = position - target;
 
-        int xAxis = Math.abs(odds / 500);
-        int yAxis = Math.abs(odds % 500);
+        int xAxis = Math.abs(odds / TOTAL_WIDTH);
+        int yAxis = Math.abs(odds % TOTAL_WIDTH);
 
-        if (yAxis >= 50) yAxis = 500 - yAxis;
+        if (yAxis >= World.getCurrentZoneWidth()) yAxis = TOTAL_WIDTH - yAxis;
 
         return yAxis < xAxis ? odds > 0 ? LEFT : RIGHT
-                : position % 500 > target % 500 ? DOWN : UP;
+                : position % TOTAL_WIDTH > target % TOTAL_WIDTH ? DOWN : UP;
     }
 
     public static void test(NonStatic nonStatic) {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Items.Item;
+import com.mygdx.game.Skills.SpellBook;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
@@ -15,7 +16,14 @@ public class Player extends NonStatic {
     private int experience;
     private int experienceToNextLevel = 10;
     private int level = 1;
+    private int skillPoints = 1;
     private int pointsToSpend;
+
+    private SpellBook spellBook;
+
+    public Player() {
+        this.spellBook = new SpellBook();
+    }
 
     @Override
     protected void ai() {
@@ -106,5 +114,17 @@ public class Player extends NonStatic {
 
     public void setExperienceToNextLevel(int experienceToNextLevel) {
         this.experienceToNextLevel = experienceToNextLevel;
+    }
+
+    public SpellBook getSpellBook() {
+        return spellBook;
+    }
+
+    public int getSkillPoints() {
+        return skillPoints;
+    }
+
+    public void setSkillPoints(int skillPoints) {
+        this.skillPoints = skillPoints;
     }
 }

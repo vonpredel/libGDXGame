@@ -37,6 +37,11 @@ public final class AssetsConstants {
     public static final String MAP_BACK = "misc/mapBack.png";
     public static final String ADD_STAT = "characInfo/add.png";
     public static final String ADD_STAT_SELECTED = "characInfo/addSelected.png";
+    public static final String SKILL_GUI = "spellBook/spellBook.png";
+    public static final String SKILL_ASSIGN = "spellBook/assign.png";
+    public static final String SKILL_ASSIGNED = "spellBook/assigned.png";
+    public static final String SKILL_SELECTED_FRAME = "spellBook/selectedFrame.png";
+    public static final String SKILL_SELECTED_SLOT = "spellBook/selectedSlot.png";
 
     private AssetsConstants() {
 

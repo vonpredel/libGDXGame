@@ -393,8 +393,9 @@ public abstract class NonStatic extends Entity {
     }
 
     public void setMaxManaPoints(int maxManaPoints) {
+        int diff = this.maxManaPoints - this.currentManaPoints;
         this.maxManaPoints = maxManaPoints;
-        this.currentManaPoints = maxManaPoints;
+        this.currentManaPoints = maxManaPoints - diff;
     }
 
     public int getMaxHealthPoints() {
@@ -402,8 +403,9 @@ public abstract class NonStatic extends Entity {
     }
 
     public void setMaxHealthPoints(int maxHealthPoints) {
+        int diff = this.maxHealthPoints - this.currentHealthPoints;
         this.maxHealthPoints = maxHealthPoints;
-        this.currentHealthPoints = maxHealthPoints;
+        this.currentHealthPoints = maxHealthPoints - diff;
     }
 
     public int getCurrentHealthPoints() {
@@ -427,8 +429,9 @@ public abstract class NonStatic extends Entity {
     }
 
     public void setMaxStaminaPoints(int maxStaminaPoints) {
+        int diff = this.maxStaminaPoints - this.currentStaminaPoints;
         this.maxStaminaPoints = maxStaminaPoints;
-        this.currentStaminaPoints = maxStaminaPoints;
+        this.currentStaminaPoints = maxStaminaPoints - diff;
     }
 
     public void setAttacking(boolean attacking) {

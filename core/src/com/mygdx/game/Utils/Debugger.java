@@ -32,35 +32,11 @@ public final class Debugger {
             if(Gdx.input.isKeyPressed(Input.Keys.M)) {
                 World.getCameraHandler().rotateCameraRight();
             }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 World.getPlayer().setPointsToSpend(100);
             }
-            if(Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+            if(Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
                 PathFinding.test(World.getPlayer());
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_3)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(20));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_4)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(30));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(40));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(1));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_7)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(11));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_8)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(21));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(31));
-            }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-                World.setCurrentZone(World.getZoneContainer().getZoneList().get(41));
             }
 
             //TEMP TEMP TEMP
