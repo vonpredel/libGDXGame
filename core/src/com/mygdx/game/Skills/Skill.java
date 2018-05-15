@@ -20,9 +20,7 @@ public abstract class Skill implements Updateable {
         return texture;
     }
 
-    public void use() {
-
-    }
+    public abstract void use();
 
     @Override
     public void update() {

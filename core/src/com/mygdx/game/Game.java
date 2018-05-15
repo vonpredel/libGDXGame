@@ -50,12 +50,37 @@ public class Game extends ApplicationAdapter {
     private void loadEntities() {
         World.getEntitiesManager().create(EntityType.PLAYER, (entity, objects)
                 -> entity.warp(256, 256));
-        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
-                -> entity.warp(600, 600));
-        World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
-                -> entity.warp(256, 64));
-        World.getEntitiesManager().create(EntityType.GOBLIN, ((entity, objects)
-                -> entity.warp(1200,600)));
+//        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
+//                -> entity.warp(600, 600));
+//        World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
+//                -> entity.warp(256, 64));
+//        World.getEntitiesManager().create(EntityType.GOBLIN, ((entity, objects)
+//                -> entity.warp(1200,600)));
+
+
+
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64, 256));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*2, 256));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*3, 256));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*4, 256));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*5, 256));
+
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*7, 256+64));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*7, 256+64*2));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*7, 256+64*3));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*7, 256+64*4));
+        World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
+                -> entity.warp(256+64*7, 256+64*5));
+
         World.configureCameraAndGUI();
 
         // Test

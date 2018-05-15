@@ -74,12 +74,16 @@ task generateEntities(type: GenerateTask, dependsOn: generateItems) {
 task generateSkills(type: GenerateTask, dependsOn: generateEntities) {
     fileMap = [
             'core/assets/dataSkills/aoeDamage.csv':'AoeDamage.class',
-            'core/assets/dataSkills/passive.csv':'Passive.class'
+            'core/assets/dataSkills/passive.csv':'Passive.class',
+            'core/assets/dataSkills/heal.csv':'Heal.class',
+            'core/assets/dataSkills/targetDamage.csv':'TargetDamage.class'
     ]
     preamble = { classFile ->
         classFile.append 'package com.mygdx.game.Skills;\n'
         classFile.append 'import com.mygdx.game.Skills.types.AoeDamage;\n'
         classFile.append 'import com.mygdx.game.Skills.types.Passive;\n'
+        classFile.append 'import com.mygdx.game.Skills.types.Heal;\n'
+        classFile.append 'import com.mygdx.game.Skills.types.TargetDamage;\n'
         classFile.append '\n'
         classFile.append 'public enum SkillType {\n'
     }

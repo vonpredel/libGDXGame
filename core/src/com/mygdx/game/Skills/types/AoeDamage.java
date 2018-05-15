@@ -10,17 +10,13 @@ import java.util.List;
 
 public class AoeDamage extends Skill {
 
-    private static final int SQUARE = 0;
-    private static final int CROSS = 1;
-    private static final int CIRCLE = 2;
-
     private boolean magic;
     private int damage;
     private int manaCost;
     private int range;
-    private int shape;
+    private Shape shape;
 
-    public AoeDamage(String name, boolean magic, int damage, int manaCost, int range, int shape) {
+    public AoeDamage(String name, boolean magic, int damage, int manaCost, int range, Shape shape) {
         super(name);
         this.magic = magic;
         this.damage = damage;
@@ -43,7 +39,7 @@ public class AoeDamage extends Skill {
         World.getEntitiesFromTiles(nearbyTiles).forEach((integer, nonStatic) -> nonStatic.hurt(damage));
     }
 
-    private List<Tile> determinateTiles(int shape) {
+    private List<Tile> determinateTiles(Shape shape) {
         switch (shape) {
             case SQUARE:
                 return World.getNearbyTilesSquare(range,World.getPlayer());
@@ -66,5 +62,9 @@ public class AoeDamage extends Skill {
 
     public int getRange() {
         return range;
+    }
+
+    public enum Shape {
+        SQUARE,CROSS,CIRCLE;
     }
 }

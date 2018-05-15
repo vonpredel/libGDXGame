@@ -16,7 +16,7 @@ public class Player extends NonStatic {
     private int experience;
     private int experienceToNextLevel = 10;
     private int level = 1;
-    private int skillPoints = 1;
+    private int skillPoints = 3;
     private int pointsToSpend;
 
     private SpellBook spellBook;
