@@ -52,7 +52,7 @@ public class CharacterPanelGUI extends AbstractGUI {
             font.draw(batch, "CRITICAL STRIKE " + player.getCritChance(), textScopeX + SPACE*4, textScopeY - SPACE*3);
             font.draw(batch, "ATTACK SPEED " + player.getAttackSpeed(), textScopeX + SPACE*4, textScopeY - SPACE*4);
             font.draw(batch, "MOVEMENT SPEED " + player.getMovementSpeed(), textScopeX + SPACE*4, textScopeY - SPACE*5);
-            font.draw(batch, "EXPERIENCE " + player.getExperience() + " / " + player.getExperienceToNextLevel(),textScopeX + SPACE*4, textScopeY - SPACE*6);
+            font.draw(batch, "EXP " + player.getExperience() + " / " + player.getExperienceToNextLevel(),textScopeX + SPACE*4, textScopeY - SPACE*6);
 
             font.draw(batch, "POINTS TO SPEND " + player.getPointsToSpend(), textScopeX + SPACE*8, textScopeY - SPACE*1);
 

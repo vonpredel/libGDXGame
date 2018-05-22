@@ -104,21 +104,21 @@ public class World {
         World.player = player;
     }
 
-    public static List<Tile> getNearbyTilesCross(int range, NonStatic nonStatic) {
+    public static List<Tile> getNearbyTilesCross(int range, Entity entity) {
         int directions[] = {UP,DOWN,LEFT,RIGHT};
         List<Tile> tiles = new ArrayList<>(directions.length*range);
         for (int i = 0; i < directions.length; i++) {
-            tiles.addAll(getTargetDirectionTiles(nonStatic,directions[i],range));
+            tiles.addAll(getTargetDirectionTiles(entity,directions[i],range));
         }
         return tiles;
     }
 
-    public static List<Tile> getNearbyTilesCircle(int range, NonStatic nonStatic) {
+    public static List<Tile> getNearbyTilesCircle(int range, Entity entity) {
         int fixedRange = range < 3 ? range : range - 1;
-        final List<Tile> nearbyTiles = getNearbyTilesCross(fixedRange, nonStatic);
+        final List<Tile> nearbyTiles = getNearbyTilesCross(fixedRange, entity);
         // UP
         for (int i = range - 1; i > 0; i--) {
-            int position = World.getCurrentEntityPosition(nonStatic);
+            int position = World.getCurrentEntityPosition(entity);
             int diff = range - i;
             nearbyTiles.addAll(World.getTargetDirectionTiles(position + diff,LEFT,i));
             nearbyTiles.addAll(World.getTargetDirectionTiles(position - diff,LEFT,i));
@@ -130,8 +130,8 @@ public class World {
         return nearbyTiles;
     }
 
-    public static List<Tile> getNearbyTilesSquare(int range, NonStatic nonStatic) {
-        final int currentEntityPosition = World.getCurrentEntityPosition(nonStatic);
+    public static List<Tile> getNearbyTilesSquare(int range, Entity entity) {
+        final int currentEntityPosition = World.getCurrentEntityPosition(entity);
         int dimension = range * 2 + 1;
         List<Tile> nearbyTiles = new ArrayList<>(dimension*dimension-1);
         int startingIndex = currentEntityPosition
@@ -157,7 +157,7 @@ public class World {
         return nearbyTiles;
     }
 
-    public static Map<Integer,NonStatic> getEntitiesFromTiles(List<Tile> tiles) {
+    public static Map<Integer,NonStatic> getNonStaticsFromTiles(List<Tile> tiles) {
         Map<Integer,NonStatic> map = new HashMap<>();
         tiles.stream().filter(World::isTileOccupied)
                 .map(World::getNonStaticFromTile)
@@ -233,6 +233,15 @@ public class World {
         return false;
     }
 
+    public static boolean isTileOccupiedBySolid(Tile tile) {
+        for (Entity e : entitiesContainer.getAllItems()) {
+            if (e.getCurrentTile().equals(tile) && e.isSolid()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static NonStatic getNonStaticFromTile(Tile tile) {
         if (isTileOccupied(tile)) {
             for (Entity e : entitiesContainer.getAllItems()) {
@@ -263,7 +272,7 @@ public class World {
 
     public static boolean isAbleToGo(Entity entity, int direction) {
         Tile tile = World.getSingleTargetDirectionTile(entity, direction);
-        return tile != null && !tile.isSolid() && !isTileOccupied(tile);
+        return tile != null && !tile.isSolid() && !isTileOccupiedBySolid(tile);
     }
 
     public static void updateCurrentZone() {

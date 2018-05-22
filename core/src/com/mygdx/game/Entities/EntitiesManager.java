@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Entities.NonStatics.Enemy;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
-import com.mygdx.game.Entities.Statics.Static;
+import com.mygdx.game.Entities.Statics.Chest;
+import com.mygdx.game.Entities.Statics.Door;
+import com.mygdx.game.Entities.Statics.Fountain;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.ItemType;
 import com.mygdx.game.Items.ItemsManager;
@@ -13,6 +15,9 @@ import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Utils.AILogic;
 import com.mygdx.game.Utils.BaseManager;
 import com.mygdx.game.Utils.assets.Assets;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesContainer> {
 
@@ -47,6 +52,14 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
         } else if (itemByName instanceof Weapon) {
             nonStatic.getInventory().equipWeapon((Weapon) itemByName);
         }
+    }
+
+    private List<Item> createItemsList(final String itemStringValue) {
+        return Arrays.stream(itemStringValue.split("\\|"))
+                .map(ItemType::valueOf)
+                .map(itemsManager::create)
+                .map(Item.class::cast)
+                .collect(Collectors.toList());
     }
 
     private void loadNameAndTexture(final String name,final String texture, final Entity entity) {
@@ -101,15 +114,29 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
             return enemy;
         });
 
-        this.creators.put(Static.class, values -> {
-            final Static aStatic = new Static();
+        this.creators.put(Door.class, values -> {
+            final Door door = new Door();
+            loadNameAndTexture(values[0],values[1],door);
+            return door;
+        });
 
-            loadNameAndTexture(values[0],values[1],aStatic);
-            return aStatic;
+        this.creators.put(Fountain.class, values -> {
+            final Fountain fountain = new Fountain(Fountain.FountainType.valueOf(values[2]),
+                    Integer.parseInt(values[3]));
+            loadNameAndTexture(values[0],values[1],fountain);
+            return fountain;
+        });
+
+        this.creators.put(Chest.class, values -> {
+            final Chest chest = new Chest(createItemsList(values[2]));
+            loadNameAndTexture(values[0],values[1],chest);
+            return chest;
         });
 
         this.loadFile("dataEntities/enemies.csv", values -> values[0]);
         this.loadFile("dataEntities/player.csv", values -> values[0]);
-        this.loadFile("dataEntities/statics.csv", values -> values[0]);
+        this.loadFile("dataEntities/doors.csv", values -> values[0]);
+        this.loadFile("dataEntities/fountains.csv", values -> values[0]);
+        this.loadFile("dataEntities/chests.csv", values -> values[0]);
     }
 }

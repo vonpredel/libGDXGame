@@ -5,8 +5,6 @@ import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -47,7 +45,7 @@ public final class AILogic {
         if (!nonStatic.isAttacking()) spamAttack(nonStatic);
         if (!nonStatic.isMoving()) {
             final List<Tile> nearbyTiles = World.getNearbyTilesSquare(5, nonStatic);
-            final Map<Integer, NonStatic> entitiesFromTiles = World.getEntitiesFromTiles(nearbyTiles);
+            final Map<Integer, NonStatic> entitiesFromTiles = World.getNonStaticsFromTiles(nearbyTiles);
             final int[] ints = World.checkIsPlayerOnEntitiesList(entitiesFromTiles);
             if(ints[0] == 1) {
                 final int path = PathFinding.findPath(World.getCurrentEntityPosition(nonStatic), ints[1]);

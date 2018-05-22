@@ -6,7 +6,9 @@ import com.mygdx.game.Skills.Skill;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class AoeDamage extends Skill {
 
@@ -36,7 +38,7 @@ public class AoeDamage extends Skill {
         }
         final List<Tile> nearbyTiles = determinateTiles(shape);
         nearbyTiles.forEach(Tile::setHitted);
-        World.getEntitiesFromTiles(nearbyTiles).forEach((integer, nonStatic) -> nonStatic.hurt(damage));
+        World.getNonStaticsFromTiles(nearbyTiles).forEach((integer, nonStatic) -> nonStatic.hurt(damage));
     }
 
     private List<Tile> determinateTiles(Shape shape) {
@@ -50,6 +52,18 @@ public class AoeDamage extends Skill {
             default:
                 return new ArrayList<>();
         }
+    }
+
+    @Override
+    public Map<String, String> getDescription() {
+        Map<String, String> map = new HashMap<>();
+        map.put("Name",getName());
+        map.put("Mana Cost", String.valueOf(manaCost));
+        map.put("Damage", String.valueOf(damage));
+        map.put("Range", String.valueOf(range));
+        map.put("Magic", String.valueOf(magic));
+        map.put("Shape", String.valueOf(shape));
+        return map;
     }
 
     public int getDamage() {

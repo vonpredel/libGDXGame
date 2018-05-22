@@ -8,9 +8,12 @@ import com.mygdx.game.Skills.Skill;
 import com.mygdx.game.Skills.SpellBook;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class SkillGUI extends AbstractGUI {
 
@@ -78,6 +81,17 @@ public class SkillGUI extends AbstractGUI {
                 }
             }
             font.draw(batch,"Skill points : " + player.getSkillPoints(), x + 100, y + 600);
+
+
+            // TODO SKILL DESCRIPTION
+
+            // TEMP CODE
+//            spells.get(index).getDescription().forEach((s1,s2)-> font.draw(batch,s1 + " : " + s2 + "\n", x+50, y+650));
+            final Map<String, String> description = spells.get(index).getDescription();
+            final List<String> strings = new ArrayList<>(description.keySet());
+            final List<String> values = new ArrayList<>(description.values());
+            for (int i = 0; i < strings.size(); i++)
+                font.draw(batch, strings.get(i) + ": " + values.get(i), x + 50, y + 650 - (i * 25));
         }
     }
 

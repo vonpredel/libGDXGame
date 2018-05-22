@@ -3,11 +3,14 @@ package com.mygdx.game.Entities.NonStatics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Skills.SpellBook;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Player extends NonStatic {
 
@@ -73,6 +76,7 @@ public class Player extends NonStatic {
             experienceToNextLevel *= 1.1f;
             level++;
             pointsToSpend+=5;
+            skillPoints+=1;
         }
     }
 
@@ -126,5 +130,19 @@ public class Player extends NonStatic {
 
     public void setSkillPoints(int skillPoints) {
         this.skillPoints = skillPoints;
+    }
+
+    public void ActionOnStatic() {
+        final Optional<Static> first = World.getNearbyTilesCross(1, this)
+                .stream()
+                .filter(World::isTileOccupied)
+                .map(World::getStaticFromTile)
+                .filter(Objects::nonNull)
+                .findAny();
+        if (!first.isPresent()) {
+            return;
+        }
+        first.orElse(null).performAction();
+
     }
 }

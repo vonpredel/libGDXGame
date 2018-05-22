@@ -7,13 +7,14 @@ import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public class TargetDamage extends Skill {
-
     private int targets;
+
     private int damage;
     private int manaCost;
     private int range;
@@ -37,7 +38,7 @@ public class TargetDamage extends Skill {
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
         final List<Tile> nearbyTiles = World.getNearbyTilesSquare(range, World.getPlayer());
-        final Map<Integer, NonStatic> entitiesFromTiles = World.getEntitiesFromTiles(nearbyTiles);
+        final Map<Integer, NonStatic> entitiesFromTiles = World.getNonStaticsFromTiles(nearbyTiles);
         if (entitiesFromTiles.isEmpty()) return;
         determinateTargets(entitiesFromTiles).forEach(ns -> ns.hurt(damage));
     }
@@ -74,6 +75,17 @@ public class TargetDamage extends Skill {
             }
         }
         return entitiesFromTiles.values();
+    }
+
+    @Override
+    public Map<String, String> getDescription() {
+        Map<String, String> map = new HashMap<>();
+        map.put("Name",getName());
+        map.put("Mana Cost", String.valueOf(manaCost));
+        map.put("Damage", String.valueOf(damage));
+        map.put("Range", String.valueOf(range));
+        map.put("Target Type", String.valueOf(targetType));
+        return map;
     }
 
     public enum TargetType {

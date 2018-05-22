@@ -159,6 +159,13 @@ public class ControlsAndGUIsHandler {
                 bindedSkill.use();
             }
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            player.ActionOnStatic();
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+//            player.ActionOnNpc();
+        }
 
     }
 

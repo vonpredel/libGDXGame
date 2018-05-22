@@ -50,12 +50,19 @@ public class Game extends ApplicationAdapter {
     private void loadEntities() {
         World.getEntitiesManager().create(EntityType.PLAYER, (entity, objects)
                 -> entity.warp(256, 256));
-//        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
-//                -> entity.warp(600, 600));
-//        World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
-//                -> entity.warp(256, 64));
-//        World.getEntitiesManager().create(EntityType.GOBLIN, ((entity, objects)
-//                -> entity.warp(1200,600)));
+        World.getEntitiesManager().create(EntityType.NIGGA, (entity, objects)
+                -> entity.warp(600, 600));
+        World.getEntitiesManager().create(EntityType.GOBLIN, ((entity, objects)
+                -> entity.warp(1200,600)));
+
+
+
+        World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
+                -> entity.warp(256, 512));
+        World.getEntitiesManager().create(EntityType.FOUNTAIN, (entity, objects)
+                -> entity.warp(256+64, 512));
+        World.getEntitiesManager().create(EntityType.DOOR, (entity, objects)
+                -> entity.warp(256+64+64, 512));
 
 
 

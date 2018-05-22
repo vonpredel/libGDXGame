@@ -47,13 +47,17 @@ task generateEntities(type: GenerateTask, dependsOn: generateItems) {
     fileMap = [
             'core/assets/dataEntities/enemies.csv':'Enemy.class',
             'core/assets/dataEntities/player.csv':'Player.class',
-            'core/assets/dataEntities/statics.csv':'Static.class'
+            'core/assets/dataEntities/doors.csv':'Door.class',
+            'core/assets/dataEntities/fountains.csv':'Fountain.class',
+            'core/assets/dataEntities/chests.csv':'Chest.class'
     ]
     preamble = { classFile ->
         classFile.append 'package com.mygdx.game.Entities;\n'
         classFile.append 'import com.mygdx.game.Entities.NonStatics.Enemy;\n'
         classFile.append 'import com.mygdx.game.Entities.NonStatics.Player;\n'
-        classFile.append 'import com.mygdx.game.Entities.Statics.Static;\n'
+        classFile.append 'import com.mygdx.game.Entities.Statics.Door;\n'
+        classFile.append 'import com.mygdx.game.Entities.Statics.Fountain;\n'
+        classFile.append 'import com.mygdx.game.Entities.Statics.Chest;\n'
         classFile.append '\n'
         classFile.append 'public enum EntityType {\n'
     }
