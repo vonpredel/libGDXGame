@@ -5,9 +5,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Entities.Entity;
+import com.mygdx.game.Entities.NonStatics.Player;
+import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.assets.AssetChopper;
+import com.mygdx.game.World.World;
+import java.util.List;
 
 public abstract class Static extends Entity {
+
+    private boolean isPlayerNearby = false;
 
     private State state;
 
@@ -20,7 +26,26 @@ public abstract class Static extends Entity {
 
     @Override
     public void update() {
+        hotKeyUpdate();
         textureToRenderUpdate();
+    }
+
+    private void hotKeyUpdate() {
+        if (this instanceof Fountain || this instanceof Chest) {
+            if (state == State.USED || state == State.OPEN) {
+                isPlayerNearby = false;
+                return;
+            }
+        }
+        final List<Tile> nearbyTilesCross = World.getNearbyTilesCross(1, this);
+        final long count = World.getNonStaticsFromTiles(nearbyTilesCross)
+                .values().stream()
+                .filter(ns -> ns instanceof Player).count();
+        if (count==0) {
+            isPlayerNearby = false;
+            return;
+        }
+        isPlayerNearby = true;
     }
 
     private void textureToRenderUpdate() {
@@ -39,6 +64,9 @@ public abstract class Static extends Entity {
     @Override
     public void draw(SpriteBatch batch, BitmapFont font) {
         batch.draw(textureToRender, x, y, width, height);
+        if (isPlayerNearby) {
+            font.draw(batch,"E",x+ width/2,y + height/2);
+        }
     }
 
     @Override

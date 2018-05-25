@@ -1,5 +1,7 @@
 package com.mygdx.game.Graphics;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -86,6 +88,12 @@ public class InventoryGUI extends AbstractGUI {
 
     @Override
     public void draw(SpriteBatch batch) {
+        // TEMP FPS CHECK
+        final int framesPerSecond = Gdx.graphics.getFramesPerSecond();
+        font.setColor(Color.RED);
+        font.draw(batch, "FPS : " + framesPerSecond, x+1130, y+870);
+        font.setColor(Color.WHITE);
+        // TEST
         inventory = player.getInventory();
         super.draw(batch);
         if(isEnabled) {

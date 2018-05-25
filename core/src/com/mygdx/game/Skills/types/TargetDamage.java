@@ -84,6 +84,7 @@ public class TargetDamage extends Skill {
         map.put("Mana Cost", String.valueOf(manaCost));
         map.put("Damage", String.valueOf(damage));
         map.put("Range", String.valueOf(range));
+        map.put("Targets" ,String.valueOf(targets));
         map.put("Target Type", String.valueOf(targetType));
         return map;
     }
