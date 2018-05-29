@@ -5,7 +5,6 @@ import java.util.List;
 
 public class Merchant extends Npc {
 
-    // MERCHANT FIELDS
     private MerchantType merchantType;
     private List<Item> itemList;
 

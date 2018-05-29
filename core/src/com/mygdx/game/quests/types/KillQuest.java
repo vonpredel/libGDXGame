@@ -13,6 +13,26 @@ public class KillQuest extends Quest {
         return type;
     }
 
+    public void setType(EntityType type) {
+        this.type = type;
+    }
+
+    public int getAmountCounter() {
+        return amountCounter;
+    }
+
+    public void setAmountCounter(int amountCounter) {
+        this.amountCounter = amountCounter;
+    }
+
+    public int getRequiredAmount() {
+        return requiredAmount;
+    }
+
+    public void setRequiredAmount(int requiredAmount) {
+        this.requiredAmount = requiredAmount;
+    }
+
     public boolean checkIsEnought() {
         return amountCounter >= requiredAmount;
     }

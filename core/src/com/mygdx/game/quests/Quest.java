@@ -25,7 +25,7 @@ public abstract class Quest implements Updateable {
 
     }
 
-    private void assignTexture() {
+    protected void assignTexture() {
         final AssetManager manager = World.getAssets().manager;
         switch (grade) {
             case BRONZE:
@@ -37,7 +37,6 @@ public abstract class Quest implements Updateable {
             case GOLD:
                 texture = manager.get(AssetsConstants.GOLD_QUEST);
                 break;
-
         }
     }
 

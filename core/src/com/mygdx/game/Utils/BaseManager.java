@@ -27,7 +27,7 @@ public abstract class BaseManager<CLS extends Updateable, ENUM extends Enum<ENUM
         this.nameCache = new HashMap<>();
     }
 
-    private String[] getLines(final TextFile textFile) {
+    protected String[] getLines(final TextFile textFile) {
         return textFile.getContent().split("\\n");
     }
 

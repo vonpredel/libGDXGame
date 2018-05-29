@@ -16,6 +16,7 @@ public enum EntityType {
 	FOUNTAIN(Fountain.class),
 	CHEST(Chest.class),
 	QUESTER(Quester.class),
+	QUESTER2(Quester.class),
 	MERCHANT(Merchant.class);
 
     private final Class<? extends Entity> cls;

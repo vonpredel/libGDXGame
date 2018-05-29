@@ -40,7 +40,7 @@ public class Game extends ApplicationAdapter {
         SpriteBatch batch = new SpriteBatch();
         ItemsManager itemsManager = new ItemsManager(assets, new ItemsContainer());
         SkillsManager skillsManager = new SkillsManager(assets, new SkillsContainer());
-        QuestsManager questsManager = new QuestsManager(assets, new QuestsContainer());
+        QuestsManager questsManager = new QuestsManager(assets, new QuestsContainer(), itemsManager);
         World.init(batch, assets, itemsManager, skillsManager, questsManager, new EntitiesManager(assets, new EntitiesContainer(), itemsManager, questsManager));
 
         new WorldGenerator().generate(10, 10);
@@ -93,8 +93,10 @@ public class Game extends ApplicationAdapter {
 
         World.getEntitiesManager().create(EntityType.QUESTER, (entity, objects)
                 -> entity.warp(1024, 1024));
-        World.getEntitiesManager().create(EntityType.MERCHANT, (entity, objects)
+        World.getEntitiesManager().create(EntityType.QUESTER2, (entity, objects)
                 -> entity.warp(1024, 1024+128));
+        World.getEntitiesManager().create(EntityType.MERCHANT, (entity, objects)
+                -> entity.warp(1024, 1024+256));
 
         World.configureCameraAndGUI();
 
