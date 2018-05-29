@@ -4,6 +4,8 @@ import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Entities.Statics.Door;
 import com.mygdx.game.Entities.Statics.Fountain;
 import com.mygdx.game.Entities.Statics.Chest;
+import com.mygdx.game.Entities.Npc.Quester;
+import com.mygdx.game.Entities.Npc.Merchant;
 
 public enum EntityType {
 	NIGGA(Enemy.class),
@@ -12,7 +14,9 @@ public enum EntityType {
 	PLAYER(Player.class),
 	DOOR(Door.class),
 	FOUNTAIN(Fountain.class),
-	CHEST(Chest.class);
+	CHEST(Chest.class),
+	QUESTER(Quester.class),
+	MERCHANT(Merchant.class);
 
     private final Class<? extends Entity> cls;
 

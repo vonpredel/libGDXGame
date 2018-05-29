@@ -42,6 +42,9 @@ public final class AssetsConstants {
     public static final String SKILL_ASSIGNED = "spellBook/assigned.png";
     public static final String SKILL_SELECTED_FRAME = "spellBook/selectedFrame.png";
     public static final String SKILL_SELECTED_SLOT = "spellBook/selectedSlot.png";
+    public static final String BRONZE_QUEST = "quest/bronzeQuest.png";
+    public static final String SILVER_QUEST = "quest/silverQuest.png";
+    public static final String GOLD_QUEST = "quest/goldQuest.png";
 
     private AssetsConstants() {
 

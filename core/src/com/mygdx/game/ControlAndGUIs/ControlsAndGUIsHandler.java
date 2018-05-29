@@ -274,6 +274,11 @@ public class ControlsAndGUIsHandler {
         CHARACTER_PANEL_STATE,
         INVENTORY_STATE_V2,
         MAP_STATE,
-        SKILL_STATE;
+        SKILL_STATE,
+        // TODO STATES
+        TRADE_STATE,
+        DIALOGUE_STATE,
+        QUEST_STATE;
+
     }
 }

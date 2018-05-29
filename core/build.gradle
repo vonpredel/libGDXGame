@@ -43,13 +43,42 @@ task generateItems(type: GenerateTask) {
     outputFile = 'core\\src\\com\\mygdx\\game\\Items\\ItemType.java'
 }
 
-task generateEntities(type: GenerateTask, dependsOn: generateItems) {
+task generateQuests(type: GenerateTask, dependsOn: generateItems) {
+    fileMap = [
+            'core/assets/dataQuests/killQuests.csv':'KillQuest.class',
+            'core/assets/dataQuests/collectQuests.csv':'CollectQuest.class'
+    ]
+    preamble = { classFile ->
+        classFile.append 'package com.mygdx.game.quests;\n'
+        classFile.append 'import com.mygdx.game.quests.types.KillQuest;\n'
+        classFile.append 'import com.mygdx.game.quests.types.CollectQuest;\n'
+        classFile.append '\n'
+        classFile.append 'public enum QuestType {\n'
+    }
+    epilogue = { classFile ->
+        classFile.append '    private final Class<? extends Quest> cls;\n'
+        classFile.append '\n'
+        classFile.append '    private QuestType(Class<? extends Quest> cls) {\n'
+        classFile.append '        this.cls = cls;\n'
+        classFile.append '    }\n'
+        classFile.append '\n'
+        classFile.append '    public Class<? extends Quest> getCls() {\n'
+        classFile.append '        return cls;\n'
+        classFile.append '    }'
+        classFile.append '\n}'
+    }
+    outputFile = 'core\\src\\com\\mygdx\\game\\quests\\QuestType.java'
+}
+
+task generateEntities(type: GenerateTask, dependsOn: generateQuests) {
     fileMap = [
             'core/assets/dataEntities/enemies.csv':'Enemy.class',
             'core/assets/dataEntities/player.csv':'Player.class',
             'core/assets/dataEntities/doors.csv':'Door.class',
             'core/assets/dataEntities/fountains.csv':'Fountain.class',
-            'core/assets/dataEntities/chests.csv':'Chest.class'
+            'core/assets/dataEntities/chests.csv':'Chest.class',
+            'core/assets/dataEntities/questers.csv':'Quester.class',
+            'core/assets/dataEntities/merchants.csv':'Merchant.class'
     ]
     preamble = { classFile ->
         classFile.append 'package com.mygdx.game.Entities;\n'
@@ -58,6 +87,8 @@ task generateEntities(type: GenerateTask, dependsOn: generateItems) {
         classFile.append 'import com.mygdx.game.Entities.Statics.Door;\n'
         classFile.append 'import com.mygdx.game.Entities.Statics.Fountain;\n'
         classFile.append 'import com.mygdx.game.Entities.Statics.Chest;\n'
+        classFile.append 'import com.mygdx.game.Entities.Npc.Quester;\n'
+        classFile.append 'import com.mygdx.game.Entities.Npc.Merchant;\n'
         classFile.append '\n'
         classFile.append 'public enum EntityType {\n'
     }
@@ -75,6 +106,7 @@ task generateEntities(type: GenerateTask, dependsOn: generateItems) {
     }
     outputFile = 'core\\src\\com\\mygdx\\game\\Entities\\EntityType.java'
 }
+
 task generateSkills(type: GenerateTask, dependsOn: generateEntities) {
     fileMap = [
             'core/assets/dataSkills/aoeDamage.csv':'AoeDamage.class',
@@ -105,6 +137,8 @@ task generateSkills(type: GenerateTask, dependsOn: generateEntities) {
     }
     outputFile = 'core\\src\\com\\mygdx\\game\\Skills\\SkillType.java'
 }
+
+
 
 class GenerateTask extends DefaultTask {
 

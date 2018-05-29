@@ -17,7 +17,9 @@ import com.mygdx.game.Utils.assets.AssetChopper;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.quests.types.KillQuest;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class NonStatic extends Entity {
 
@@ -303,7 +305,17 @@ public abstract class NonStatic extends Entity {
     protected void die() {
         super.die();
         dropEquipment();
+        checkIfQuestEntity();
     }
+
+    public void checkIfQuestEntity() {
+        // TODO TEST
+        World.getQuestsContainer().getKillQuests()
+                .stream()
+                .filter(q -> String.valueOf(q.getType()).equals(this.getTypeName()))
+                .forEach(KillQuest::increaseCounter);
+    }
+
 
     public void hurt(int dmgAmt) {
         currentHealthPoints -= dmgAmt;

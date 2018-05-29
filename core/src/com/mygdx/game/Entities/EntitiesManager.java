@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Entities.NonStatics.Enemy;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
+import com.mygdx.game.Entities.Npc.Merchant;
+import com.mygdx.game.Entities.Npc.Quester;
 import com.mygdx.game.Entities.Statics.Chest;
 import com.mygdx.game.Entities.Statics.Door;
 import com.mygdx.game.Entities.Statics.Fountain;
@@ -15,6 +17,8 @@ import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Utils.AILogic;
 import com.mygdx.game.Utils.BaseManager;
 import com.mygdx.game.Utils.assets.Assets;
+import com.mygdx.game.quests.QuestType;
+import com.mygdx.game.quests.QuestsManager;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,10 +27,12 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
 
     private static final String UNDEFINED_ITEM = "NULL";
     private final ItemsManager itemsManager;
+    private final QuestsManager questsManager;
 
-    public EntitiesManager(Assets assets, EntitiesContainer entitiesContainer, ItemsManager itemsManager) {
+    public EntitiesManager(Assets assets, EntitiesContainer entitiesContainer, ItemsManager itemsManager, QuestsManager questsManager) {
         super(assets, entitiesContainer);
         this.itemsManager = itemsManager;
+        this.questsManager = questsManager;
     }
 
     @Override
@@ -133,10 +139,27 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
             return chest;
         });
 
+        this.creators.put(Quester.class, values -> {
+            final Quester quester = new Quester();
+            loadNameAndTexture(values[0],values[1],quester);
+            quester.setQuest(questsManager.create(QuestType.valueOf(values[2])));
+            return quester;
+        });
+
+        this.creators.put(Merchant.class, values -> {
+            final Merchant merchant = new Merchant();
+            loadNameAndTexture(values[0],values[1],merchant);
+            merchant.setMerchantType(Merchant.MerchantType.valueOf(values[2]));
+            merchant.setItemList(createItemsList(values[3]));
+            return merchant;
+        });
+
         this.loadFile("dataEntities/enemies.csv", values -> values[0]);
         this.loadFile("dataEntities/player.csv", values -> values[0]);
         this.loadFile("dataEntities/doors.csv", values -> values[0]);
         this.loadFile("dataEntities/fountains.csv", values -> values[0]);
         this.loadFile("dataEntities/chests.csv", values -> values[0]);
+        this.loadFile("dataEntities/questers.csv", values -> values[0]);
+        this.loadFile("dataEntities/merchants.csv", values -> values[0]);
     }
 }

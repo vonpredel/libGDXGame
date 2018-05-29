@@ -19,6 +19,8 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Zones.Zone;
 import com.mygdx.game.Zones.ZoneContainer;
 import com.mygdx.game.Zones.ZoneRenderer;
+import com.mygdx.game.quests.QuestsContainer;
+import com.mygdx.game.quests.QuestsManager;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -56,6 +58,8 @@ public class World {
     private static EntitiesContainer entitiesContainer;
     private static SkillsManager skillsManager;
     private static SkillsContainer skillsContainer;
+    private static QuestsManager questsManager;
+    private static QuestsContainer questsContainer;
     private static ControlsAndGUIsHandler controlsAndGUIsHandler;
     private static Player player;
 
@@ -65,7 +69,7 @@ public class World {
 
     public static void init(SpriteBatch batch,
                             Assets assets, ItemsManager itemsManager,
-                            SkillsManager skillsManager, EntitiesManager entitiesManager) {
+                            SkillsManager skillsManager, QuestsManager questsManager, EntitiesManager entitiesManager) {
         World.batch = batch;
         World.zoneRenderer = new ZoneRenderer(batch);
         World.zoneContainer = new ZoneContainer();
@@ -75,6 +79,8 @@ public class World {
         World.itemsContainer = itemsManager.getContainer();
         World.skillsManager = skillsManager;
         World.skillsContainer = skillsManager.getContainer();
+        World.questsManager = questsManager;
+        World.questsContainer = questsManager.getContainer();
         World.entitiesManager = entitiesManager;
         World.entitiesContainer = entitiesManager.getContainer();
         World.controlsAndGUIsHandler = new ControlsAndGUIsHandler(assets);
@@ -88,6 +94,7 @@ public class World {
         World.itemsManager.loadDefinitions();
         World.entitiesManager.loadDefinitions();
         World.skillsManager.loadDefinitions();
+        World.questsManager.loadDefinitions();
     }
 
     public static void configureCameraAndGUI() {
@@ -333,6 +340,14 @@ public class World {
 
     public static SkillsContainer getSkillsContainer() {
         return skillsContainer;
+    }
+
+    public static QuestsManager getQuestsManager() {
+        return questsManager;
+    }
+
+    public static QuestsContainer getQuestsContainer() {
+        return questsContainer;
     }
 
     public static ControlsAndGUIsHandler getControlsAndGUIsHandler() {

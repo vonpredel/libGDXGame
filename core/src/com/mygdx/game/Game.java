@@ -16,6 +16,8 @@ import com.mygdx.game.Utils.Debugger;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.World.World;
 import com.mygdx.game.Zones.WorldGenerator;
+import com.mygdx.game.quests.QuestsContainer;
+import com.mygdx.game.quests.QuestsManager;
 
 public class Game extends ApplicationAdapter {
 
@@ -38,7 +40,8 @@ public class Game extends ApplicationAdapter {
         SpriteBatch batch = new SpriteBatch();
         ItemsManager itemsManager = new ItemsManager(assets, new ItemsContainer());
         SkillsManager skillsManager = new SkillsManager(assets, new SkillsContainer());
-        World.init(batch, assets, itemsManager, skillsManager, new EntitiesManager(assets, new EntitiesContainer(), itemsManager));
+        QuestsManager questsManager = new QuestsManager(assets, new QuestsContainer());
+        World.init(batch, assets, itemsManager, skillsManager, questsManager, new EntitiesManager(assets, new EntitiesContainer(), itemsManager, questsManager));
 
         new WorldGenerator().generate(10, 10);
         World.setWorldDimensions(10, 10);
@@ -87,6 +90,11 @@ public class Game extends ApplicationAdapter {
                 -> entity.warp(256+64*7, 256+64*4));
         World.getEntitiesManager().create(EntityType.TESTER, (entity, objects)
                 -> entity.warp(256+64*7, 256+64*5));
+
+        World.getEntitiesManager().create(EntityType.QUESTER, (entity, objects)
+                -> entity.warp(1024, 1024));
+        World.getEntitiesManager().create(EntityType.MERCHANT, (entity, objects)
+                -> entity.warp(1024, 1024+128));
 
         World.configureCameraAndGUI();
 
