@@ -8,7 +8,16 @@ public class Quester extends Npc {
 
     @Override
     public void performAction() {
-
+        switch (quest.getStatus()) {
+            case NONTAKEN:
+                quest.beginQuest();
+                break;
+            case TAKEN:
+                if (quest.checkIsQuestCompleted()) {
+                    quest.completeQuest();
+                }
+                break;
+        }
     }
 
     public Quest getQuest() {

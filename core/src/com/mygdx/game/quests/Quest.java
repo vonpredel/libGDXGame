@@ -26,13 +26,15 @@ public abstract class Quest implements Updateable {
 
     }
 
-    protected void beginQuest() {
+    public abstract boolean checkIsQuestCompleted();
+
+    public void beginQuest() {
         // TODO
         World.getPlayer().getQuestHandler().addQuest(this);
         status = Status.TAKEN;
     }
 
-    protected void completeQuest() {
+    public void completeQuest() {
         final Player player = World.getPlayer();
         player.setExperience(player.getExperience() + expReward);
         rewards.forEach(r -> r.generateOnMap(player.x,player.y));

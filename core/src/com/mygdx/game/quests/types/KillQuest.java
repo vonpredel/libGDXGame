@@ -9,6 +9,11 @@ public class KillQuest extends Quest {
     private int amountCounter;
     private int requiredAmount;
 
+    @Override
+    public boolean checkIsQuestCompleted() {
+        return amountCounter >= requiredAmount;
+    }
+
     public EntityType getType() {
         return type;
     }
@@ -31,10 +36,6 @@ public class KillQuest extends Quest {
 
     public void setRequiredAmount(int requiredAmount) {
         this.requiredAmount = requiredAmount;
-    }
-
-    public boolean checkIsEnought() {
-        return amountCounter >= requiredAmount;
     }
 
     public void increaseCounter() {

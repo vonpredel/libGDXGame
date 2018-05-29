@@ -54,6 +54,11 @@ public abstract class Item implements Updateable {
         isDropped = false;
     }
 
+    // TODO TEST
+    public String getTypeName() {
+        return name.toUpperCase().replace(" ","_");
+    }
+
     public boolean isDropped() {
         return isDropped;
     }
