@@ -3,6 +3,7 @@ package com.mygdx.game.Entities.NonStatics;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.Entities.Npc.Npc;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Skills.SpellBook;
@@ -139,7 +140,7 @@ public class Player extends NonStatic {
         this.skillPoints = skillPoints;
     }
 
-    public void ActionOnStatic() {
+    public void actionOnStatic() {
         final Optional<Static> first = World.getNearbyTilesCross(1, this)
                 .stream()
                 .filter(World::isTileOccupied)
@@ -150,6 +151,18 @@ public class Player extends NonStatic {
             return;
         }
         first.orElse(null).performAction();
+    }
 
+    public void actionOnNpc() {
+        final Optional<Npc> first = World.getNearbyTilesCross(1,this)
+                .stream()
+                .filter(World::isTileOccupied)
+                .map(World::getNpcFromTile)
+                .filter(Objects::nonNull)
+                .findAny();
+        if (!first.isPresent()) {
+            return;
+        }
+        first.orElse(null).performAction();
     }
 }

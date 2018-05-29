@@ -66,6 +66,8 @@ public class Game extends ApplicationAdapter {
                 -> entity.warp(256+64, 512));
         World.getEntitiesManager().create(EntityType.DOOR, (entity, objects)
                 -> entity.warp(256+64+64, 512));
+        World.getEntitiesManager().create(EntityType.CHEST_FURS, (entity, objects)
+                -> entity.warp(256, 1024));
 
 
 

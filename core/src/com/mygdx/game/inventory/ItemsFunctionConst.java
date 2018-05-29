@@ -23,6 +23,11 @@ public final class ItemsFunctionConst {
      */
     public static final int TEMP2 = 200;
 
+    /**
+     *  None
+     */
+    public static final int NONE = 404;
+
     private ItemsFunctionConst() {
     }
 }

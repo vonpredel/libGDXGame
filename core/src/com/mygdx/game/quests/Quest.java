@@ -7,6 +7,7 @@ import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.Updateable;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
+import com.mygdx.game.quests.types.CollectQuest;
 import java.util.List;
 
 public abstract class Quest implements Updateable {

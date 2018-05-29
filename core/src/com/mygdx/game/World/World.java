@@ -7,6 +7,7 @@ import com.mygdx.game.Entities.EntitiesManager;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
+import com.mygdx.game.Entities.Npc.Npc;
 import com.mygdx.game.Entities.Statics.Static;
 import com.mygdx.game.Items.ItemsContainer;
 import com.mygdx.game.Items.ItemsManager;
@@ -265,6 +266,17 @@ public class World {
             for (Entity e : entitiesContainer.getAllItems()) {
                 if (e instanceof Static && e.getCurrentTile().equals(tile)) {
                     return (Static) e;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Npc getNpcFromTile(Tile tile) {
+        if (isTileOccupied(tile)) {
+            for (Entity e : entitiesContainer.getAllItems()) {
+                if (e instanceof Npc && e.getCurrentTile().equals(tile)) {
+                    return (Npc) e;
                 }
             }
         }

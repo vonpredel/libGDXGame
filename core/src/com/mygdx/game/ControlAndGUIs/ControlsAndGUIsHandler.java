@@ -16,7 +16,6 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.World.World;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.CHARACTER_PANEL_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.DEFAULT_STATE;
@@ -160,11 +159,11 @@ public class ControlsAndGUIsHandler {
             }
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            player.ActionOnStatic();
+            player.actionOnStatic();
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
-//            player.ActionOnNpc();
+            player.actionOnNpc();
         }
 
     }

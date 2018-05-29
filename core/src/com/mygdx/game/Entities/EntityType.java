@@ -15,6 +15,7 @@ public enum EntityType {
 	DOOR(Door.class),
 	FOUNTAIN(Fountain.class),
 	CHEST(Chest.class),
+	CHEST_FURS(Chest.class),
 	QUESTER(Quester.class),
 	QUESTER2(Quester.class),
 	MERCHANT(Merchant.class);
