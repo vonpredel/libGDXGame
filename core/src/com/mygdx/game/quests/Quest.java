@@ -2,6 +2,7 @@ package com.mygdx.game.quests;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.Updateable;
 import com.mygdx.game.Utils.assets.AssetsConstants;
@@ -23,6 +24,20 @@ public abstract class Quest implements Updateable {
     @Override
     public void update() {
 
+    }
+
+    protected void beginQuest() {
+        // TODO
+        World.getPlayer().getQuestHandler().addQuest(this);
+        status = Status.TAKEN;
+    }
+
+    protected void completeQuest() {
+        final Player player = World.getPlayer();
+        player.setExperience(player.getExperience() + expReward);
+        rewards.forEach(r -> r.generateOnMap(player.x,player.y));
+        rewards.clear();
+        status = Status.DONE;
     }
 
     protected void assignTexture() {

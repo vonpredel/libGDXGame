@@ -6,10 +6,6 @@ public class QuestHandler {
 
     private List<Quest> questList;
 
-    public QuestHandler(List<Quest> questList) {
-        this.questList = questList;
-    }
-
     public void addQuest(Quest quest) {
         questList.add(quest);
     }

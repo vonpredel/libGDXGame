@@ -9,6 +9,7 @@ import com.mygdx.game.Skills.SpellBook;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
+import com.mygdx.game.quests.QuestHandler;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -23,9 +24,11 @@ public class Player extends NonStatic {
     private int pointsToSpend;
 
     private SpellBook spellBook;
+    private QuestHandler questHandler;
 
     public Player() {
         this.spellBook = new SpellBook();
+        this.questHandler = new QuestHandler();
     }
 
     @Override
@@ -118,6 +121,10 @@ public class Player extends NonStatic {
 
     public void setExperienceToNextLevel(int experienceToNextLevel) {
         this.experienceToNextLevel = experienceToNextLevel;
+    }
+
+    public QuestHandler getQuestHandler() {
+        return questHandler;
     }
 
     public SpellBook getSpellBook() {
