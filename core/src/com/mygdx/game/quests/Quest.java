@@ -7,7 +7,6 @@ import com.mygdx.game.Items.Item;
 import com.mygdx.game.Utils.Updateable;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
-import com.mygdx.game.quests.types.CollectQuest;
 import java.util.List;
 
 public abstract class Quest implements Updateable {
@@ -43,6 +42,7 @@ public abstract class Quest implements Updateable {
         rewards.forEach(r -> r.generateOnMap(player.x,player.y));
         rewards.clear();
         status = Status.DONE;
+        World.getPlayer().getQuestHandler().getQuestList().remove(this);
     }
 
     protected void assignTexture() {

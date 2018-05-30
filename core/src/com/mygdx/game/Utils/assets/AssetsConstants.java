@@ -46,6 +46,12 @@ public final class AssetsConstants {
     public static final String SILVER_QUEST = "quest/silverQuest.png";
     public static final String GOLD_QUEST = "quest/goldQuest.png";
     public static final String QUEST_INFO = "questGUI/questInfo.png";
+    public static final String TRADE_PANEL = "tradeGUI/tradePanel.png";
+    public static final String BLACKSMITH = "tradeGUI/blacksmith.png";
+    public static final String ALCHEMIST = "tradeGUI/alchemist.png";
+    public static final String MERCHANT = "tradeGUI/merchant.png";
+    public static final String SELL_BUTTON = "tradeGUI/sellButton.png";
+    public static final String BUY_BUTTON = "tradeGUI/buyButton.png";
 
     private AssetsConstants() {
 

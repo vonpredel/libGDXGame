@@ -12,6 +12,7 @@ import com.mygdx.game.Graphics.MenuGUI;
 import com.mygdx.game.Graphics.QuestGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
 import com.mygdx.game.Graphics.SkillGUI;
+import com.mygdx.game.Graphics.TradeGUI;
 import com.mygdx.game.Skills.Skill;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.World.World;
@@ -20,11 +21,13 @@ import java.util.List;
 
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.CHARACTER_PANEL_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.DEFAULT_STATE;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.DIALOGUE_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.INVENTORY_STATE_V2;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MAP_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MENU_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.QUEST_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.SKILL_STATE;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.TRADE_STATE;
 
 public class ControlsAndGUIsHandler {
 
@@ -37,6 +40,7 @@ public class ControlsAndGUIsHandler {
     public InventoryGUI inventoryGUI;
     public SkillGUI skillGUI;
     public QuestGUI questGUI;
+    public TradeGUI tradeGUI;
 
     private Assets assets;
     private List<AbstractGUI> guiList;
@@ -55,6 +59,7 @@ public class ControlsAndGUIsHandler {
         this.mapGUI = new MapGUI(player,assets);
         this.skillGUI = new SkillGUI(player,assets);
         this.questGUI = new QuestGUI(player,assets);
+        this.tradeGUI = new TradeGUI(player,assets);
         quickInfoGUI.isEnabled = true;
         guiList = new ArrayList<>();
         guiList.add(characterPanelGUI);
@@ -64,10 +69,13 @@ public class ControlsAndGUIsHandler {
         guiList.add(mapGUI);
         guiList.add(skillGUI);
         guiList.add(questGUI);
+        guiList.add(tradeGUI);
     }
 
     public void update() {
-        movementControls();
+        if (state != TRADE_STATE && state != DIALOGUE_STATE) {
+            movementControls();
+        }
         switch (state) {
             case DEFAULT_STATE:
                 defaultControls();
@@ -90,10 +98,41 @@ public class ControlsAndGUIsHandler {
             case QUEST_STATE:
                 questControls();
                 break;
+            case TRADE_STATE:
+                tradeControls();
+                break;
             default:
                 defaultControls();
         }
         guiList.forEach(AbstractGUI::update);
+    }
+
+    private void tradeControls() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            if(tradeGUI.inside) tradeGUI.inside = false;
+            else {
+                tradeGUI.isEnabled = false;
+                state = DEFAULT_STATE;
+            }
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
+            tradeGUI.listUp();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
+            tradeGUI.listDown();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            tradeGUI.listLeft();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            tradeGUI.listRight();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+            tradeGUI.enter();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+            tradeGUI.changeTab();
+        }
     }
 
     public void draw(SpriteBatch batch) {
@@ -290,6 +329,10 @@ public class ControlsAndGUIsHandler {
 
     public void setMapState() {
         this.state = MAP_STATE;
+    }
+
+    public void setTradeState() {
+        this.state = TRADE_STATE;
     }
 
     enum GUIState {

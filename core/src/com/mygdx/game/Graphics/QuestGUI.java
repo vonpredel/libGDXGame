@@ -61,9 +61,10 @@ public class QuestGUI extends AbstractGUI {
             float yPos = y + 54 - ((i - (page * 6)) * 100);
             batch.draw(quest.getTexture(), x + 54,
                     yPos);
-            font.draw(batch, quest.getName(), x + 140, yPos + 65);
-            font.draw(batch, quest.getDescription(), x + 140, yPos + 45);
-            font.draw(batch, quest.getProgressStatus(), x + 140, yPos + 25);
+            font.draw(batch, quest.getName(), x + 140, yPos + 75);
+            font.draw(batch, quest.getDescription(), x + 140, yPos + 55);
+            // OPTIONAL
+            font.draw(batch, quest.getProgressStatus(), x + 140, yPos + 35);
         }
     }
 

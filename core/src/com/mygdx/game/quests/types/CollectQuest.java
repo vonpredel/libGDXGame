@@ -20,7 +20,7 @@ public class CollectQuest extends Quest {
 
     @Override
     public String getProgressStatus() {
-        return itemType + " | " + requiredAmount;
+        return itemType + " | " + getQuestItemsWithType().size() + " / " + requiredAmount;
     }
 
     private List<QuestItem> getQuestItemsWithType() {
