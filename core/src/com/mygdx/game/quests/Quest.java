@@ -29,6 +29,8 @@ public abstract class Quest implements Updateable {
 
     public abstract boolean checkIsQuestCompleted();
 
+    public abstract String getProgressStatus();
+
     public void beginQuest() {
         // TODO
         World.getPlayer().getQuestHandler().addQuest(this);

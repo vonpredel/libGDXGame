@@ -71,7 +71,6 @@ public class QuestsManager extends BaseManager<Quest, QuestType, QuestsContainer
             return collectQuest;
         });
 
-        // TODO !!!!!!
         this.loadFile("dataQuests/killQuests.csv", values -> values[0]);
         this.loadFile("dataQuests/collectQuests.csv", values -> values[0]);
 

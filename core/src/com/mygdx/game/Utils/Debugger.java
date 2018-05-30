@@ -3,6 +3,7 @@ package com.mygdx.game.Utils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.mygdx.game.World.World;
+import com.mygdx.game.quests.QuestType;
 
 public final class Debugger {
 
@@ -34,6 +35,10 @@ public final class Debugger {
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
                 World.getZoneContainer().getZoneList().forEach(zone -> zone.setVisited(true));
+            }
+            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+                World.getPlayer().getQuestHandler().addQuest(World.getQuestsManager().create(QuestType.TEST_COLLECT_QUEST));
+                World.getPlayer().getQuestHandler().addQuest(World.getQuestsManager().create(QuestType.TEST_KILL_QUEST));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
                 World.getPlayer().setPointsToSpend(100);

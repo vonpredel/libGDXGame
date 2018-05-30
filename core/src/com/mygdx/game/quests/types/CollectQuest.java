@@ -18,6 +18,11 @@ public class CollectQuest extends Quest {
         return getQuestItemsWithType().size() >= requiredAmount;
     }
 
+    @Override
+    public String getProgressStatus() {
+        return itemType + " | " + requiredAmount;
+    }
+
     private List<QuestItem> getQuestItemsWithType() {
         return World.getPlayer().getInventory().getQuestItems().stream()
                 .filter(e -> e.getTypeName().equals(String.valueOf(itemType)))

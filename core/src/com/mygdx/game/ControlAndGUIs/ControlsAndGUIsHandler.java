@@ -9,6 +9,7 @@ import com.mygdx.game.Graphics.CharacterPanelGUI;
 import com.mygdx.game.Graphics.InventoryGUI;
 import com.mygdx.game.Graphics.MapGUI;
 import com.mygdx.game.Graphics.MenuGUI;
+import com.mygdx.game.Graphics.QuestGUI;
 import com.mygdx.game.Graphics.QuickInfoGUI;
 import com.mygdx.game.Graphics.SkillGUI;
 import com.mygdx.game.Skills.Skill;
@@ -22,6 +23,7 @@ import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.DEFA
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.INVENTORY_STATE_V2;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MAP_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.MENU_STATE;
+import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.QUEST_STATE;
 import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.SKILL_STATE;
 
 public class ControlsAndGUIsHandler {
@@ -34,6 +36,7 @@ public class ControlsAndGUIsHandler {
     public MapGUI mapGUI;
     public InventoryGUI inventoryGUI;
     public SkillGUI skillGUI;
+    public QuestGUI questGUI;
 
     private Assets assets;
     private List<AbstractGUI> guiList;
@@ -51,6 +54,7 @@ public class ControlsAndGUIsHandler {
         this.inventoryGUI = new InventoryGUI(player,assets);
         this.mapGUI = new MapGUI(player,assets);
         this.skillGUI = new SkillGUI(player,assets);
+        this.questGUI = new QuestGUI(player,assets);
         quickInfoGUI.isEnabled = true;
         guiList = new ArrayList<>();
         guiList.add(characterPanelGUI);
@@ -59,6 +63,7 @@ public class ControlsAndGUIsHandler {
         guiList.add(inventoryGUI);
         guiList.add(mapGUI);
         guiList.add(skillGUI);
+        guiList.add(questGUI);
     }
 
     public void update() {
@@ -81,6 +86,9 @@ public class ControlsAndGUIsHandler {
                 break;
             case SKILL_STATE:
                 skillControls();
+                break;
+            case QUEST_STATE:
+                questControls();
                 break;
             default:
                 defaultControls();
@@ -165,7 +173,24 @@ public class ControlsAndGUIsHandler {
         if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
             player.actionOnNpc();
         }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            questGUI.isEnabled = true;
+            state = QUEST_STATE;
+        }
 
+    }
+
+    private void questControls() {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            questGUI.isEnabled = false;
+            state = DEFAULT_STATE;
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.RIGHT)) {
+            questGUI.changePageRight();
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.LEFT)) {
+            questGUI.changePageLeft();
+        }
     }
 
     private void inventoryControlsV2() {

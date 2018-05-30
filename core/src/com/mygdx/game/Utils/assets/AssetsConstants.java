@@ -45,6 +45,7 @@ public final class AssetsConstants {
     public static final String BRONZE_QUEST = "quest/bronzeQuest.png";
     public static final String SILVER_QUEST = "quest/silverQuest.png";
     public static final String GOLD_QUEST = "quest/goldQuest.png";
+    public static final String QUEST_INFO = "questGUI/questInfo.png";
 
     private AssetsConstants() {
 
