@@ -24,6 +24,8 @@ public class Player extends NonStatic {
     private int skillPoints = 3;
     private int pointsToSpend;
 
+    private int gold;
+
     private SpellBook spellBook;
     private QuestHandler questHandler;
 
@@ -138,6 +140,14 @@ public class Player extends NonStatic {
 
     public void setSkillPoints(int skillPoints) {
         this.skillPoints = skillPoints;
+    }
+
+    public int getGold() {
+        return gold;
+    }
+
+    public void setGold(int gold) {
+        this.gold = gold;
     }
 
     public void actionOnStatic() {

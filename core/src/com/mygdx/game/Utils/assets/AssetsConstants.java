@@ -52,6 +52,7 @@ public final class AssetsConstants {
     public static final String MERCHANT = "tradeGUI/merchant.png";
     public static final String SELL_BUTTON = "tradeGUI/sellButton.png";
     public static final String BUY_BUTTON = "tradeGUI/buyButton.png";
+    public static final String GOLD_INFO = "inv/goldInfo.png";
 
     private AssetsConstants() {
 

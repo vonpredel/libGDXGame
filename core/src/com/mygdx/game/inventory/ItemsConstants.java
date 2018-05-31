@@ -18,6 +18,7 @@ public final class ItemsConstants {
      */
     public static final int MAP = 100;
     public static final int WOLF_FUR = 101;
+    public static final int GOLD = 102;
 
     /**
      *  Misc Items

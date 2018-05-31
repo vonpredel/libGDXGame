@@ -89,6 +89,8 @@ public class InventoryAction {
                 return "Warm grey wolf fur";
             case ItemsConstants.MISCE:
                 return "Miscelanous blalablalba";
+            case ItemsConstants.GOLD:
+                return "Gold : " + World.getPlayer().getGold();
             default:
                 return "DESCRIPTION DESCRIPTION";
         }

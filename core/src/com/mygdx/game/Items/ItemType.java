@@ -46,6 +46,7 @@ public enum ItemType {
 	POTION_OF_SOMETHING(UsableItem.class),
 	MAP(QuestItem.class),
 	WOLF_FUR(QuestItem.class),
+	GOLD(QuestItem.class),
 	MISCE_MISCE(MiscellaneousItem.class);
 
     private final Class<? extends Item> cls;

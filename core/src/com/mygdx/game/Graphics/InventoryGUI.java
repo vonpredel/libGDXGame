@@ -57,6 +57,7 @@ public class InventoryGUI extends AbstractGUI {
 
     private int insideIndex;
 
+    private Texture goldInfoTexture;
     private Texture armorTexture;
     private Texture weaponTexture;
     private Texture shieldTexture;
@@ -84,6 +85,7 @@ public class InventoryGUI extends AbstractGUI {
         selectedItem = assets.manager.get(AssetsConstants.INVENTORY_SELECTED_ITEM);
         dropButton = assets.manager.get(AssetsConstants.INVENTORY_DROP_BUTTON);
         useButton = assets.manager.get(AssetsConstants.INVENTORY_USE_BUTTON);
+        goldInfoTexture = assets.manager.get(AssetsConstants.GOLD_INFO);
     }
 
     @Override
@@ -122,7 +124,15 @@ public class InventoryGUI extends AbstractGUI {
 
             //DRAW DESCRIPTION
             drawDescription(batch);
+
+            //DRAW GOLD INFO
+            drawGoldInfo(batch);
         }
+    }
+
+    private void drawGoldInfo(SpriteBatch batch) {
+        batch.draw(goldInfoTexture,x+410,y+85);
+        font.draw(batch, String.valueOf(player.getGold()), x + 480, y + 125);
     }
 
     private void drawDescription(SpriteBatch batch) {

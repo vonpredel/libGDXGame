@@ -34,6 +34,7 @@ public class TradeGUI extends AbstractGUI {
     private Texture selectedItemTexture;
     private Texture sellButton;
     private Texture buyButton;
+    private Texture goldInfoTexture;
 
     private List<Item> playersItems;
     private Inventory inventory;
@@ -49,6 +50,7 @@ public class TradeGUI extends AbstractGUI {
         selectedItem = assets.manager.get(AssetsConstants.INVENTORY_SELECTED_ITEM);
         sellButton = assets.manager.get(AssetsConstants.SELL_BUTTON);
         buyButton = assets.manager.get(AssetsConstants.BUY_BUTTON);
+        goldInfoTexture = assets.manager.get(AssetsConstants.GOLD_INFO);
     }
 
     @Override
@@ -90,6 +92,9 @@ public class TradeGUI extends AbstractGUI {
             if (selectedTab == MERCHANT) batch.draw(buyButton, x + 714, y + 408);
             else batch.draw(sellButton, x + 714, y + 366);
         }
+
+        batch.draw(goldInfoTexture,x+415,y+490);
+        font.draw(batch, String.valueOf(player.getGold()), x + 485, y + 530);
 
         drawDescription();
     }
@@ -196,12 +201,16 @@ public class TradeGUI extends AbstractGUI {
 
     private void buy() {
         final Item item = merchant.getItemList().get(selectedItemIndex);
-        inventory.getItems().add(item);
-        merchant.getItemList().remove(item);
+        if (player.getGold() >= item.getPrice()) {
+            player.setGold(player.getGold() - item.getPrice());
+            inventory.getItems().add(item);
+            merchant.getItemList().remove(item);
+        }
     }
 
     private void sell() {
         final Item item = playersItems.get(selectedItemIndex);
+        player.setGold(player.getGold() + (item.getPrice() / 4));
         merchant.getItemList().add(item);
         inventory.getItems().remove(item);
     }
