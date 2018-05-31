@@ -4,7 +4,8 @@ import com.mygdx.game.quests.types.CollectQuest;
 
 public enum QuestType {
 	TEST_KILL_QUEST(KillQuest.class),
-	TEST_COLLECT_QUEST(CollectQuest.class);
+	TEST_COLLECT_QUEST(CollectQuest.class),
+	TEST_COLLECT_QUEST2(CollectQuest.class);
 
     private final Class<? extends Quest> cls;
 

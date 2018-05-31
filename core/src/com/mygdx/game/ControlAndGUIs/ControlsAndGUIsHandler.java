@@ -213,6 +213,7 @@ public class ControlsAndGUIsHandler {
             player.actionOnNpc();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.Q)) {
+            questGUI.sortQuests();
             questGUI.isEnabled = true;
             state = QUEST_STATE;
         }

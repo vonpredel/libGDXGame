@@ -10,9 +10,7 @@ import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.inventory.Inventory;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 public class TradeGUI extends AbstractGUI {
 
@@ -82,6 +80,12 @@ public class TradeGUI extends AbstractGUI {
             if (selectedTab == MERCHANT) batch.draw(buyButton, x + 714, y + 408);
             else batch.draw(sellButton, x + 714, y + 366);
         }
+
+        drawDescription();
+    }
+
+    private void drawDescription() {
+        
     }
 
     @Override
@@ -187,7 +191,7 @@ public class TradeGUI extends AbstractGUI {
     }
 
     private void sell() {
-        final Item item = inventory.getItems().get(selectedItemIndex);
+        final Item item = playersItems.get(selectedItemIndex);
         merchant.getItemList().add(item);
         inventory.getItems().remove(item);
     }

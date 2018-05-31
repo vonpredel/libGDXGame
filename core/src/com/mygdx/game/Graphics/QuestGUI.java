@@ -11,7 +11,6 @@ import com.mygdx.game.quests.Quest;
 import com.mygdx.game.quests.QuestHandler;
 import java.util.List;
 
-// TODO
 public class QuestGUI extends AbstractGUI {
 
     private BitmapFont font;
@@ -20,8 +19,8 @@ public class QuestGUI extends AbstractGUI {
     private int allowedPages;
     private int page = 1;
 
-    int indexHelper;
-    int rangeHelper;
+    private int indexHelper;
+    private int rangeHelper;
 
     public QuestGUI(Player player, Assets assets) {
         super(player, assets);
@@ -46,7 +45,6 @@ public class QuestGUI extends AbstractGUI {
     }
 
 
-    // TODO TODO
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
@@ -82,5 +80,14 @@ public class QuestGUI extends AbstractGUI {
         allowedPages = questHandler.getQuestList().size() % 6 == 0
                 && allowedPages > 1
                 ? allowedPages - 1 : allowedPages;
+    }
+
+    public void sortQuests() {
+        questHandler.getQuestList().sort((o1, o2) -> {
+            if (o1.getGrade().equals(o2.getGrade())) return 0;
+            if (o1.getGrade().equals(Quest.Grade.BRONZE)) return 1;
+            if (o1.getGrade().equals(Quest.Grade.SILVER) && o2.getGrade().equals(Quest.Grade.GOLD)) return 1;
+            else return -1;
+        });
     }
 }

@@ -40,6 +40,7 @@ public final class Debugger {
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
                 World.getPlayer().getQuestHandler().addQuest(World.getQuestsManager().create(QuestType.TEST_COLLECT_QUEST));
                 World.getPlayer().getQuestHandler().addQuest(World.getQuestsManager().create(QuestType.TEST_KILL_QUEST));
+                World.getPlayer().getQuestHandler().addQuest(World.getQuestsManager().create(QuestType.TEST_COLLECT_QUEST2));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
                 World.getControlsAndGUIsHandler().tradeGUI.updateTextureType(Merchant.MerchantType.BLACKSMITH);

@@ -2,6 +2,7 @@ package com.mygdx.game.Entities.Statics;
 
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.Item;
+import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.World.World;
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class Chest extends Static {
 
     private void drop() {
         final Player player = World.getPlayer();
-        itemList.forEach(i -> i.generateOnMap(player.x,player.y));
+        final Tile tile = World.getTileByPosition(World.getCurrentEntityPosition(player));
+        itemList.forEach(i -> i.generateOnMap(tile.x,tile.y));
         itemList.clear();
     }
 }

@@ -53,7 +53,6 @@ public abstract class Entity extends Rectangle implements Updateable {
         return name;
     }
 
-    // TODO TEST
     public String getTypeName() {
         return name.toUpperCase().replace(" ","_");
     }

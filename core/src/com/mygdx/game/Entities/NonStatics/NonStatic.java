@@ -309,7 +309,6 @@ public abstract class NonStatic extends Entity {
     }
 
     public void checkIfQuestEntity() {
-        // TODO TEST
         World.getQuestsContainer().getKillQuests()
                 .stream()
                 .filter(q -> String.valueOf(q.getType()).equals(this.getTypeName()))

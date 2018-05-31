@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.Item;
+import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.Updateable;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.World.World;
@@ -39,7 +40,8 @@ public abstract class Quest implements Updateable {
     public void completeQuest() {
         final Player player = World.getPlayer();
         player.setExperience(player.getExperience() + expReward);
-        rewards.forEach(r -> r.generateOnMap(player.x,player.y));
+        final Tile tile = World.getTileByPosition(World.getCurrentEntityPosition(player));
+        rewards.forEach(r -> r.generateOnMap(tile.x,tile.y));
         rewards.clear();
         status = Status.DONE;
         World.getPlayer().getQuestHandler().getQuestList().remove(this);
