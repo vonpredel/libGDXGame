@@ -9,16 +9,16 @@ import java.util.List;
 public abstract class Item implements Updateable {
 
     protected String name;
-    protected boolean stackable;
+    protected int price;
     protected Texture texture;
 
     protected int width, height;
     public float x,y;
     protected boolean isDropped = false;
 
-    public Item(String name, boolean stackable) {
+    public Item(String name, int price) {
         this.name = name;
-        this.stackable = stackable;
+        this.price = price;
         this.width = Constants.DEFAULT_TILE_WIDTH;
         this.height = Constants.DEFAULT_TILE_HEIGHT;
     }
@@ -31,12 +31,12 @@ public abstract class Item implements Updateable {
         this.name = name;
     }
 
-    public boolean isStackable() {
-        return stackable;
+    public int getPrice() {
+        return price;
     }
 
-    public void setStackable(boolean stackable) {
-        this.stackable = stackable;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     @Override

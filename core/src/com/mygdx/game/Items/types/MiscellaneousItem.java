@@ -9,8 +9,8 @@ public class MiscellaneousItem extends Item {
 
     public int function;
 
-    public MiscellaneousItem(String name, boolean stackable, int function) {
-        super(name, stackable);
+    public MiscellaneousItem(String name, int price, int function) {
+        super(name, price);
         this.function = function;
     }
 

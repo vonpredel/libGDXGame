@@ -9,8 +9,8 @@ public class QuestItem extends Item {
 
     public int function;
 
-    public QuestItem(String name, boolean stackable, int function) {
-        super(name, stackable);
+    public QuestItem(String name, int price, int function) {
+        super(name, price);
         this.function = function;
     }
 

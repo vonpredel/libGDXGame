@@ -14,8 +14,8 @@ public class Weapon extends Item {
     protected int range;
     protected boolean piercing;
 
-    public Weapon(String name, boolean stackable, int minDamage, int maxDamage, int accuracy, float speed, int critChance, int range, boolean piercing) {
-        super(name, stackable);
+    public Weapon(String name, int price, int minDamage, int maxDamage, int accuracy, float speed, int critChance, int range, boolean piercing) {
+        super(name, price);
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
         this.accuracy = accuracy;

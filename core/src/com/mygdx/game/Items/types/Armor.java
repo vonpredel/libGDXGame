@@ -2,9 +2,7 @@ package com.mygdx.game.Items.types;
 
 import com.mygdx.game.Items.Item;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Armor extends Item {
     protected int armorSlot;
@@ -12,8 +10,8 @@ public class Armor extends Item {
     protected int defence;
     protected int movementSpeedReduction;
 
-    public Armor(String name, boolean stackable, int armorSlot, int defence, int movementSpeedReduction) {
-        super(name, stackable);
+    public Armor(String name, int price, int armorSlot, int defence, int movementSpeedReduction) {
+        super(name, price);
         this.armorSlot = armorSlot;
         this.defence = defence;
         this.movementSpeedReduction = movementSpeedReduction;

@@ -1,12 +1,12 @@
-Leather Armor,armors/leather.png,false,0,1,0
-Golden Leather Armor,armors/leather2.png,false,0,2,0
-Armor,armors/armor.png,false,0,3,1
-Golden Armor,armors/armor2.png,false,0,4,1
-Shield,armors/shield.png,false,1,5,1
-Golden Shield,armors/shield2.png,false,1,6,1
-Small Shield,armors/shieldSmall.png,false,1,3,0
-Golden Small Shield,armors/shieldSmall2.png,false,1,4,0
-Wooden Shield,armors/shieldWood.png,false,1,1,0
-Golden Wooden Shield,armors/shieldWood2.png,false,1,2,0
-Helmet,armors/helmet.png,false,2,1,0
-Golden Helmet,armors/helmet2.png,false,2,2,0
+Leather Armor,armors/leather.png,99999,0,1,0
+Golden Leather Armor,armors/leather2.png,99999,0,2,0
+Armor,armors/armor.png,99999,0,3,1
+Golden Armor,armors/armor2.png,99999,0,4,1
+Shield,armors/shield.png,99999,1,5,1
+Golden Shield,armors/shield2.png,99999,1,6,1
+Small Shield,armors/shieldSmall.png,99999,1,3,0
+Golden Small Shield,armors/shieldSmall2.png,99999,1,4,0
+Wooden Shield,armors/shieldWood.png,99999,1,1,0
+Golden Wooden Shield,armors/shieldWood2.png,99999,1,2,0
+Helmet,armors/helmet.png,99999,2,1,0
+Golden Helmet,armors/helmet2.png,99999,2,2,0

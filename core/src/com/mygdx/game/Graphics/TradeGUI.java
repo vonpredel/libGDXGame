@@ -76,12 +76,14 @@ public class TradeGUI extends AbstractGUI {
 
         batch.draw(selectedItemTexture, x + 594, y + 500);
 
-        List<Item> items = selectedTab == 0 ? playersItems : merchant.getItemList();
+        List<Item> items = selectedTab == PLAYER ? playersItems : merchant.getItemList();
         if(selectedItemIndex<items.size()) {
             Item describedItem = items.get(selectedItemIndex);
             for (int i = 0; i < describedItem.getDescription().size(); i++) {
                 font.draw(batch,describedItem.getDescription().get(i),x + 470,y + 440 - (i * 20));
             }
+            int price = selectedTab == PLAYER ? describedItem.getPrice() / 4 : describedItem.getPrice();
+            font.draw(batch,"Price: " + price,x + 710, y + 345);
         }
 
         if (inside) {
@@ -210,6 +212,6 @@ public class TradeGUI extends AbstractGUI {
 
     public void changeTab() {
         if (inside) return;
-        selectedTab = selectedTab == 0 ? 1 : 0;
+        selectedTab = selectedTab == PLAYER ? MERCHANT : PLAYER;
     }
 }

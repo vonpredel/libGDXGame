@@ -23,32 +23,32 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
     @Override
     public void loadDefinitions() {
         this.creators.put(Weapon.class, values -> {
-            final Weapon weapon = new Weapon(values[0], Boolean.parseBoolean(values[2]), Integer.parseInt(values[3]),
+            final Weapon weapon = new Weapon(values[0], Integer.parseInt(values[2]), Integer.parseInt(values[3]),
                     Integer.parseInt(values[4]), Integer.parseInt(values[5]), Float.parseFloat(values[6]),
                     Integer.parseInt(values[7]), Integer.parseInt(values[9]), Boolean.parseBoolean(values[10]));
             weapon.texture = this.assets.manager.get(values[1], Texture.class);
             return weapon;
         });
         this.creators.put(Armor.class, values -> {
-            final Armor armor = new Armor(values[0], Boolean.parseBoolean(values[2]), Integer.parseInt(values[3]),
+            final Armor armor = new Armor(values[0], Integer.parseInt(values[2]), Integer.parseInt(values[3]),
                     Integer.parseInt(values[4]), Integer.parseInt(values[5]));
             armor.texture = this.assets.manager.get(values[1], Texture.class);
             return armor;
         });
         this.creators.put(UsableItem.class, values -> {
-            final UsableItem usableItem = new UsableItem(values[0], Boolean.parseBoolean(values[2]),
+            final UsableItem usableItem = new UsableItem(values[0], Integer.parseInt(values[2]),
                     Integer.parseInt(values[3]));
             usableItem.texture = this.assets.manager.get(values[1], Texture.class);
             return usableItem;
         });
         this.creators.put(QuestItem.class, values -> {
-            final QuestItem questItem = new QuestItem(values[0], Boolean.parseBoolean(values[2]),
+            final QuestItem questItem = new QuestItem(values[0], Integer.parseInt(values[2]),
                     Integer.parseInt(values[3]));
             questItem.texture = this.assets.manager.get(values[1], Texture.class);
             return questItem;
         });
         this.creators.put(MiscellaneousItem.class, values -> {
-            final MiscellaneousItem miscellaneousItem = new MiscellaneousItem(values[0], Boolean.parseBoolean(values[2]),
+            final MiscellaneousItem miscellaneousItem = new MiscellaneousItem(values[0], Integer.parseInt(values[2]),
                     Integer.parseInt(values[3]));
             miscellaneousItem.texture = this.assets.manager.get(values[1], Texture.class);
             return miscellaneousItem;
