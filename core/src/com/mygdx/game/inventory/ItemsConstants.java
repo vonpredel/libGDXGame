@@ -1,6 +1,6 @@
 package com.mygdx.game.inventory;
 
-public final class ItemsFunctionConst {
+public final class ItemsConstants {
 
     /**
      * Usable Items
@@ -17,17 +17,18 @@ public final class ItemsFunctionConst {
      *  Quest Items
      */
     public static final int MAP = 100;
+    public static final int WOLF_FUR = 101;
 
     /**
      *  Misc Items
      */
-    public static final int TEMP2 = 200;
+    public static final int MISCE = 200;
 
     /**
      *  None
      */
     public static final int NONE = 404;
 
-    private ItemsFunctionConst() {
+    private ItemsConstants() {
     }
 }

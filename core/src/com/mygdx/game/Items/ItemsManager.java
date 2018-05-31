@@ -48,7 +48,8 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
             return questItem;
         });
         this.creators.put(MiscellaneousItem.class, values -> {
-            final MiscellaneousItem miscellaneousItem = new MiscellaneousItem(values[0], Boolean.parseBoolean(values[2]));
+            final MiscellaneousItem miscellaneousItem = new MiscellaneousItem(values[0], Boolean.parseBoolean(values[2]),
+                    Integer.parseInt(values[3]));
             miscellaneousItem.texture = this.assets.manager.get(values[1], Texture.class);
             return miscellaneousItem;
         });

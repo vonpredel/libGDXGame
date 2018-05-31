@@ -129,24 +129,8 @@ public class InventoryGUI extends AbstractGUI {
 
         if(selectedItemIndex<list.size()) {
             describedItem = list.get(selectedItemIndex);
-            font.draw(batch,describedItem.getName(),x+45,y+280);
-            if(selectedMenuIndex == WEAPON_CLASS_ENUM) {
-                font.draw(batch,"Damage = " + ((Weapon) describedItem).getMinDamage() + " - " + ((Weapon) describedItem).getMaxDamage(),x+45,y+260);
-                font.draw(batch,"Accuracy = " + ((Weapon) describedItem).getAccuracy()
-                        + " | Range = " + ((Weapon) describedItem).getRange(),x+45,y+240);
-                font.draw(batch,"Attack Speed = " + ((Weapon) describedItem).getSpeed()
-                        + " | Piercing = " + ((Weapon) describedItem).isPiercing(),x+45,y+220);
-                font.draw(batch,"Critical Chance = " + ((Weapon) describedItem).getCritChance(),x+45,y+200);
-            } else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
-                font.draw(batch,"Defence = " + ((Armor) describedItem).getDefence(),x+45,y+260);
-                font.draw(batch,"Movement Speed Reduction = " + ((Armor) describedItem).getMovementSpeedReduction(),x+45,y+240);
-                font.draw(batch,"Armor Class = " + ((Armor) describedItem).getArmorClassToString(),x+45,y+220);
-            } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
-                font.draw(batch,"Temp temp temp = 000",x+45,y+260);
-            } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
-
-            } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {
-
+            for (int i = 0; i < describedItem.getDescription().size(); i++) {
+                font.draw(batch,describedItem.getDescription().get(i),x+45,y+280 -(i*20));
             }
         }
     }

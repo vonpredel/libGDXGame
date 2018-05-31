@@ -55,15 +55,15 @@ public class AoeDamage extends Skill {
     }
 
     @Override
-    public Map<String, String> getDescription() {
-        Map<String, String> map = new HashMap<>();
-        map.put("Name",getName());
-        map.put("Mana Cost", String.valueOf(manaCost));
-        map.put("Damage", String.valueOf(damage));
-        map.put("Range", String.valueOf(range));
-        map.put("Magic", String.valueOf(magic));
-        map.put("Shape", String.valueOf(shape));
-        return map;
+    public List<String> getDescription() {
+        List<String> description = new ArrayList<>();
+        description.add(getName());
+        description.add("Mana Cost" + " : " + manaCost);
+        description.add("Damage" + " : " + damage);
+        description.add("Range" + " : " + range);
+        description.add("Magic" + " : " + magic);
+        description.add("Shape" + " : " + shape);
+        return description;
     }
 
     public int getDamage() {

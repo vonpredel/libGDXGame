@@ -1,10 +1,14 @@
 package com.mygdx.game.Items.types;
 
 import com.mygdx.game.Items.Item;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Armor extends Item {
-
     protected int armorSlot;
+
     protected int defence;
     protected int movementSpeedReduction;
 
@@ -13,6 +17,16 @@ public class Armor extends Item {
         this.armorSlot = armorSlot;
         this.defence = defence;
         this.movementSpeedReduction = movementSpeedReduction;
+    }
+
+    @Override
+    public List<String> getDescription() {
+        List<String> description = new ArrayList<>();
+        description.add(name);
+        description.add("Defence : " + defence);
+        description.add("Movement speed reduction : " + movementSpeedReduction);
+        description.add("Armor class : " + getArmorClassToString());
+        return description;
     }
 
     public int getArmorSlot() {

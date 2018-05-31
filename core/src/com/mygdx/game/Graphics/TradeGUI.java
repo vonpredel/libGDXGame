@@ -68,13 +68,21 @@ public class TradeGUI extends AbstractGUI {
         }
 
         for (int i = 0; i < merchant.getItemList().size(); i++) {
-//            if (i > 34) break;
+            if (i > 34) break;
             int yAxisIndex = i / 5;
             int xAxisIndex = i % 5;
             batch.draw(merchant.getItemList().get(i).getTexture(), x + 40 + (WindowGap * xAxisIndex) + 846, y + 456 - (WindowGap * yAxisIndex), windowSize, windowSize);
         }
 
         batch.draw(selectedItemTexture, x + 594, y + 500);
+
+        List<Item> items = selectedTab == 0 ? playersItems : merchant.getItemList();
+        if(selectedItemIndex<items.size()) {
+            Item describedItem = items.get(selectedItemIndex);
+            for (int i = 0; i < describedItem.getDescription().size(); i++) {
+                font.draw(batch,describedItem.getDescription().get(i),x + 470,y + 440 - (i * 20));
+            }
+        }
 
         if (inside) {
             if (selectedTab == MERCHANT) batch.draw(buyButton, x + 714, y + 408);

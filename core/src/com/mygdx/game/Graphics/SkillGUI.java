@@ -80,18 +80,11 @@ public class SkillGUI extends AbstractGUI {
                     batch.draw(bindedSkill.getTexture(),x + 440 + (i*100), y + 592, 64,64);
                 }
             }
-            font.draw(batch,"Skill points : " + player.getSkillPoints(), x + 100, y + 600);
+            font.draw(batch,"Skill points : " + player.getSkillPoints(), x + 250, y + 650);
 
-
-            // TODO SKILL DESCRIPTION
-
-            // TEMP CODE
-//            spells.get(index).getDescription().forEach((s1,s2)-> font.draw(batch,s1 + " : " + s2 + "\n", x+50, y+650));
-            final Map<String, String> description = spells.get(index).getDescription();
-            final List<String> strings = new ArrayList<>(description.keySet());
-            final List<String> values = new ArrayList<>(description.values());
-            for (int i = 0; i < strings.size(); i++)
-                font.draw(batch, strings.get(i) + ": " + values.get(i), x + 50, y + 650 - (i * 25));
+            final List<String> description = spells.get(index).getDescription();
+            for (int i = 1; i < description.size(); i++)
+                font.draw(batch, description.get(i), x + 50, y + 690 - (i * 20));
         }
     }
 

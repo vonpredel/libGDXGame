@@ -3,6 +3,7 @@ package com.mygdx.game.Skills;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Updateable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class Skill implements Updateable {
@@ -24,7 +25,7 @@ public abstract class Skill implements Updateable {
 
     public abstract void use();
 
-    public abstract Map<String, String> getDescription();
+    public abstract List<String> getDescription();
 
     @Override
     public void update() {

@@ -1,10 +1,12 @@
 package com.mygdx.game.Items.types;
 
 import com.mygdx.game.Items.Item;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Weapon extends Item {
-
     protected int minDamage;
+
     protected int maxDamage;
     protected int accuracy;
     protected float speed;
@@ -21,6 +23,17 @@ public class Weapon extends Item {
         this.critChance = critChance;
         this.range = range;
         this.piercing = piercing;
+    }
+
+    @Override
+    public List<String> getDescription() {
+        List<String> description = new ArrayList<>();
+        description.add(name);
+        description.add("Damage : " + minDamage + " - " + maxDamage);
+        description.add("Accuracy : " + accuracy + " | " + "Speed : " + speed);
+        description.add("Critical Chance : " + critChance + "%");
+        description.add("Range : " + range + " | " + "Piercing : " + piercing);
+        return description;
     }
 
     public int getMinDamage() {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Utils.Constants;
 import com.mygdx.game.Utils.Updateable;
 import com.mygdx.game.inventory.Inventory;
+import java.util.List;
 
 public abstract class Item implements Updateable {
 
@@ -42,6 +43,8 @@ public abstract class Item implements Updateable {
     public void update() {
 
     }
+
+    public abstract List<String> getDescription();
 
     public void generateOnMap(float x, float y) {
         isDropped = true;
