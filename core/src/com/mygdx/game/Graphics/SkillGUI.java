@@ -1,11 +1,13 @@
 package com.mygdx.game.Graphics;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Skills.Skill;
 import com.mygdx.game.Skills.SpellBook;
+import com.mygdx.game.Skills.types.Passive;
 import com.mygdx.game.Utils.assets.Assets;
 import com.mygdx.game.Utils.assets.AssetsConstants;
 import java.util.ArrayList;
@@ -27,19 +29,27 @@ public class SkillGUI extends AbstractGUI {
     private Texture known;
     private Texture selectedSlot;
     private Texture selectedFrame;
+    private Texture reqBar;
+    private Texture skillDes;
+    private Texture passive;
 
     private SpellBook spellBook;
 
     private Map<Integer, Boolean> map;
+    private Skill skill;
 
     public SkillGUI(Player player, Assets assets) {
         super(player, assets);
-        this.texture = assets.manager.get(AssetsConstants.SKILL_GUI);
+        this.texture = assets.manager.get(AssetsConstants.SPELL_BOOK_BETA);
         this.width = texture.getWidth() * 4;
         this.height = texture.getHeight() * 4;
         this.known = assets.manager.get(AssetsConstants.SKILL_ASSIGNED);
         this.selectedSlot = assets.manager.get(AssetsConstants.SKILL_SELECTED_SLOT);
         this.selectedFrame = assets.manager.get(AssetsConstants.SKILL_SELECTED_FRAME);
+        this.reqBar = assets.manager.get(AssetsConstants.REQ_BAR);
+        this.skillDes = assets.manager.get(AssetsConstants.SKILL_DESCRIPTION);
+        this.passive = assets.manager.get(AssetsConstants.PASSIVE_SKILL);
+
         font = new BitmapFont();
         this.spellBook = player.getSpellBook();
         map = new HashMap<>();
@@ -47,7 +57,7 @@ public class SkillGUI extends AbstractGUI {
     }
 
     private void initMap() {
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 36; i++) {
             map.put(i,false);
         }
     }
@@ -56,55 +66,60 @@ public class SkillGUI extends AbstractGUI {
     public void draw(SpriteBatch batch) {
         super.draw(batch);
         if (isEnabled) {
-            int scope = index / 4;
+            int scope = index / 6;
             final List<Skill> spells = spellBook.getSpells();
             for (int i = 0; i < spells.size(); i++) {
-                batch.draw(spells.get(i).getTexture(),x + 40 + (i * 176) - (176 * 4 * (i/4)), y + 510 - ((i/4) * 132));
-                font.draw(batch,spells.get(i).getName(),x + 90 + (i * 176) - (176 * 4 * (i/4)), y + 535 - ((i/4) * 132));
+                Texture textureToRender = spells.get(i).getTexture();
+                batch.draw(textureToRender,x + 60 + (i * 176) - (176 * 6 * (i/6)), y + 764 - ((i/6) * 132),
+                        textureToRender.getWidth() * 1.5f,textureToRender.getHeight() * 1.5f);
                 if (map.get(i)) {
-                    batch.draw(known, x + 36 + (i * 176) - (176 * 4 * (i/4)),
-                            y + 440 - ((i/4) * 132), known.getWidth() * 4,
-                            known.getHeight() * 4);
+                    Texture texture = spells.get(i) instanceof Passive ? passive : known;
+                    batch.draw(texture, x + 36 + (i * 176) - (176 * 6 * (i/6)),
+                            y + 704 - ((i/6) * 132), texture.getWidth() * 4,
+                            texture.getHeight() * 4);
                 }
             }
-            batch.draw(selectedFrame, x + 36 + (index * 176) - (176 * 4 * scope),
-                    y + 440 - (scope * 132), selectedFrame.getWidth() * 4,
+            batch.draw(selectedFrame, x + 36 + (index * 176) - (176 * 6 * scope),
+                    y + 704 - (scope * 132), selectedFrame.getWidth() * 4,
                     selectedFrame.getHeight() * 4);
             if (inside) {
-                batch.draw(selectedSlot,x + 424 + (insideIndex * 100),y + 576,
+                batch.draw(selectedSlot,x - 348 + (insideIndex * 100),y + 10,
                         selectedSlot.getWidth() * 4, selectedSlot.getHeight() *4);
             }
-            for (int i = 0; i < 3; i++) {
-                final Skill bindedSkill = spellBook.getBindedSkill(i);
-                if (bindedSkill != null) {
-                    batch.draw(bindedSkill.getTexture(),x + 440 + (i*100), y + 592, 64,64);
-                }
-            }
+
+            drawDescription(batch, spells);
+
             font.draw(batch,"Skill points : " + player.getSkillPoints(), x + 250, y + 650);
 
-            final List<String> description = spells.get(index).getDescription();
-            for (int i = 1; i < description.size(); i++)
-                font.draw(batch, description.get(i), x + 50, y + 690 - (i * 20));
+            batch.draw(reqBar, x+1102, y+38, reqBar.getWidth() * 4, reqBar.getHeight() * 4);
+
+
         }
+    }
+
+    private void drawDescription(Batch batch, List<Skill> spells) {
+        batch.draw(skillDes,x - 350,y + 130,skillDes.getWidth()*4,skillDes.getHeight()*4);
+        final List<String> description = spells.get(index).getDescription();
+        for (int i = 0; i < description.size(); i++)
+            font.draw(batch, description.get(i), x - 300, y + 290 - (i * 20));
+        batch.draw(spells.get(index).getTexture(),x - 230 ,y + 330);
     }
 
     public void moveUp() {
         if (!inside) {
-            index = index < 4 ? index : index - 4;
+            index = index < 6 ? index : index - 6;
         }
     }
 
     public void moveDown() {
         if (!inside) {
-            index = index > 11 ? index : index + 4;
+            index = index > 29 ? index : index + 6;
         }
     }
 
     public void moveLeft() {
         if (!inside) {
-            index = index == 0 || index == 4
-                    || index == 8 || index == 12
-                    ? index : index - 1;
+            index = index != 0 ? index - 1 : index;
         } else {
             insideIndex = insideIndex == 0
                     ? insideIndex : insideIndex - 1;
@@ -113,9 +128,7 @@ public class SkillGUI extends AbstractGUI {
 
     public void moveRight() {
         if (!inside) {
-            index = index == 3 ||index == 7 ||
-                    index == 11 || index == 15
-                    ? index : index + 1;
+            index = index != 35 ? index + 1 : index;
         } else {
             insideIndex = insideIndex == 2
                     ? insideIndex : insideIndex + 1;
@@ -124,12 +137,20 @@ public class SkillGUI extends AbstractGUI {
 
     public void enter() {
         if (!inside) {
+            skill = spellBook.getSpells().get(index);
             if (!map.get(index)) {
                 if (player.getSkillPoints() > 0) {
                     player.setSkillPoints(player.getSkillPoints() - 1);
                     map.put(index,true);
+
+                    if (skill instanceof Passive) {
+                        gainPassiveBonus((Passive) skill);
+                    }
                 }
             } else {
+                if (skill instanceof Passive) {
+                    return;
+                }
                 inside = true;
             }
 
@@ -142,6 +163,24 @@ public class SkillGUI extends AbstractGUI {
             }
             spellBook.bindSkill(spellBook.getSpells().get(index),insideIndex);
             inside = false;
+        }
+    }
+
+    private void gainPassiveBonus(Passive skill) {
+        skill.setActive(true);
+        switch (skill.getType()) {
+            case STRENGTH:
+                player.setStrength(player.getStrength() + skill.getAmount());
+                break;
+            case DEXTERITY:
+                player.setDexterity(player.getDexterity() + skill.getAmount());
+                break;
+            case VITALITY:
+                player.setVitality(player.getVitality() + skill.getAmount());
+                break;
+            case ENERGY:
+                player.setEnergy(player.getEnergy() + skill.getAmount());
+                break;
         }
     }
 }

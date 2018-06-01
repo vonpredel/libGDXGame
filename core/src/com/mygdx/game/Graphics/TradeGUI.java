@@ -1,6 +1,7 @@
 package com.mygdx.game.Graphics;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Player;
@@ -93,14 +94,12 @@ public class TradeGUI extends AbstractGUI {
             else batch.draw(sellButton, x + 714, y + 366);
         }
 
-        batch.draw(goldInfoTexture,x+415,y+490);
-        font.draw(batch, String.valueOf(player.getGold()), x + 485, y + 530);
-
-        drawDescription();
+        drawDescription(batch);
     }
 
-    private void drawDescription() {
-        
+    private void drawDescription(Batch batch) {
+        batch.draw(goldInfoTexture,x+415,y+490);
+        font.draw(batch, String.valueOf(player.getGold()), x + 485, y + 530);
     }
 
     @Override

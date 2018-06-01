@@ -19,6 +19,8 @@ import com.mygdx.game.Zones.WorldGenerator;
 import com.mygdx.game.quests.QuestsContainer;
 import com.mygdx.game.quests.QuestsManager;
 
+import sun.java2d.opengl.WGLSurfaceData;
+
 public class Game extends ApplicationAdapter {
 
     private Assets assets;
@@ -130,6 +132,7 @@ public class Game extends ApplicationAdapter {
         World.getControlsAndGUIsHandler().update();
         World.getItemsContainer().update();
         World.getEntitiesContainer().update();
+        World.getSkillsContainer().update();
     }
 
 

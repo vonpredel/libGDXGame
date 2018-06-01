@@ -53,6 +53,10 @@ public final class AssetsConstants {
     public static final String SELL_BUTTON = "tradeGUI/sellButton.png";
     public static final String BUY_BUTTON = "tradeGUI/buyButton.png";
     public static final String GOLD_INFO = "inv/goldInfo.png";
+    public static final String SPELL_BOOK_BETA = "spellBook/spellBookBeta.png";
+    public static final String REQ_BAR = "spellBook/reqBar.png";
+    public static final String SKILL_DESCRIPTION = "spellBook/skillDes.png";
+    public static final String PASSIVE_SKILL = "spellBook/passiv.png";
 
     private AssetsConstants() {
 

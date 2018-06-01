@@ -16,7 +16,7 @@ public class KillQuest extends Quest {
 
     @Override
     public String getProgressStatus() {
-        return type + " | " + amountCounter + " / " + requiredAmount;
+        return type.toString().replace("_"," ").toLowerCase() + " | " + amountCounter + " / " + requiredAmount;
     }
 
     public EntityType getType() {

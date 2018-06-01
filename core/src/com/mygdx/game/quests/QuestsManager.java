@@ -45,6 +45,7 @@ public class QuestsManager extends BaseManager<Quest, QuestType, QuestsContainer
         setDescriptionAndDialogues(values[2], quest);
         quest.setRewards(createItemsList(values[3]));
         quest.setExpReward(Integer.parseInt(values[4]));
+        quest.setGoldReward(Integer.parseInt(values[5]));
     }
 
     @Override
@@ -58,16 +59,16 @@ public class QuestsManager extends BaseManager<Quest, QuestType, QuestsContainer
         this.creators.put(KillQuest.class, values -> {
             final KillQuest killQuest = new KillQuest();
             setQuestBasics(values, killQuest);
-            killQuest.setType(EntityType.valueOf(values[5]));
-            killQuest.setRequiredAmount(Integer.parseInt(values[6]));
+            killQuest.setType(EntityType.valueOf(values[6]));
+            killQuest.setRequiredAmount(Integer.parseInt(values[7]));
             return killQuest;
         });
 
         this.creators.put(CollectQuest.class, values -> {
             final CollectQuest collectQuest = new CollectQuest();
             setQuestBasics(values, collectQuest);
-            collectQuest.setItemType(ItemType.valueOf(values[5]));
-            collectQuest.setRequiredAmount(Integer.parseInt(values[6]));
+            collectQuest.setItemType(ItemType.valueOf(values[6]));
+            collectQuest.setRequiredAmount(Integer.parseInt(values[7]));
             return collectQuest;
         });
 

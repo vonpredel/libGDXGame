@@ -28,7 +28,7 @@ public class SkillsManager extends BaseManager<Skill, SkillType, SkillsContainer
             return aoeDamage;
         });
         this.creators.put(Passive.class, values -> {
-            final Passive passive = new Passive(values[0]);
+            final Passive passive = new Passive(values[0],Passive.Type.valueOf(values[2]),Integer.parseInt(values[3]));
             passive.texture = this.assets.manager.get(values[1], Texture.class);
             return passive;
         });

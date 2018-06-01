@@ -18,6 +18,7 @@ public abstract class Quest implements Updateable {
     private List<String> dialogues;
     private List<Item> rewards;
     private int expReward;
+    private int goldReward;
 
     private Status status = Status.NONTAKEN;
     private Grade grade;
@@ -44,7 +45,9 @@ public abstract class Quest implements Updateable {
         rewards.forEach(r -> r.generateOnMap(tile.x,tile.y));
         rewards.clear();
         status = Status.DONE;
-        World.getPlayer().getQuestHandler().getQuestList().remove(this);
+        player.setGold(player.getGold() + goldReward);
+        player.getQuestHandler().getQuestList().remove(this);
+
     }
 
     protected void assignTexture() {
@@ -124,6 +127,14 @@ public abstract class Quest implements Updateable {
 
     public void setGrade(Grade grade) {
         this.grade = grade;
+    }
+
+    public int getGoldReward() {
+        return goldReward;
+    }
+
+    public void setGoldReward(int goldReward) {
+        this.goldReward = goldReward;
     }
 
     public enum Status {
