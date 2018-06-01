@@ -46,6 +46,9 @@ public abstract class BaseManager<CLS extends Updateable, ENUM extends Enum<ENUM
         final String[] fileLines = this.getLines(this.assets.manager.get(fileName, TextFile.class));
         for (final String fileLine : fileLines) {
             final String[] values = this.getValues(fileLine);
+            for (int i = 1; i < values.length; i++) {
+                values[i] = values[i].replace(" ","");
+            }
             this.rawValues.put(nameProvider.apply(values), values);
         }
     }

@@ -1,6 +1,7 @@
-Mana Regeneration,skills/manaRegen.png,MANA,1
-Health Regeneration,skills/healthRegen.png,HEALTH,1
-Hardiness,skills/strBuff.png,STRENGTH,10
-Quickness,skills/dexBuff.png,DEXTERITY,10
-Endurance,skills/vitBuff.png,VITALITY,10
-Expansive Mind,skills/eneBuff.png,ENERGY,10
+NAME                     ;TEXTURE                   ;TYPE        ;AMOUNT
+Mana Regeneration,       skills/manaRegen.png,      MANA,        1
+Health Regeneration,     skills/healthRegen.png,    HEALTH,      1
+Hardiness,               skills/strBuff.png,        STRENGTH,    10
+Quickness,               skills/dexBuff.png,        DEXTERITY,   10
+Endurance,               skills/vitBuff.png,        VITALITY,    10
+Expansive Mind,          skills/eneBuff.png,        ENERGY,      10

@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Armor extends Item {
-    protected int armorSlot;
+    protected Slot armorSlot;
 
     protected int defence;
     protected int movementSpeedReduction;
 
-    public Armor(String name, int price, int armorSlot, int defence, int movementSpeedReduction) {
+    public Armor(String name, int price, Slot armorSlot, int defence, int movementSpeedReduction) {
         super(name, price);
         this.armorSlot = armorSlot;
         this.defence = defence;
@@ -23,15 +23,15 @@ public class Armor extends Item {
         description.add(name);
         description.add("Defence : " + defence);
         description.add("Movement speed reduction : " + movementSpeedReduction);
-        description.add("Armor class : " + getArmorClassToString());
+        description.add("Armor class : " + String.valueOf(armorSlot).toLowerCase());
         return description;
     }
 
-    public int getArmorSlot() {
+    public Slot getArmorSlot() {
         return armorSlot;
     }
 
-    public void setArmorSlot(int armorSlot) {
+    public void setArmorSlot(Slot armorSlot) {
         this.armorSlot = armorSlot;
     }
 
@@ -51,16 +51,7 @@ public class Armor extends Item {
         this.movementSpeedReduction = movementSpeedReduction;
     }
 
-    public String getArmorClassToString() {
-        switch (armorSlot) {
-            case 0:
-                return "Chest";
-            case 1:
-                return "Shield";
-            case 2:
-                return "Helmet";
-            default:
-                return "ERROR";
-        }
+    public enum Slot {
+        CHEST,SHIELD,HELMET
     }
 }

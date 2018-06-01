@@ -1,7 +1,8 @@
-Lesser Potion Of Health,potions/potionRed.png,99999,0
-Potion Of Health,potions/potionRed2.png,99999,1
-Lesser Potion Of Stamina,potions/potionGreen.png,99999,2
-Potion Of Stamina,potions/potionGreen2.png,99999,3
-Lesser Potion Of Mana,potions/potionBlue.png,99999,4
-Potion Of Mana,potions/potionBlue2.png,99999,5
-Potion Of Something,potions/potionOrange.png,99999,6
+NAME                        ;TEXTURE                   ;PRICE   ;FUNCTION
+Lesser Potion Of Health,    potions/potionRed.png,     99999,   0
+Potion Of Health,           potions/potionRed2.png,    99999,   1
+Lesser Potion Of Stamina,   potions/potionGreen.png,   99999,   2
+Potion Of Stamina,          potions/potionGreen2.png,  99999,   3
+Lesser Potion Of Mana,      potions/potionBlue.png,    99999,   4
+Potion Of Mana,             potions/potionBlue2.png,   99999,   5
+Potion Of Something,        potions/potionOrange.png,  99999,   6

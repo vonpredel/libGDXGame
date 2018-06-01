@@ -1,5 +1,6 @@
 package com.mygdx.game.Skills.types;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.NonStatics.NonStatic;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Skills.Skill;
@@ -13,8 +14,9 @@ import java.util.Map;
 import java.util.Random;
 
 public class TargetDamage extends Skill {
-    private int targets;
 
+    private boolean magic;
+    private int targets;
     private int damage;
     private int manaCost;
     private int range;
@@ -22,8 +24,9 @@ public class TargetDamage extends Skill {
 
     private Random random;
 
-    public TargetDamage(String name, int targets, int damage, int manaCost, int range, TargetType targetType) {
+    public TargetDamage(String name, boolean magic, int targets, int damage, int manaCost, int range, TargetType targetType) {
         super(name);
+        this.magic = magic;
         this.targets = targets;
         this.damage = damage;
         this.manaCost = manaCost;
@@ -37,6 +40,10 @@ public class TargetDamage extends Skill {
         final Player player = World.getPlayer();
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
+        if (!magic) {
+            damage = MathUtils.random(player.getMinDamage(), player.getMaxDamage());
+            range = player.getRange();
+        }
         final List<Tile> nearbyTiles = World.getNearbyTilesSquare(range, World.getPlayer());
         final Map<Integer, NonStatic> entitiesFromTiles = World.getNonStaticsFromTiles(nearbyTiles);
         if (entitiesFromTiles.isEmpty()) return;
@@ -84,6 +91,7 @@ public class TargetDamage extends Skill {
         description.add("Mana Cost" + " : " + manaCost);
         description.add("Damage" + " : " + damage);
         description.add("Range" + " : " + range);
+        description.add("Magic" + " : " + magic);
         description.add("Targets" + " : " + targets);
         description.add("Target Type" + " : " + targetType);
         return description;

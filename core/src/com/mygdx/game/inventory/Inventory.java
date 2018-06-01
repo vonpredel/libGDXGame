@@ -69,7 +69,7 @@ public class Inventory {
 
     public void equipArmor(Armor armor) {
         switch (armor.getArmorSlot()) {
-            case ARMOR:
+            case CHEST:
                 if(equipedArmor!=null) items.add(equipedArmor);
                 this.equipedArmor = armor;
                 break;

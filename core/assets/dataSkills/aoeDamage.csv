@@ -1,8 +1,9 @@
-Fire Nova,skills/fireNova.png,true,10,40,4,SQUARE
-Whirlind,skills/whirlind.png,false,0,30,0,SQUARE
-Test Spell One,items/noWeapon.png,true,60,2,4,SQUARE
-Test Spell Two,items/noWeapon.png,true,1,2,2,CROSS
-Test Spell Thr,items/noWeapon.png,true,1,2,3,CROSS
-Test Spell For,items/noWeapon.png,true,1,2,4,CROSS
-Test Spell Fiv,items/noWeapon.png,true,1,2,2,CIRCLE
-Test Spell Six,items/noWeapon.png,true,1,2,4,CIRCLE
+NAME             ;TEXTURE               ;MAGIC    ;DAMAGE  ;MANA_COST  ;RANGE  ;SHAPE
+Fire Nova,       skills/fireNova.png,   true,     10,      40,         4,      SQUARE
+Whirlind,        skills/whirlind.png,   false,    0,       30,         0,      SQUARE
+Test Spell One,  items/noWeapon.png,    true,     60,      2,          4,      SQUARE
+Test Spell Two,  items/noWeapon.png,    true,     1,       2,          2,      CROSS
+Test Spell Thr,  items/noWeapon.png,    true,     1,       2,          3,      CROSS
+Test Spell For,  items/noWeapon.png,    true,     1,       2,          4,      CROSS
+Test Spell Fiv,  items/noWeapon.png,    true,     1,       2,          2,      CIRCLE
+Test Spell Six,  items/noWeapon.png,    true,     1,       2,          4,      CIRCLE

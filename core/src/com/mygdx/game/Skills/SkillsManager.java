@@ -38,8 +38,8 @@ public class SkillsManager extends BaseManager<Skill, SkillType, SkillsContainer
             return heal;
         });
         this.creators.put(TargetDamage.class, values -> {
-            final TargetDamage targetDamage = new TargetDamage(values[0], Integer.parseInt(values[2]), Integer.parseInt(values[3]),
-                    Integer.parseInt(values[4]), Integer.parseInt(values[5]), TargetDamage.TargetType.valueOf(values[6]));
+            final TargetDamage targetDamage = new TargetDamage(values[0],Boolean.parseBoolean(values[2]), Integer.parseInt(values[3]), Integer.parseInt(values[4]),
+                    Integer.parseInt(values[5]), Integer.parseInt(values[6]), TargetDamage.TargetType.valueOf(values[7]));
             targetDamage.texture = this.assets.manager.get(values[1], Texture.class);
             return targetDamage;
         });

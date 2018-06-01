@@ -1,2 +1,3 @@
-Quester,misc/player.png,TEST_KILL_QUEST
-Quester2,misc/player.png,TEST_COLLECT_QUEST
+NAME           ;TEXTURE                ;QUEST
+Quester,       misc/player.png,        TEST_KILL_QUEST
+Quester2,      misc/player.png,        TEST_COLLECT_QUEST

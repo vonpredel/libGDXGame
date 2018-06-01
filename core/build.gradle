@@ -155,7 +155,7 @@ class GenerateTask extends DefaultTask {
         def actualEnums = []
         fileMap.each { k, v ->
             def file = new File(k).text
-            def enums = file.split("\\n").collect { l ->
+            def enums = file.split("\\n").drop(1).collect { l ->
                 def line = l.split ','
                 line[0].toUpperCase().replace ' ', '_'
             }

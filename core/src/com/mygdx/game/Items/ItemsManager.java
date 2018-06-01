@@ -30,7 +30,7 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
             return weapon;
         });
         this.creators.put(Armor.class, values -> {
-            final Armor armor = new Armor(values[0], Integer.parseInt(values[2]), Integer.parseInt(values[3]),
+            final Armor armor = new Armor(values[0], Integer.parseInt(values[2]), Armor.Slot.valueOf(values[3]),
                     Integer.parseInt(values[4]), Integer.parseInt(values[5]));
             armor.texture = this.assets.manager.get(values[1], Texture.class);
             return armor;
