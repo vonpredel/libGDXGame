@@ -110,7 +110,7 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
         });
 
         this.creators.put(Enemy.class, values -> {
-            final Enemy enemy = new Enemy();
+            final Enemy enemy = new Enemy(Float.parseFloat(values[9]));
 
             this.loadNameAndTexture(values[0],values[1],enemy);
             this.loadStatistics(values,enemy);

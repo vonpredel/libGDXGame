@@ -169,11 +169,35 @@ public abstract class NonStatic extends Entity {
         }
     }
 
+    public void moveDirection(int direction) {
+        switch (direction) {
+            case World.RIGHT:
+                moveRight();
+                break;
+            case World.LEFT:
+                moveLeft();
+                break;
+            case World.UP:
+                moveUp();
+                break;
+            case World.DOWN:
+                moveDown();
+                break;
+        }
+    }
+
     private void moveInit(int direction) {
         this.movementDirection = direction;
         this.lastX = this.getCurrentTile().x;
         this.lastY = this.getCurrentTile().y;
         this.destination = World.getSingleTargetDirectionTile(this, direction);
+    }
+
+    public void moveInitToDestinationTile(Tile destination) {
+        this.isMoving = true;
+        this.lastX = this.getCurrentTile().x;
+        this.lastY = this.getCurrentTile().y;
+        this.destination = destination;
     }
 
     private void moveUpdate() {
@@ -183,6 +207,10 @@ public abstract class NonStatic extends Entity {
             this.destination = null;
             this.isMoving = false;
             this.idleTimeHelper = 0.0f;
+            if (this instanceof Enemy) {
+                Enemy enemy = (Enemy) this;
+                movementSpeed = enemy.getDefaultMovementSpeed();
+            }
             return;
         }
 
@@ -443,6 +471,10 @@ public abstract class NonStatic extends Entity {
         int diff = this.maxStaminaPoints - this.currentStaminaPoints;
         this.maxStaminaPoints = maxStaminaPoints;
         this.currentStaminaPoints = maxStaminaPoints - diff;
+    }
+
+    public void setDestination(Tile destination) {
+        this.destination = destination;
     }
 
     public void setAttacking(boolean attacking) {

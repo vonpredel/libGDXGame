@@ -15,12 +15,12 @@ import java.util.Random;
 
 public class TargetDamage extends Skill {
 
-    private boolean magic;
-    private int targets;
-    private int damage;
-    private int manaCost;
-    private int range;
-    private TargetType targetType;
+    protected boolean magic;
+    protected int targets;
+    protected int damage;
+    protected int manaCost;
+    protected int range;
+    protected TargetType targetType;
 
     private Random random;
 
@@ -40,14 +40,12 @@ public class TargetDamage extends Skill {
         final Player player = World.getPlayer();
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
-        if (!magic) {
-            damage = MathUtils.random(player.getMinDamage(), player.getMaxDamage());
-            range = player.getRange();
-        }
+        int damageToDeal = magic ? damage
+                : MathUtils.random(player.getMinDamage(), player.getMaxDamage())*damage;
         final List<Tile> nearbyTiles = World.getNearbyTilesSquare(range, World.getPlayer());
         final Map<Integer, NonStatic> entitiesFromTiles = World.getNonStaticsFromTiles(nearbyTiles);
         if (entitiesFromTiles.isEmpty()) return;
-        determinateTargets(entitiesFromTiles).forEach(ns -> ns.hurt(damage));
+        determinateTargets(entitiesFromTiles).forEach(ns -> ns.hurt(damageToDeal));
     }
 
     private Collection<NonStatic> determinateTargets(Map<Integer, NonStatic> entitiesFromTiles) {
@@ -89,7 +87,8 @@ public class TargetDamage extends Skill {
         List<String> description = new ArrayList<>();
         description.add(getName());
         description.add("Mana Cost" + " : " + manaCost);
-        description.add("Damage" + " : " + damage);
+        String damageStr = magic ? "Damage " : "Damage Multiplier ";
+        description.add(damageStr + " : " + damage);
         description.add("Range" + " : " + range);
         description.add("Magic" + " : " + magic);
         description.add("Targets" + " : " + targets);

@@ -3,6 +3,7 @@ package com.mygdx.game.Skills;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Skills.types.AoeDamage;
 import com.mygdx.game.Skills.types.Heal;
+import com.mygdx.game.Skills.types.MovingSkill;
 import com.mygdx.game.Skills.types.Passive;
 import com.mygdx.game.Skills.types.TargetDamage;
 import com.mygdx.game.Utils.BaseManager;
@@ -43,11 +44,19 @@ public class SkillsManager extends BaseManager<Skill, SkillType, SkillsContainer
             targetDamage.texture = this.assets.manager.get(values[1], Texture.class);
             return targetDamage;
         });
+        // TEMP
+        this.creators.put(MovingSkill.class, values -> {
+            final MovingSkill movingSkill = new MovingSkill(values[0],Integer.parseInt(values[2]), Integer.parseInt(values[3]), MovingSkill.Type.valueOf(values[4]),
+                    Integer.parseInt(values[5]), Boolean.parseBoolean(values[6]));
+            movingSkill.texture = this.assets.manager.get(values[1], Texture.class);
+            return movingSkill;
+        });
 
         this.loadFile("dataSkills/aoeDamage.csv", values -> values[0]);
         this.loadFile("dataSkills/passive.csv", values -> values[0]);
         this.loadFile("dataSkills/heal.csv", values -> values[0]);
         this.loadFile("dataSkills/targetDamage.csv", values -> values[0]);
+        this.loadFile("dataSkills/movingSkill.csv", values -> values[0]);
 
     }
 }

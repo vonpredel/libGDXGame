@@ -32,13 +32,11 @@ public class AoeDamage extends Skill {
         final Player player = World.getPlayer();
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
-        if (!magic) {
-            damage = MathUtils.random(player.getMinDamage(), player.getMaxDamage());
-            range = player.getRange();
-        }
+        int damageToDeal = magic ? damage
+                : MathUtils.random(player.getMinDamage(), player.getMaxDamage())*damage;
         final List<Tile> nearbyTiles = determinateTiles(shape);
         nearbyTiles.forEach(Tile::setHitted);
-        World.getNonStaticsFromTiles(nearbyTiles).forEach((integer, nonStatic) -> nonStatic.hurt(damage));
+        World.getNonStaticsFromTiles(nearbyTiles).forEach((integer, nonStatic) -> nonStatic.hurt(damageToDeal));
     }
 
     private List<Tile> determinateTiles(Shape shape) {
@@ -59,7 +57,8 @@ public class AoeDamage extends Skill {
         List<String> description = new ArrayList<>();
         description.add(getName());
         description.add("Mana Cost" + " : " + manaCost);
-        description.add("Damage" + " : " + damage);
+        String damageStr = magic ? "Damage " : "Damage Multiplier ";
+        description.add(damageStr + " : " + damage);
         description.add("Range" + " : " + range);
         description.add("Magic" + " : " + magic);
         description.add("Shape" + " : " + shape);

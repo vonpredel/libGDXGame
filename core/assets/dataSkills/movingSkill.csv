@@ -1,0 +1,8 @@
+NAME             ;TEXTURE                   ;DAMAGE   ;MANA_COST ;TYPE     ;RANGE   ;magic
+Charge,          skills/charge.png,         1,        5,         CHARGE,   5,       false
+Pull,            skills/pull.png,           0,        3,         PULL,     5,       true
+Psychic Hammer,  skills/psychicHammer.png,  5,        5,         PUSH,     3,       true
+Rock Throw,      skills/rockThrow.png,      15,       20,        PUSH,     3,       true
+Bash,            skills/bash.png,           1,        10,        PUSH,     1,       false
+Warp,            skills/warp.png,           0,        10,        WARP,     4,       true
+Ambush,          skills/ambush.png,         2,        30,        WARP,     5,       false

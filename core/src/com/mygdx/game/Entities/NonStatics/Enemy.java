@@ -8,6 +8,13 @@ public class Enemy extends NonStatic {
     private AILogic.AIType aiType;
     private int experience;
 
+    private float defaultMovementSpeed;
+
+    public Enemy(float movementSpeed) {
+        this.setMovementSpeed(movementSpeed);
+        defaultMovementSpeed = getMovementSpeed();
+    }
+
     @Override
     public void ai() {
         if (this.aiType != null) {
@@ -25,6 +32,10 @@ public class Enemy extends NonStatic {
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    public float getDefaultMovementSpeed() {
+        return defaultMovementSpeed;
     }
 
     @Override

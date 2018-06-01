@@ -8,10 +8,10 @@ public final class PathFinding {
 
     private static final int TOTAL_WIDTH = World.getWorldWidth() * World.getCurrentZoneWidth();
 
-    public static final int UP = 0;
-    public static final int DOWN = 1;
-    public static final int LEFT = 2;
-    public static final int RIGHT = 3;
+    public static final int UP = 1;
+    public static final int DOWN = 2;
+    public static final int LEFT = 3;
+    public static final int RIGHT = 4;
 
     public static int findPath(int position, int target) {
         int odds = position - target;

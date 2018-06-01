@@ -4,3 +4,5 @@ Star Fall,       skills/starFall.png,   true,     10,       5,       5,         
 Shock,           skills/shock.png,      true,     1,        5,       2,          3,     RANDOM
 Lighting,        skills/lighting.png,   true,     1,        20,      10,         7,     RANDOM
 Earthquake,      skills/earthquake.png, true,     6,        10,      10,         4,     CLOSEST
+Power Strike,    skills/powerStrike.png,false,    1,        2,       10,         1,     CLOSEST
+Great Throw,     skills/greatThrow.png, false,    1,        1,       8,          3,     RANDOM
