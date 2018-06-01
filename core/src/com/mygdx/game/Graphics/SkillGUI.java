@@ -177,9 +177,12 @@ public class SkillGUI extends AbstractGUI {
                 break;
             case VITALITY:
                 player.setVitality(player.getVitality() + skill.getAmount());
+                player.setMaxHealthPoints(player.getMaxHealthPoints() + (5) * skill.getAmount());
                 break;
             case ENERGY:
                 player.setEnergy(player.getEnergy() + skill.getAmount());
+                player.setMaxStaminaPoints(player.getMaxStaminaPoints() + (2) * skill.getAmount());
+                player.setMaxManaPoints(player.getMaxManaPoints() + skill.getAmount());
                 break;
         }
     }
