@@ -2,6 +2,7 @@ package com.mygdx.game.Utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Entities.Npc.Merchant;
 import com.mygdx.game.World.World;
 import com.mygdx.game.quests.QuestType;
@@ -43,12 +44,22 @@ public final class Debugger {
                 World.getPlayer().getQuestHandler().addQuest(World.getQuestsManager().create(QuestType.TEST_COLLECT_QUEST2));
             }
             if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
-                World.getControlsAndGUIsHandler().tradeGUI.updateTextureType(Merchant.MerchantType.BLACKSMITH);
-                World.getControlsAndGUIsHandler().setTradeState();
-                World.getControlsAndGUIsHandler().tradeGUI.isEnabled = true;
+//                World.getControlsAndGUIsHandler().tradeGUI.updateTextureType(Merchant.MerchantType.BLACKSMITH);
+//                World.getControlsAndGUIsHandler().setTradeState();
+//                World.getControlsAndGUIsHandler().tradeGUI.isEnabled = true;
             }
-            if(Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-                World.getPlayer().setPointsToSpend(100);
+            if(Gdx.input.isKeyPressed(Input.Keys.NUM_9)) {
+                Player player = World.getPlayer();
+                player.setPointsToSpend(1000);
+                player.setSkillPoints(50);
+                player.setStrength(200);
+                player.setDexterity(200);
+                player.setEnergy(200);
+                player.setVitality(200);
+                player.setMaxManaPoints(1000);
+                player.setMaxHealthPoints(1000);
+                player.setMaxStaminaPoints(1000);
+                player.setExperience(10000000);
             }
             if(Gdx.input.isKeyPressed(Input.Keys.NUM_0)) {
                 PathFinding.test(World.getPlayer());

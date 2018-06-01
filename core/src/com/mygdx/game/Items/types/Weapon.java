@@ -27,7 +27,7 @@ public class Weapon extends Item {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(5);
         description.add(name);
         description.add("Damage : " + minDamage + " - " + maxDamage);
         description.add("Accuracy : " + accuracy + " | " + "Speed : " + speed);

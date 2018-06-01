@@ -19,7 +19,7 @@ public class Armor extends Item {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(4);
         description.add(name);
         description.add("Defence : " + defence);
         description.add("Movement speed reduction : " + movementSpeedReduction);

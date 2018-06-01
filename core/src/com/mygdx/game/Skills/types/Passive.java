@@ -28,7 +28,7 @@ public class Passive extends Skill {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(2);
         description.add(getName());
         if (type.equals(Type.HEALTH) || type.equals(Type.MANA)) {
             description.add("Regenerates " + amount + " " + String.valueOf(type).toLowerCase() + " per Second");

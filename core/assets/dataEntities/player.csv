@@ -1,2 +1,2 @@
 NAME      ;TEXTURE               ;STR  ;DEX  ;VIT  ;ENE  ;MAXHP  ;MAXST  ;MAXMANA  ;MOV_SPEED  ;INVENTORY
-Player,   characters/player.png, 0,    0,    0,    0,    30,     100,    500,      5,          NULL|NULL|NULL|NULL|WOODEN_SWORD|BOW|GOLDEN_WAND|POTION_OF_HEALTH|MAP|MISCE_MISCE|GOLD
+Player,   characters/player.png, 0,    0,    0,    0,    30,     100,    10,       5,          NULL|NULL|NULL|NULL|WOODEN_SWORD|BOW|GOLDEN_WAND|POTION_OF_HEALTH|MAP|MISCE_MISCE|GOLD

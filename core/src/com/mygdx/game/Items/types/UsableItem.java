@@ -16,7 +16,7 @@ public class UsableItem extends Item {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(2);
         description.add(name);
         description.add(InventoryAction.getDescriptionForItemBasedByFunction(function));
         return description;

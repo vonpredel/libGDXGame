@@ -45,7 +45,10 @@ public class TargetDamage extends Skill {
         final List<Tile> nearbyTiles = World.getNearbyTilesSquare(range, World.getPlayer());
         final Map<Integer, NonStatic> entitiesFromTiles = World.getNonStaticsFromTiles(nearbyTiles);
         if (entitiesFromTiles.isEmpty()) return;
-        determinateTargets(entitiesFromTiles).forEach(ns -> ns.hurt(damageToDeal));
+        determinateTargets(entitiesFromTiles).forEach(ns -> {
+            ns.hurt(damageToDeal);
+            World.getTileByPosition(World.getCurrentEntityPosition(ns)).setHitted();
+        });
     }
 
     private Collection<NonStatic> determinateTargets(Map<Integer, NonStatic> entitiesFromTiles) {
@@ -84,7 +87,7 @@ public class TargetDamage extends Skill {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(7);
         description.add(getName());
         description.add("Mana Cost" + " : " + manaCost);
         String damageStr = magic ? "Damage " : "Damage Multiplier ";

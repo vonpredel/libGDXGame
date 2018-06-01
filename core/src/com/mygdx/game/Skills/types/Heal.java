@@ -31,7 +31,7 @@ public class Heal extends Skill{
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(3);
         description.add(getName());
         description.add("Mana Cost" + " : " + manaCost);
         description.add("Amount" + " : " + amount);

@@ -37,7 +37,7 @@ public class MovingSkill extends Skill {
         final Player player = World.getPlayer();
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
-        final List<Tile> nearbyTiles = World.getNearbyTilesSquare(range, World.getPlayer());
+        final List<Tile> nearbyTiles = World.getNearbyTilesCross(range, World.getPlayer());
         final Map<Integer, NonStatic> entitiesFromTiles = World.getNonStaticsFromTiles(nearbyTiles);
         if (entitiesFromTiles.isEmpty()) return;
         List<Integer> keys = new ArrayList<>(entitiesFromTiles.keySet());
@@ -103,6 +103,7 @@ public class MovingSkill extends Skill {
                 break;
         }
         nonStatic.hurt(damageToDeal);
+        World.getTileByPosition(targetPosition).setHitted();
     }
 
     @Override
@@ -114,7 +115,7 @@ public class MovingSkill extends Skill {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(6);
         description.add(getName());
         description.add("Mana Cost" + " : " + manaCost);
         String damageStr = magic ? "Damage " : "Damage Multiplier ";

@@ -54,7 +54,7 @@ public class AoeDamage extends Skill {
 
     @Override
     public List<String> getDescription() {
-        List<String> description = new ArrayList<>();
+        List<String> description = new ArrayList<>(6);
         description.add(getName());
         description.add("Mana Cost" + " : " + manaCost);
         String damageStr = magic ? "Damage " : "Damage Multiplier ";
