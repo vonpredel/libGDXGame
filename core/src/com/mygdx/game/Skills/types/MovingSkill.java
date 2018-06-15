@@ -20,8 +20,6 @@ public class MovingSkill extends Skill {
     private int range;
     private boolean magic;
 
-    private float storageSpeed;
-
     public MovingSkill(String name, int damage, int manaCost, Type type, int range, boolean magic) {
         super(name);
         this.damage = damage;
@@ -29,12 +27,12 @@ public class MovingSkill extends Skill {
         this.type = type;
         this.range = range;
         this.magic = magic;
-        this.storageSpeed = World.getPlayer().getMovementSpeed();
     }
 
     @Override
     public void use() {
         final Player player = World.getPlayer();
+        if (player.isMoving()) return;
         if (player.getCurrentManaPoints() < manaCost || player.isAttacking()) return;
         player.setCurrentManaPoints(player.getCurrentManaPoints() - manaCost);
         final List<Tile> nearbyTiles = World.getNearbyTilesCross(range, World.getPlayer());
@@ -63,13 +61,13 @@ public class MovingSkill extends Skill {
                     break;
                 }
 
-                nonStatic.setMovementSpeed(500);
+                nonStatic.setMovementSpeed(10);
                 nonStatic.moveInitToDestinationTile(singleTargetDirectionTile);
                 break;
             case PUSH:
                 path = PathFinding.findPath(playerPosition, targetPosition);
                 final List<Tile> targetDirectionTiles = World.getTargetDirectionTiles(nonStatic, path, 5 - range);
-                nonStatic.setMovementSpeed(500);
+                nonStatic.setMovementSpeed(10);
                 for (int i = targetDirectionTiles.size() - 1; i >= 0; i--) {
                     if (targetDirectionTiles.get(i).isSolid()) {
                         continue;
@@ -89,7 +87,7 @@ public class MovingSkill extends Skill {
                 World.getPlayer().warp((int) singleTargetDirectionTile.x, (int) singleTargetDirectionTile.y);
                 break;
             case CHARGE:
-                storageSpeed = World.getPlayer().getMovementSpeed();
+                World.getPlayer().setDefaultMovementSpeed(World.getPlayer().getMovementSpeed());
 
                 path = PathFinding.findPath(targetPosition, playerPosition);
                 singleTargetDirectionTile = World.getSingleTargetDirectionTile(nonStatic, path);
@@ -98,19 +96,12 @@ public class MovingSkill extends Skill {
                     return;
                 }
 
-                World.getPlayer().setMovementSpeed(500);
+                World.getPlayer().setMovementSpeed(20);
                 World.getPlayer().moveInitToDestinationTile(singleTargetDirectionTile);
                 break;
         }
         nonStatic.hurt(damageToDeal);
         World.getTileByPosition(targetPosition).setHitted();
-    }
-
-    @Override
-    public void update() {
-        if (!World.getPlayer().isMoving()) {
-            World.getPlayer().setMovementSpeed(storageSpeed);
-        }
     }
 
     @Override

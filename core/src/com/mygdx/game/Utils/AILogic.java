@@ -24,20 +24,7 @@ public final class AILogic {
         if(!nonStatic.isAttacking()) spamAttack(nonStatic);
         if(!nonStatic.isMoving()) {
             int i = MathUtils.random(1,4);
-            switch (i) {
-                case 1:
-                    nonStatic.moveUp();
-                    break;
-                case 2:
-                    nonStatic.moveDown();
-                    break;
-                case 3:
-                    nonStatic.moveLeft();
-                    break;
-                case 4:
-                    nonStatic.moveRight();
-                    break;
-            }
+            nonStatic.moveDirection(i);
         }
     }
 
@@ -49,22 +36,7 @@ public final class AILogic {
             final int[] ints = World.checkIsPlayerOnEntitiesList(entitiesFromTiles);
             if(ints[0] == 1) {
                 final int path = PathFinding.findPath(World.getCurrentEntityPosition(nonStatic), ints[1]);
-                switch (path) {
-                    case PathFinding.UP:
-                        nonStatic.moveUp();
-                        break;
-                    case PathFinding.DOWN:
-                        nonStatic.moveDown();
-                        break;
-                    case PathFinding.LEFT:
-                        nonStatic.moveLeft();
-                        break;
-                    case PathFinding.RIGHT:
-                        nonStatic.moveRight();
-                        break;
-                    default:
-                        break;
-                }
+                nonStatic.moveDirection(path);
             }
         }
     }

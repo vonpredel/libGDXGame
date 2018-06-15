@@ -31,7 +31,7 @@ import static com.mygdx.game.ControlAndGUIs.ControlsAndGUIsHandler.GUIState.TRAD
 
 public class ControlsAndGUIsHandler {
 
-    Player player;
+    private Player player;
     public GUIState state;
     public CharacterPanelGUI characterPanelGUI;
     public QuickInfoGUI quickInfoGUI;

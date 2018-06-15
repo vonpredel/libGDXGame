@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.mygdx.game.Entities.Entity;
 import com.mygdx.game.Items.Item;
-import com.mygdx.game.Items.types.Armor;
 import com.mygdx.game.Items.types.Weapon;
 import com.mygdx.game.Tiles.Tile;
 import com.mygdx.game.Utils.MyMathUtils;
@@ -19,7 +18,6 @@ import com.mygdx.game.World.World;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.quests.types.KillQuest;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public abstract class NonStatic extends Entity {
 
@@ -42,19 +40,13 @@ public abstract class NonStatic extends Entity {
     private TextureRegion[] animations;
     private int animationFrame;
 
-    private int strength;
-    private int dexterity;
-    private int vitality;
-    private int energy;
-
-    private float movementSpeed;
+    protected float movementSpeed;
 
     private int maxHealthPoints;
     private int currentHealthPoints;
-    private int currentManaPoints;
-    private int maxManaPoints;
-    private int currentStaminaPoints;
-    private int maxStaminaPoints;
+
+    protected   float defaultMovementSpeed;
+
 
     private Inventory inventory;
 
@@ -72,7 +64,7 @@ public abstract class NonStatic extends Entity {
         Tile tile = getCurrentTile();
         if (inventory.getEquipedWeapon() != null) inventory.getEquipedWeapon().generateOnMap(tile.x, tile.y);
         if (inventory.getEquipedArmor() != null) inventory.getEquipedArmor().generateOnMap(tile.x, tile.y);
-        if (inventory.getEquipedShield() != null) inventory.getEquipedShield().generateOnMap(tile.x, tile.y);
+        if (inventory.getEquipedOffHand() != null) inventory.getEquipedOffHand().generateOnMap(tile.x, tile.y);
         if (inventory.getEquipedHelmet() != null) inventory.getEquipedHelmet().generateOnMap(tile.x, tile.y);
         inventory.getItems().forEach(i -> i.generateOnMap(tile.x, tile.y));
         inventory.removeWholeInventory();
@@ -88,54 +80,21 @@ public abstract class NonStatic extends Entity {
 
     //<editor-fold desc="getters for statistics" defaultstate="collapsed">
 
-    public int getDefence() {
-        final Armor equipedArmor = this.getInventory().getEquipedArmor();
-        final Armor equipedShield = this.getInventory().getEquipedShield();
-        final Armor equipedHelmet = this.getInventory().getEquipedHelmet();
-        return (equipedArmor == null ? 0 : equipedArmor.getDefence())
-                + (equipedShield == null ? 0 : equipedShield.getDefence())
-                + (equipedHelmet == null ? 0 : equipedHelmet.getDefence())
-                + (vitality/10);
-    }
+    public abstract int getDefence();
 
-    public float getMovementSpeed() {
-        return Math.min(movementSpeed - ((this.getInventory().getEquipedArmor() == null ? 0
-                : this.getInventory().getEquipedArmor().getMovementSpeedReduction())
-                + (this.getInventory().getEquipedShield() == null ? 0
-                : this.getInventory().getEquipedShield().getMovementSpeedReduction())
-                + (this.getInventory().getEquipedHelmet() == null ? 0
-                : this.getInventory().getEquipedHelmet().getMovementSpeedReduction()))
-                + (dexterity*0.02f),10f);
-    }
+    public abstract float getMovementSpeed();
 
-    public int getMinDamage() {
-        return this.getWeapon().map(Weapon::getMinDamage).orElse(0)
-                + (strength/5);
-    }
+    public abstract int getMinDamage();
 
-    public int getMaxDamage() {
-        return this.getWeapon().map(Weapon::getMaxDamage).orElse(1)
-                + (strength/5);
-    }
+    public abstract int getMaxDamage();
 
-    public float getAttackSpeed() {
-        return Math.max(this.getWeapon().map(Weapon::getSpeed).orElse(1.0f)
-                - (dexterity * 0.02f),0.1f);
-    }
+    public abstract float getAttackSpeed();
 
-    public int getCritChance() {
-        return Math.min(this.getWeapon().map(Weapon::getCritChance).orElse(0)
-                + (dexterity/10),100);
-    }
+    public abstract int getCritChance();
 
-    public int getAccuracy() {
-        return Math.min(this.getWeapon().map(Weapon::getAccuracy).orElse(50)
-                + (dexterity/5),100);
-    }
+    public abstract int getAccuracy();
 
-    public int getRange() {
-        return this.getWeapon().map(Weapon::getRange).orElse(1);
-    }
+    public abstract int getRange();
 
 //    </editor-fold>
 
@@ -200,6 +159,14 @@ public abstract class NonStatic extends Entity {
         this.destination = destination;
     }
 
+    public float getDefaultMovementSpeed() {
+        return defaultMovementSpeed;
+    }
+
+    public float setDefaultMovementSpeed(float movementSpeed) {
+        return defaultMovementSpeed;
+    }
+
     private void moveUpdate() {
         if (!this.isMoving || this.destination == null) return;
 
@@ -207,10 +174,7 @@ public abstract class NonStatic extends Entity {
             this.destination = null;
             this.isMoving = false;
             this.idleTimeHelper = 0.0f;
-            if (this instanceof Enemy) {
-                Enemy enemy = (Enemy) this;
-                movementSpeed = enemy.getDefaultMovementSpeed();
-            }
+            movementSpeed = getDefaultMovementSpeed();
             return;
         }
 
@@ -373,38 +337,6 @@ public abstract class NonStatic extends Entity {
         return Optional.ofNullable(this.getInventory().getEquipedWeapon());
     }
 
-    public int getStrength() {
-        return strength;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
-    }
-
-    public int getVitality() {
-        return vitality;
-    }
-
-    public void setVitality(int vitality) {
-        this.vitality = vitality;
-    }
-
-    public int getEnergy() {
-        return energy;
-    }
-
-    public void setEnergy(int energy) {
-        this.energy = energy;
-    }
-
     public boolean isMoving() {
         return isMoving;
     }
@@ -417,24 +349,6 @@ public abstract class NonStatic extends Entity {
     public void setTexture(Texture texture) {
         super.setTexture(texture);
         animations = AssetChopper.crop(texture);
-    }
-
-    public int getCurrentManaPoints() {
-        return currentManaPoints;
-    }
-
-    public void setCurrentManaPoints(int currentManaPoints) {
-        this.currentManaPoints = currentManaPoints;
-    }
-
-    public int getMaxManaPoints() {
-        return maxManaPoints;
-    }
-
-    public void setMaxManaPoints(int maxManaPoints) {
-        int diff = this.maxManaPoints - this.currentManaPoints;
-        this.maxManaPoints = maxManaPoints;
-        this.currentManaPoints = maxManaPoints - diff;
     }
 
     public int getMaxHealthPoints() {
@@ -453,24 +367,6 @@ public abstract class NonStatic extends Entity {
 
     public void setCurrentHealthPoints(int currentHealthPoints) {
         this.currentHealthPoints = currentHealthPoints;
-    }
-
-    public int getCurrentStaminaPoints() {
-        return currentStaminaPoints;
-    }
-
-    public void setCurrentStaminaPoints(int currentStaminaPoints) {
-        this.currentStaminaPoints = currentStaminaPoints;
-    }
-
-    public int getMaxStaminaPoints() {
-        return maxStaminaPoints;
-    }
-
-    public void setMaxStaminaPoints(int maxStaminaPoints) {
-        int diff = this.maxStaminaPoints - this.currentStaminaPoints;
-        this.maxStaminaPoints = maxStaminaPoints;
-        this.currentStaminaPoints = maxStaminaPoints - diff;
     }
 
     public void setDestination(Tile destination) {

@@ -58,6 +58,22 @@ public final class AssetsConstants {
     public static final String SKILL_DESCRIPTION = "spellBook/skillDes.png";
     public static final String PASSIVE_SKILL = "spellBook/passiv.png";
 
+
+    // BETA
+    public static final String DIRT_DIR_BETA = "dirtBeta/dirt";
+    public static final String GRASS_DIR_BETA = "grassBeta/grass";
+    public static final String DARK_GRASS_DIR_BETA = "darkGrassBeta/darkGrass";
+    public static final String WATER_GRASS_DIR_BETA = "waterGrassBeta/waterGrass";
+    public static final String WATER_DIRT_DIR_BETA = "waterDirtBeta/waterDirt";
+    public static final String STONE_DIR_BETA = "stoneBeta/stone";
+    public static final String STAIRS_DIR = "stairs/stairs";
+
+
+    public static final String TO_CHOP ="misc/tilesset.png";
+    public static final String TO_CHOP2 ="aaaItems/tochop2.png";
+    public static final String TO_CHOP3 ="toChopchop/atlas.png";
+
+
     private AssetsConstants() {
 
     }

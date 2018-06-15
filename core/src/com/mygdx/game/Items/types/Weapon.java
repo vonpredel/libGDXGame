@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Weapon extends Item {
-    protected int minDamage;
+    private int minDamage;
 
-    protected int maxDamage;
-    protected int accuracy;
-    protected float speed;
-    protected int critChance;
-    protected int range;
-    protected boolean piercing;
+    private int maxDamage;
+    private int accuracy;
+    private float speed;
+    private int critChance;
+    private int range;
+    private boolean piercing;
+    private Type type;
 
-    public Weapon(String name, int price, int minDamage, int maxDamage, int accuracy, float speed, int critChance, int range, boolean piercing) {
+    public Weapon(String name, int price, int minDamage, int maxDamage, int accuracy, float speed, int critChance, Type type, int range, boolean piercing) {
         super(name, price);
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
@@ -23,6 +24,7 @@ public class Weapon extends Item {
         this.critChance = critChance;
         this.range = range;
         this.piercing = piercing;
+        this.type = type;
     }
 
     @Override
@@ -90,5 +92,17 @@ public class Weapon extends Item {
 
     public void setPiercing(boolean piercing) {
         this.piercing = piercing;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public enum Type {
+        ONE_HANDED, TWO_HANDED, RANGED
     }
 }

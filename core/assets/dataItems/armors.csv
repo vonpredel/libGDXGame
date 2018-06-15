@@ -1,13 +1,72 @@
-NAME                        ;TEXTURE                   ;PRICE   ;ARMOR_SLOT    ;DEFENCE   ;MOV_SPEED_RED
-Leather Armor,              armors/leather.png,        99999,   CHEST,         1,         0
-Golden Leather Armor,       armors/leather2.png,       99999,   CHEST,         2,         0
-Armor,                      armors/armor.png,          99999,   CHEST,         3,         1
-Golden Armor,               armors/armor2.png,         99999,   CHEST,         4,         1
-Shield,                     armors/shield.png,         99999,   SHIELD,        5,         1
-Golden Shield,              armors/shield2.png,        99999,   SHIELD,        6,         1
-Small Shield,               armors/shieldSmall.png,    99999,   SHIELD,        3,         0
-Golden Small Shield,        armors/shieldSmall2.png,   99999,   SHIELD,        4,         0
-Wooden Shield,              armors/shieldWood.png,     99999,   SHIELD,        1,         0
-Golden Wooden Shield,       armors/shieldWood2.png,    99999,   SHIELD,        2,         0
-Helmet,                     armors/helmet.png,         99999,   HELMET,        1,         0
-Golden Helmet,              armors/helmet2.png,        99999,   HELMET,        2,         0
+NAME                        ;TEXTURE                          ;PRICE   ;ARMOR_SLOT    ;DEFENCE   ;AMOUNT
+Leather Armor2,             armors/leather.png,               99999,   CHEST,         1,         0.0
+Golden Leather Armor,       armors/leather2.png,              99999,   CHEST,         2,         0.0
+Armor,                      armors/armor.png,                 99999,   CHEST,         3,         0.0
+Golden Armor2,              armors/armor2.png,                99999,   CHEST,         4,         0.0
+Helmet,                     armors/helmet.png,                99999,   HELMET,        1,         0.0
+Golden Helmet2,             armors/helmet2.png,               99999,   HELMET,        2,         0.0
+Gloves,                     armors/helmet2.png,               99999,   GLOVES,        2,         0.5
+Boots,                      armors/helmet2.png,               99999,   BOOTS,         2,         0.5
+Leather Armor,              aaaItems/leatherArmor.png,        99999,   CHEST,         6,         10.0
+Fur Armor,                  aaaItems/furArmor.png,            99999,   CHEST,         12,        20.0
+Hard Leather Armor,         aaaItems/hardLeatherArmor.png,    99999,   CHEST,         18,        30.0
+Hunter Armor,               aaaItems/hunterArmor.png,         99999,   CHEST,         24,        40.0
+Iron Armor,                 aaaItems/ironArmor.png,           99999,   CHEST,         30,        50.0
+ChainMail Armor,            aaaItems/chainmailArmor.png,      99999,   CHEST,         36,        60.0
+Steel Armor,                aaaItems/steelArmor.png,          99999,   CHEST,         42,        70.0
+Elite Armor,                aaaItems/eliteArmor.png,          99999,   CHEST,         48,        80.0
+Silver Armor,               aaaItems/silverArmor.png,         99999,   CHEST,         54,        90.0
+Golden Armor,               aaaItems/goldenArmor.png,         99999,   CHEST,         60,        100.0
+Brass Armor,                aaaItems/brassArmor.png,          99999,   CHEST,         66,        110.0
+Elven Armor,                aaaItems/elvenArmor.png,          99999,   CHEST,         72,        120.0
+Moonstone Armor,            aaaItems/moonstoneArmor.png,      99999,   CHEST,         78,        130.0
+Obsidian Armor,             aaaItems/obsidianArmor.png,       99999,   CHEST,         84,        140.0
+Dragon Armor,               aaaItems/dragonArmor.png,         99999,   CHEST,         75,        150.0
+Guard Armor,                aaaItems/guardArmor.png,          99999,   CHEST,         30,        80.0
+Adept Armor,                aaaItems/adeptArmor.png,          99999,   CHEST,         10,        20.0
+Milita Armor,               aaaItems/militiaArmor.png,        99999,   CHEST,         20,        50.0
+Knight Armor,               aaaItems/knightArmor.png,         99999,   CHEST,         40,        100.0
+Cloth Armor,                aaaItems/clothArmor.png,          99999,   CHEST,         3,         5.0
+Leather Helmet,             aaaItems/leatherHelmet.png,       99999,   HELMET,        3,         1.0
+Fur Helmet,                 aaaItems/furHelmet.png,           99999,   HELMET,        6,         1.0
+Hard Leather Helmet,        aaaItems/hardLeatherHelmet.png,   99999,   HELMET,        9,         1.0
+Hunter Helmet,              aaaItems/hunterHelmet.png,        99999,   HELMET,        12,        1.0
+Iron Helmet,                aaaItems/ironHelmet.png,          99999,   HELMET,        15,        2.0
+ChainMail Helmet,           aaaItems/chainmailHelmet.png,     99999,   HELMET,        18,        2.0
+Steel Helmet,               aaaItems/steelHelmet.png,         99999,   HELMET,        21,        2.0
+Elite Helmet,               aaaItems/eliteHelmet.png,         99999,   HELMET,        24,        2.0
+Silver Helmet,              aaaItems/silverHelmet.png,        99999,   HELMET,        27,        3.0
+Golden Helmet,              aaaItems/goldenHelmet.png,        99999,   HELMET,        30,        3.0
+Brass Helmet,               aaaItems/brassHelmet.png,         99999,   HELMET,        33,        3.0
+Elven Helmet,               aaaItems/elvenHelmet.png,         99999,   HELMET,        36,        3.0
+Moonstone Helmet,           aaaItems/moonstoneHelmet.png,     99999,   HELMET,        39,        4.0
+Obsidian Helmet,            aaaItems/obsidianHelmet.png,      99999,   HELMET,        42,        4.0
+Dragon Helmet,              aaaItems/dragonHelmet.png,        99999,   HELMET,        45,        4.0
+Hood,                       aaaItems/Hood.png,                99999,   HELMET,        2,         1.0
+Ritual Mask,                aaaItems/ritualMask.png,          99999,   HELMET,        5,         1.0
+Leather Gloves,             aaaItems/leatherGloves.png,       99999,   GLOVES,        3,         1.0
+Fur Gloves,                 aaaItems/furGloves.png,           99999,   GLOVES,        5,         1.0
+Hard Leather Gloves,        aaaItems/hardLeatherGloves.png,   99999,   GLOVES,        7,         2.0
+Hunter Gloves,              aaaItems/hunterGloves.png,        99999,   GLOVES,        9,         2.0
+Iron Gloves,                aaaItems/ironGloves.png,          99999,   GLOVES,        11,        3.0
+Steel Gloves,               aaaItems/steelGloves.png,         99999,   GLOVES,        13,        3.0
+Silver Gloves,              aaaItems/silverGloves.png,        99999,   GLOVES,        15,        4.0
+Golden Gloves,              aaaItems/goldenGloves.png,        99999,   GLOVES,        17,        4.0
+Brass Gloves,               aaaItems/brassGloves.png,         99999,   GLOVES,        19,        5.0
+Elven Gloves,               aaaItems/elvenGloves.png,         99999,   GLOVES,        21,        5.0
+Moonstone Gloves,           aaaItems/moonstoneGloves.png,     99999,   GLOVES,        23,        6.0
+Obsidian Gloves,            aaaItems/obsidianGloves.png,      99999,   GLOVES,        25,        6.0
+Dragon Gloves,              aaaItems/dragonGloves.png,        99999,   GLOVES,        27,        7.0
+Leather Boots,              aaaItems/leatherBoots.png,        99999,   BOOTS,         2,         0.1
+Fur Boots,                  aaaItems/furBoots.png,            99999,   BOOTS,         4,         0.1
+Hard Leather Boots,         aaaItems/hardLeatherBoots.png,    99999,   BOOTS,         6,         0.2
+Hunter Boots,               aaaItems/hunterBoots.png,         99999,   BOOTS,         8,         0.2
+Iron Boots,                 aaaItems/ironBoots.png,           99999,   BOOTS,         10,        0.3
+Steel Boots,                aaaItems/steelBoots.png,          99999,   BOOTS,         12,        0.3
+Silver Boots,               aaaItems/silverBoots.png,         99999,   BOOTS,         14,        0.4
+Golden Boots,               aaaItems/goldenBoots.png,         99999,   BOOTS,         16,        0.4
+Brass Boots,                aaaItems/brassBoots.png,          99999,   BOOTS,         18,        0.5
+Elven Boots,                aaaItems/elvenBoots.png,          99999,   BOOTS,         20,        0.5
+Moonstone Boots,            aaaItems/moonstoneBoots.png,      99999,   BOOTS,         22,        0.6
+Obsidian Boots,             aaaItems/obsidianBoots.png,       99999,   BOOTS,         24,        0.6
+Dragon Boots,               aaaItems/dragonBoots.png,         99999,   BOOTS,         26,        0.7

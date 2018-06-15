@@ -12,6 +12,7 @@ public abstract class Tile extends Rectangle {
 
     protected Texture texture;
     protected Color id;
+    private boolean solid;
 
     private boolean isHitted = false;
     private float cleanHittedTimerHelper = 0f;
@@ -53,7 +54,10 @@ public abstract class Tile extends Rectangle {
     }
 
     public boolean isSolid() {
-        return false;
+        return solid;
     }
 
+    public void setSolid(boolean solid) {
+        this.solid = solid;
+    }
 }

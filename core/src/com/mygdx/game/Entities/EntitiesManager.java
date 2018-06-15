@@ -73,15 +73,30 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
         entity.setTexture(this.assets.manager.get(texture, Texture.class));
     }
 
-    private void loadStatistics(final String[] values, final NonStatic nonStatic) {
-        nonStatic.setStrength(Integer.parseInt(values[2]));
-        nonStatic.setDexterity(Integer.parseInt(values[3]));
-        nonStatic.setVitality(Integer.parseInt(values[4]));
-        nonStatic.setEnergy(Integer.parseInt(values[5]));
-        nonStatic.setMaxHealthPoints(Integer.parseInt(values[6]));
-        nonStatic.setMaxStaminaPoints(Integer.parseInt(values[7]));
-        nonStatic.setMaxManaPoints(Integer.parseInt(values[8]));
-        nonStatic.setMovementSpeed(Float.parseFloat(values[9]));
+    private void loadStatistics(final String[] values, final Player player) {
+        player.setStrength(Integer.parseInt(values[2]));
+        player.setDexterity(Integer.parseInt(values[3]));
+        player.setVitality(Integer.parseInt(values[4]));
+        player.setEnergy(Integer.parseInt(values[5]));
+        player.setMaxHealthPoints(Integer.parseInt(values[6]));
+        player.setMaxStaminaPoints(Integer.parseInt(values[7]));
+        player.setMaxManaPoints(Integer.parseInt(values[8]));
+        player.setMovementSpeed(Float.parseFloat(values[9]));
+    }
+
+    private void loadEnemyParams(final String[] values, final Enemy enemy) {
+        enemy.setDefence(Integer.parseInt(values[2]));
+        enemy.setMinDamage(Integer.parseInt(values[3]));
+        enemy.setMaxDamage(Integer.parseInt(values[4]));
+        enemy.setAttackSpeed(Float.parseFloat(values[5]));
+        enemy.setCritChance(Integer.parseInt(values[6]));
+        enemy.setMaxHealthPoints(Integer.parseInt(values[7]));
+        enemy.setAccuracy(Integer.parseInt(values[8]));
+        enemy.setRange(Integer.parseInt(values[9]));
+
+        for (String s : values[11].split("\\|")) {
+            this.addItemToInventory(s,enemy,false);
+        }
     }
 
     private void loadInventory(final String value, final NonStatic nonStatic) {
@@ -101,22 +116,23 @@ public class EntitiesManager extends BaseManager<Entity, EntityType, EntitiesCon
     @Override
     public void loadDefinitions() {
         this.creators.put(Player.class, values -> {
-            final Player player = new Player();
-
+            final Player player = new Player(Float.parseFloat(values[9]));
             this.loadNameAndTexture(values[0],values[1],player);
+
             this.loadStatistics(values,player);
+
             this.loadInventory(values[10], player);
             return player;
         });
 
         this.creators.put(Enemy.class, values -> {
-            final Enemy enemy = new Enemy(Float.parseFloat(values[9]));
+            final Enemy enemy = new Enemy(Float.parseFloat(values[10]));
 
             this.loadNameAndTexture(values[0],values[1],enemy);
-            this.loadStatistics(values,enemy);
-            this.loadInventory(values[10], enemy);
-            enemy.setAiType(AILogic.AIType.valueOf(values[11]));
-            enemy.setExperience(Integer.parseInt(values[12]));
+            this.loadEnemyParams(values,enemy);
+
+            enemy.setAiType(AILogic.AIType.valueOf(values[12]));
+            enemy.setExperience(Integer.parseInt(values[13]));
             return enemy;
         });
 

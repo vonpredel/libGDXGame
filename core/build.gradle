@@ -16,7 +16,8 @@ task generateItems(type: GenerateTask) {
             'core/assets/dataItems/armors.csv':'Armor.class',
             'core/assets/dataItems/usableitems.csv':'UsableItem.class',
             'core/assets/dataItems/questitems.csv':'QuestItem.class',
-            'core/assets/dataItems/miscellaneousitems.csv':'MiscellaneousItem.class'
+            'core/assets/dataItems/miscellaneousitems.csv':'MiscellaneousItem.class',
+            'core/assets/dataItems/offhands.csv':'OffHand.class'
     ]
     preamble = { classFile ->
         classFile.append 'package com.mygdx.game.Items;\n'
@@ -25,6 +26,7 @@ task generateItems(type: GenerateTask) {
         classFile.append 'import com.mygdx.game.Items.types.QuestItem;\n'
         classFile.append 'import com.mygdx.game.Items.types.UsableItem;\n'
         classFile.append 'import com.mygdx.game.Items.types.MiscellaneousItem;\n'
+        classFile.append 'import com.mygdx.game.Items.types.OffHand;\n'
         classFile.append '\n'
         classFile.append 'public enum ItemType {\n'
     }

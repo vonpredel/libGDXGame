@@ -9,6 +9,7 @@ public class DirtTile extends Tile {
     public DirtTile(Assets assets, String fileName) {
         this.texture = assets.manager.get(fileName, Texture.class);
         this.id = Color.BLACK;
+        setSolid(false);
     }
 
 }

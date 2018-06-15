@@ -1,0 +1,39 @@
+NAME                        ;TEXTURE                          ;PRICE   ;TYPE    ;AMOUNT
+Shield,                     armors/shield.png,                99999,   SHIELD,   5.0
+Golden Shield2,             armors/shield2.png,               99999,   SHIELD,   6.0
+Small Shield,               armors/shieldSmall.png,           99999,   SHIELD,   3.0
+Golden Small Shield,        armors/shieldSmall2.png,          99999,   SHIELD,   4.0
+Wooden Shield,              armors/shieldWood.png,            99999,   SHIELD,   1.0
+Golden Wooden Shield,       armors/shieldWood2.png,           99999,   SHIELD,   2.0
+Iron Shield,                aaaItems/ironShield.png,          99999,   SHIELD,   5.0
+Steel Shield,               aaaItems/steelShield.png,         99999,   SHIELD,   10.0
+Golden Shield,              aaaItems/goldenShield.png,        99999,   SHIELD,   15.0
+Brass Shield,               aaaItems/brassShield.png,         99999,   SHIELD,   20.0
+Elven Shield,               aaaItems/elvenShield.png,         99999,   SHIELD,   25.0
+Moonstone Shield,           aaaItems/moonstoneShield.png,     99999,   SHIELD,   30.0
+Obsidian Shield,            aaaItems/obsidianShield.png,      99999,   SHIELD,   35.0
+Dragon Shield,              aaaItems/dragonShield.png,        99999,   SHIELD,   40.0
+Solarbane Clan Shield,      aaaItems/clanShield1.png,         99999,   SHIELD,   10.0
+Redpikes Clan Shield,       aaaItems/clanShield2.png,         99999,   SHIELD,   10.0
+Poisoncloaks Clan Shield,   aaaItems/clanShield3.png,         99999,   SHIELD,   10.0
+Chaoslight Clan Shield,     aaaItems/clanShield4.png,         99999,   SHIELD,   10.0
+Grayswords Clan Shield,     aaaItems/clanShield5.png,         99999,   SHIELD,   10.0
+Stormthorn Clan Shield,     aaaItems/clanShield6.png,         99999,   SHIELD,   10.0
+Snowforce Clan Shield,      aaaItems/clanShield7.png,         99999,   SHIELD,   10.0
+Quickhands Clan Shield,     aaaItems/clanShield8.png,         99999,   SHIELD,   10.0
+Doomstars Clan Shield,      aaaItems/clanShield9.png,         99999,   SHIELD,   10.0
+Leather Quiver,             aaaItems/leatherQuiver.png,       99999,   QUIVER,   0.3
+Steel Quiver,               aaaItems/steelQuiver.png,         99999,   QUIVER,   0.4
+Golden Quiver,              aaaItems/goldenQuiver.png,        99999,   QUIVER,   0.5
+Brass Quiver,               aaaItems/brassQuiver.png,         99999,   QUIVER,   0.6
+Elven Quiver,               aaaItems/elvenQuiver.png,         99999,   QUIVER,   0.7
+Moonstone Quiver,           aaaItems/moonstoneQuiver.png,     99999,   QUIVER,   0.8
+Obsidian Quiver,            aaaItems/obsidianQuiver.png,      99999,   QUIVER,   0.9
+Dragon Quiver,              aaaItems/dragonQuiver.png,        99999,   QUIVER,   1.0
+Ogre Quiver,                aaaItems/ogreQuiver.png,          99999,   QUIVER,   0.7
+Crystal Quiver,             aaaItems/crystalQuiver.png,       99999,   QUIVER,   1.2
+Belt Quiver,                aaaItems/beltQuiver.png,          99999,   QUIVER,   1.5
+Book Of Magic,              aaaItems/book1.png,               99999,   MAGIC,    10.0
+Book Of Dark Magic,         aaaItems/book2.png,               99999,   MAGIC,    5.0
+Book Of Spells,             aaaItems/book3.png,               99999,   MAGIC,    1.0
+Book Of Invocation,         aaaItems/book4.png,               99999,   MAGIC,    0.1

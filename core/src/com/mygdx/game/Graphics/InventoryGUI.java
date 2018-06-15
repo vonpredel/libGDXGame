@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Entities.NonStatics.Player;
 import com.mygdx.game.Items.Item;
 import com.mygdx.game.Items.types.Armor;
+import com.mygdx.game.Items.types.OffHand;
 import com.mygdx.game.Items.types.QuestItem;
 import com.mygdx.game.Items.types.UsableItem;
 import com.mygdx.game.Items.types.Weapon;
@@ -16,7 +17,10 @@ import com.mygdx.game.Utils.assets.AssetsConstants;
 import com.mygdx.game.inventory.Inventory;
 import com.mygdx.game.inventory.InventoryAction;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InventoryGUI extends AbstractGUI {
 
@@ -62,7 +66,9 @@ public class InventoryGUI extends AbstractGUI {
     private Texture weaponTexture;
     private Texture shieldTexture;
     private Texture helmetTexture;
-    private Texture trinketTexture;
+
+    private Texture glovesTexture;
+    private Texture bootsTexture;
 
     public InventoryGUI(Player player, Assets assets) {
         super(player, assets);
@@ -156,10 +162,12 @@ public class InventoryGUI extends AbstractGUI {
     private void drawItems(SpriteBatch batch) {
         switch (selectedMenuIndex) {
             case WEAPON_CLASS_ENUM: list = inventory.getWeapons(); break;
-            case ARMOR_CLASS_ENUM: list = inventory.getArmors(); break;
             case USABLE_CLASS_ENUM: list = inventory.getUsableItems(); break;
             case QUEST_CLASS_ENUM: list = inventory.getQuestItems(); break;
             case MISCELLANEOUS_CLASS_ENUM: list = inventory.getMiscellaneousItems(); break;
+            case ARMOR_CLASS_ENUM: list = Stream.of(inventory.getArmors(), inventory.getOffHands())
+                    .flatMap(Collection::stream)
+                    .collect(Collectors.toList()); break;
         }
         for (int i = 0; i < list.size(); i++) {
             int yAxisIndex = i / 5;
@@ -184,7 +192,8 @@ public class InventoryGUI extends AbstractGUI {
         batch.draw(shieldTexture,x+40+(WindowGap*1),y+36,windowSize,windowSize);
         batch.draw(armorTexture,x+40+(WindowGap*2),y+36,windowSize,windowSize);
         batch.draw(helmetTexture,x+40+(WindowGap*3),y+36,windowSize,windowSize);
-//        batch.draw(trinketTexture,x+40+(WindowGap*4),y+36,windowSize,windowSize);
+        batch.draw(bootsTexture,x+40+(WindowGap*5),y+36,windowSize,windowSize);
+        batch.draw(glovesTexture,x+40+(WindowGap*4),y+36,windowSize,windowSize);
     }
 
     private <T extends Item> Texture chooseItemTexture(final T item) {
@@ -198,10 +207,11 @@ public class InventoryGUI extends AbstractGUI {
         itemIndexY = selectedItemIndex / 5;
 
         weaponTexture = this.chooseItemTexture(player.getInventory().getEquipedWeapon());
-        shieldTexture = this.chooseItemTexture(player.getInventory().getEquipedShield());
+        shieldTexture = this.chooseItemTexture(player.getInventory().getEquipedOffHand());
         armorTexture = this.chooseItemTexture(player.getInventory().getEquipedArmor());
         helmetTexture = this.chooseItemTexture(player.getInventory().getEquipedHelmet());
-//        trinketTexture = this.chooseItemTexture(player.getInventory().getEquipedTrinket());
+        glovesTexture = this.chooseItemTexture(player.getInventory().getEquipedGloves());
+        bootsTexture = this.chooseItemTexture(player.getInventory().getEquipedBoots());
 
     }
 
@@ -250,20 +260,20 @@ public class InventoryGUI extends AbstractGUI {
             inside = true;
         } else {
             inventory = player.getInventory();
+            final Item item = list.get(selectedItemIndex);
             if(insideIndex==1) {
-                player.dropItem(list.get(selectedItemIndex));
-            } else {
-                if(selectedMenuIndex == WEAPON_CLASS_ENUM) {
-                    inventory.equipWeapon((Weapon) list.get(selectedItemIndex));
-                } else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
-                    inventory.equipArmor((Armor) list.get(selectedItemIndex));
-                } else if (selectedMenuIndex == USABLE_CLASS_ENUM) {
-                    inventoryAction.useItem((UsableItem) list.get(selectedItemIndex));
-                } else if (selectedMenuIndex == QUEST_CLASS_ENUM) {
-                    inventoryAction.useQuestItem((QuestItem) list.get(selectedItemIndex));
-                } else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) {
-//                if(!list.isEmpty()) inventory.equipArmor((Armor) list.get(selectedItem));
+                player.dropItem(item);
+            }
+            else {
+                if(selectedMenuIndex == WEAPON_CLASS_ENUM) inventory.equipWeapon((Weapon) item);
+                else if (selectedMenuIndex == USABLE_CLASS_ENUM) inventoryAction.useItem((UsableItem) item);
+                else if (selectedMenuIndex == QUEST_CLASS_ENUM) inventoryAction.useQuestItem((QuestItem) item);
+                else if (selectedMenuIndex == MISCELLANEOUS_CLASS_ENUM) ;
+                else if (selectedMenuIndex == ARMOR_CLASS_ENUM) {
+                    if (item instanceof Armor) inventory.equipArmor((Armor) item);
+                    else if (item instanceof OffHand) inventory.equipOffHand((OffHand) item);
                 }
+
             }
             inside = false;
         }

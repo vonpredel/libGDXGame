@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Armor extends Item {
-    protected Slot armorSlot;
+    private Slot armorSlot;
 
-    protected int defence;
-    protected int movementSpeedReduction;
+    private int defence;
+    private float amount;
 
-    public Armor(String name, int price, Slot armorSlot, int defence, int movementSpeedReduction) {
+    public Armor(String name, int price, Slot armorSlot, int defence, float amount) {
         super(name, price);
         this.armorSlot = armorSlot;
         this.defence = defence;
-        this.movementSpeedReduction = movementSpeedReduction;
+        this.amount = amount;
     }
 
     @Override
@@ -22,7 +22,22 @@ public class Armor extends Item {
         List<String> description = new ArrayList<>(4);
         description.add(name);
         description.add("Defence : " + defence);
-        description.add("Movement speed reduction : " + movementSpeedReduction);
+        String des = "";
+        switch (armorSlot) {
+            case BOOTS:
+                des = "Increase movement speed : ";
+                break;
+            case CHEST:
+                des = "Increase health points : ";
+                break;
+            case GLOVES:
+                des = "Increase critical chance : ";
+                break;
+            case HELMET:
+                des = "Increase accuracy : ";
+                break;
+        }
+        description.add(des + amount);
         description.add("Armor class : " + String.valueOf(armorSlot).toLowerCase());
         return description;
     }
@@ -43,15 +58,15 @@ public class Armor extends Item {
         this.defence = defence;
     }
 
-    public int getMovementSpeedReduction() {
-        return movementSpeedReduction;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setMovementSpeedReduction(int movementSpeedReduction) {
-        this.movementSpeedReduction = movementSpeedReduction;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
     public enum Slot {
-        CHEST,SHIELD,HELMET
+        CHEST,HELMET,GLOVES,BOOTS
     }
 }

@@ -3,6 +3,7 @@ package com.mygdx.game.Items;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.Items.types.Armor;
 import com.mygdx.game.Items.types.MiscellaneousItem;
+import com.mygdx.game.Items.types.OffHand;
 import com.mygdx.game.Items.types.QuestItem;
 import com.mygdx.game.Items.types.UsableItem;
 import com.mygdx.game.Items.types.Weapon;
@@ -25,13 +26,14 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
         this.creators.put(Weapon.class, values -> {
             final Weapon weapon = new Weapon(values[0], Integer.parseInt(values[2]), Integer.parseInt(values[3]),
                     Integer.parseInt(values[4]), Integer.parseInt(values[5]), Float.parseFloat(values[6]),
-                    Integer.parseInt(values[7]), Integer.parseInt(values[9]), Boolean.parseBoolean(values[10]));
+                    Integer.parseInt(values[7]), Weapon.Type.valueOf(values[8]), Integer.parseInt(values[9]),
+                    Boolean.parseBoolean(values[10]));
             weapon.texture = this.assets.manager.get(values[1], Texture.class);
             return weapon;
         });
         this.creators.put(Armor.class, values -> {
             final Armor armor = new Armor(values[0], Integer.parseInt(values[2]), Armor.Slot.valueOf(values[3]),
-                    Integer.parseInt(values[4]), Integer.parseInt(values[5]));
+                    Integer.parseInt(values[4]), Float.parseFloat(values[5]));
             armor.texture = this.assets.manager.get(values[1], Texture.class);
             return armor;
         });
@@ -53,12 +55,19 @@ public class ItemsManager extends BaseManager<Item, ItemType, ItemsContainer> {
             miscellaneousItem.texture = this.assets.manager.get(values[1], Texture.class);
             return miscellaneousItem;
         });
+        this.creators.put(OffHand.class, values -> {
+            final OffHand offHand = new OffHand(values[0],Integer.parseInt(values[2]),
+                    OffHand.OffHandType.valueOf(values[3]),Float.parseFloat(values[4]));
+            offHand.texture = this.assets.manager.get(values[1], Texture.class);
+            return offHand;
+        });
 
         this.loadFile("dataItems/weapons.csv", values -> values[0]);
         this.loadFile("dataItems/armors.csv", values -> values[0]);
         this.loadFile("dataItems/usableitems.csv", values -> values[0]);
         this.loadFile("dataItems/questitems.csv", values -> values[0]);
         this.loadFile("dataItems/miscellaneousitems.csv", values -> values[0]);
+        this.loadFile("dataItems/offhands.csv", values -> values[0]);
     }
 
 }

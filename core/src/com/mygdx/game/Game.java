@@ -64,6 +64,27 @@ public class Game extends ApplicationAdapter {
 
         World.getEntitiesManager().create(EntityType.CHEST, (entity, objects)
                 -> entity.warp(256, 512));
+
+        World.getEntitiesManager().create(EntityType.CHEST_IRON, (entity, objects)
+                -> entity.warp(256, 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_STEEL, (entity, objects)
+                -> entity.warp(256+(64), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_GOLD, (entity, objects)
+                -> entity.warp(256+(64*2), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_BRASS, (entity, objects)
+                -> entity.warp(256+(64*3), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_ELVEN, (entity, objects)
+                -> entity.warp(256+(64*4), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_MOONSTONE, (entity, objects)
+                -> entity.warp(256+(64*5), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_OBSIDIAN, (entity, objects)
+                -> entity.warp(256+(64*6), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_DRAGON, (entity, objects)
+                -> entity.warp(256+(64*7), 2048));
+        World.getEntitiesManager().create(EntityType.CHEST_SPEARS, (entity, objects)
+                -> entity.warp(256+(64*8), 2048));
+
+
         World.getEntitiesManager().create(EntityType.FOUNTAIN, (entity, objects)
                 -> entity.warp(256+64, 512));
         World.getEntitiesManager().create(EntityType.DOOR, (entity, objects)
@@ -111,7 +132,7 @@ public class Game extends ApplicationAdapter {
     @Override
     public void render() {
         update();
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(124/255.0f, 196/255.0f, 63/255.0f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         final SpriteBatch batch = World.getBatch();

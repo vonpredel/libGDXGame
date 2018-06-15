@@ -9,6 +9,7 @@ public class GrassTile extends Tile {
     public GrassTile(Assets assets, String fileName) {
         this.texture = assets.manager.get(fileName, Texture.class);
         this.id = Color.GREEN;
+        setSolid(false);
     }
 
 }

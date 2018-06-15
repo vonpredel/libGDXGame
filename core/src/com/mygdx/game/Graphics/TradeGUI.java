@@ -131,6 +131,7 @@ public class TradeGUI extends AbstractGUI {
                 playersItems.clear();
                 playersItems.addAll(inventory.getWeapons());
                 playersItems.addAll(inventory.getArmors());
+                playersItems.addAll(inventory.getOffHands());
                 break;
             case MISC:
                 playersItems.clear();
